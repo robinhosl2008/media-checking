@@ -18,7 +18,7 @@
 
         <!-- CSS -->
         <link rel="stylesheet" href="{{ asset('css/bootstrap/bootstrap.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/layout.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/midia-checking/layout.css') }}">
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
