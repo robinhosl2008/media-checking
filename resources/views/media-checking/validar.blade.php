@@ -5,13 +5,93 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    {{ __("You're logged in!") }}
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div id="div_layout" class="modal-body">
+                    <div id="div_imagem">
+                        <img src="{{ asset('img/picole.png') }}" class="rounded mx-auto d-block" alt="" srcset="">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900">
+                    <div class="row">
+                        <div class="mb-1 col-2">
+                            <label for="tipo_midia" class="form-label">Tipo de Mídia:</label>
+                            <select id="tipo_midia" name="tipo_midia" class="form-control">
+                                <option value="0">Selecione</option>
+                                <option value="1">Imagem</option>
+                                <option value="2">Vídeo</option>
+                            </select>
+                        </div>
+                        <div class="mb-1 col-3">
+                            <label for="vertical" class="form-label">Verticais:</label>
+                            <select id="vertical" name="vertical" class="form-control">
+                                <option value="0">Selecione</option>
+                                @foreach($verticais as $vertical)
+                                <option value="{{ $vertical->id }}">{{ $vertical->descricao }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-1 col-2">
+                            <label for="produto" class="form-label">Produto:</label>
+                            <select id="produto" name="produto" class="form-control">
+                                <option value="0">Selecione</option>
+                                <option value="1">Protudo A 2x5</option>
+                                <option value="2">Protudo B 1x7</option>
+                                <option value="3">Protudo C 7x2</option>
+                                <option value="4">Protudo D 1.5x4</option>
+                            </select>
+                        </div>
+                        <div class="mb-1 col-4">
+                            <label for="arquivo" class="form-label">Arquivo:</label>
+                            <input type="file" name="arquivo" id="arquivo" class="form-control">
+                        </div>
+                        <div class="mb-1 col-1">
+                            <button type="button" class="btn laranja btn-laranja-validar" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                Validar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mb-1">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                
+            </div>
+        </div>
+    </div>
+
+    <style>
+        #div_layout {
+            position: relative;
+            height: 100%;
+            width: 100%;
+            perspective: 200px;
+        }
+
+        #div_imagem {
+            padding: 100px;
+            transform-style: preserve-3d;
+            transform: rotateY(10deg);
+        }
+    </style>
 </x-app-layout>

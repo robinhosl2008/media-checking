@@ -22,3 +22,7 @@ nav.laranja .setings a {
     text-decoration: none;
     color: black;
 }
+
+button.btn-laranja-validar {
+    margin-top: 2em;
+}
