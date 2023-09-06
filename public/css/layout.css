@@ -1,0 +1,24 @@
+img.logo-top {
+    max-width: 3em;
+}
+
+nav.laranja,
+button.laranja {
+    background-color: #FD6801 !important;
+    color: white !important;
+}
+
+nav.laranja .menu a {
+    text-decoration: none;
+    color: white;
+    border: 0;
+}
+
+nav.laranja .menu a:hover {
+    color: black !important;
+}
+
+nav.laranja .setings a {
+    text-decoration: none;
+    color: black;
+}
