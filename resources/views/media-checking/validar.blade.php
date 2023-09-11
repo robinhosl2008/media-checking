@@ -14,7 +14,7 @@
                 </div>
                 <div id="div_layout" class="modal-body">
                     <div id="div_imagem">
-                        <img src="{{ asset('img/picole.png') }}" class="rounded mx-auto d-block" alt="" srcset="">
+                        <img id="imagem_modal" src="{{ asset('img/picole.png') }}" class="rounded mx-auto d-block" alt="" srcset="">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -80,18 +80,6 @@
         </div>
     </div>
 
-    <style>
-        #div_layout {
-            position: relative;
-            height: 100%;
-            width: 100%;
-            perspective: 200px;
-        }
-
-        #div_imagem {
-            padding: 100px;
-            transform-style: preserve-3d;
-            transform: rotateY(10deg);
-        }
-    </style>
+    <link rel="stylesheet" href="{{ asset('css/midia-checking/layout.css') }}">
+    <script src="{{ asset('js/midia-checking/validar_midia.js') }}"></script>
 </x-app-layout>
