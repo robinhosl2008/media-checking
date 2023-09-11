@@ -15,6 +15,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         <script src="{{ asset('js/jquery/jquery-3.7.1.js') }}"></script>
         <script src="{{ asset('js/bootstrap/bootstrap.bundle.js') }}"></script>
+        <script src="{{ asset('js/utils/alerts.js') }}"></script>
 
         <!-- CSS -->
         <link rel="stylesheet" href="{{ asset('css/bootstrap/bootstrap.css') }}">
@@ -32,6 +33,9 @@
                     </div>
                 </header>
             @endif
+            
+            <x-alerts></x-alerts>
+            <x-loading></x-loading>
 
             <!-- Page Content -->
             <main>

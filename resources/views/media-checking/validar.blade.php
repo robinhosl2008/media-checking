@@ -62,7 +62,7 @@
                             <input type="file" name="arquivo" id="arquivo" class="form-control">
                         </div>
                         <div class="mb-1 col-1">
-                            <button type="button" class="btn laranja btn-laranja-validar" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            <button type="button" onclick="validarFormulario()" class="btn laranja btn-laranja-validar">
                                 Validar
                             </button>
                         </div>
@@ -79,6 +79,8 @@
             </div>
         </div>
     </div>
+
+    <button type="button" style="display: none;" id="open-modal" data-bs-toggle="modal" data-bs-target="#exampleModal">Open</button>
 
     <link rel="stylesheet" href="{{ asset('css/midia-checking/layout.css') }}">
     <script src="{{ asset('js/midia-checking/validar_midia.js') }}"></script>

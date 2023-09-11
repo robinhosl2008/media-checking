@@ -18,6 +18,11 @@ class MidiaController extends Controller
     {
         $verticais = $this->libProc->buscarVerticais();
 
+        // session([
+        //     'msg-alert' => 'A instalação foi removida do sistema.', 
+        //     'tipo-msg-alert' => 'success'
+        // ]);
+
         return view('media-checking/validar', [
             'verticais' => $verticais
         ]);
