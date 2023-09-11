@@ -30,3 +30,16 @@ nav.laranja .setings a {
 button.btn-laranja-validar {
     margin-top: 2em;
 }
+
+#div_layout {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    /* perspective: 200px; */
+}
+
+#div_imagem {
+    padding: 100px;
+    transform-style: preserve-3d;
+    transform: rotateY(10deg);
+}
