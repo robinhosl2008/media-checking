@@ -13,6 +13,9 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div id="div_layout" class="modal-body">
+                    <div id="content_modelo" class="row d-flex justify-content-center">
+                        <div id="div_modelo"></div>
+                    </div>
                     <div id="div_imagem">
                         <img id="imagem_modal" src="{{ asset('img/picole.png') }}" class="rounded mx-auto d-block" alt="" srcset="">
                     </div>

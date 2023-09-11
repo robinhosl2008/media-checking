@@ -9,15 +9,6 @@ window.onload = function() {
             file.readAsDataURL(this.files[0]);
         }
     }, false);
-
-    // var btnLaranjaValidar = document.querySelector('.btn-laranja-validar');
-    // btnLaranjaValidar.addEventListener('click', function() {
-
-        
-
-        // var modal = $('#exampleModal');
-        // modal.show();
-    // })
 }
 
 function validarFormulario() {

@@ -18,11 +18,11 @@ class LibVerticalSeeder extends Seeder
         DB::select("
             INSERT INTO `lib_vertical` (descricao)
             VALUES ('DOOH Embarcado'),
-            ('Navee'),
-            ('Sinalização Interna'),
-            ('OOH'),
-            ('DOOH Terminais'),
-            ('Serviços e Experiênciais');
+                ('Navee'),
+                ('Sinalização Interna'),
+                ('OOH'),
+                ('DOOH Terminais'),
+                ('Serviços e Experiênciais');
         ");
     }
 }

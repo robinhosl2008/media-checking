@@ -39,7 +39,7 @@ button.btn-laranja-validar {
 }
 
 #div_imagem {
-    padding: 100px;
+    padding: 50px;
     transform-style: preserve-3d;
     transform: rotateY(10deg);
 }
@@ -47,4 +47,20 @@ button.btn-laranja-validar {
 #alertas {
     position: absolute;
     width: 100%;
+}
+
+#content_modelo {
+    position: absolute;
+    height: 96%;
+    width: 96%;
+    z-index: 99;
+    margin: 0 auto;
+    align-items: center;
+}
+
+#content_modelo #div_modelo {
+    border: 1px solid aqua; 
+    position: absolute; 
+    height: 300px; 
+    width: 150px;
 }
