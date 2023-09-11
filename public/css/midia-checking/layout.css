@@ -43,3 +43,8 @@ button.btn-laranja-validar {
     transform-style: preserve-3d;
     transform: rotateY(10deg);
 }
+
+#alertas {
+    position: absolute;
+    width: 100%;
+}
