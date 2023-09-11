@@ -2,6 +2,10 @@ img.logo-top {
     max-width: 3em;
 }
 
+.login-imagem img.logo-top {
+    max-width: 10em;
+}
+
 nav.laranja,
 button.laranja {
     background-color: #FD6801 !important;
