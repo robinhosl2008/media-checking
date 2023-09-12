@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MidiaController;
+use App\Http\Controllers\Produtos\ProdutoController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Verticais\VerticalController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,6 +32,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/validar', [MidiaController::class, 'index'])->name('media-checking.validar');
+
+    Route::post('/buscar-verticais', [VerticalController::class, 'index'])->name('verticais.index');
+    Route::post('/buscar-produtos', [ProdutoController::class, 'index'])->name('produto.index');
 });
 
 require __DIR__.'/auth.php';

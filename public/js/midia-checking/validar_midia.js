@@ -1,3 +1,8 @@
+const ajax = new Ajax();
+const spinner = new Spinner();
+
+spinner.exibe();
+
 window.onload = function() {
     var elemArquivo = document.getElementById('arquivo');
     elemArquivo.addEventListener('change', function() {
@@ -9,6 +14,78 @@ window.onload = function() {
             file.readAsDataURL(this.files[0]);
         }
     }, false);
+
+    let selectVerticais = document.getElementById('vertical');
+    let selectProdutos = document.getElementById('produto');
+    var selectTipoMidia = document.getElementById('tipo_midia');
+    selectTipoMidia.addEventListener('change', async function(e) {
+        spinner.exibe();
+
+        if (e.target.value != 0) {
+            let formData = new FormData();
+            formData.append('tipo_midia_id', e.target.value);
+
+            let verticais = await ajax.fazRequisicao(formData, '/buscar-verticais', 'POST', null)
+            
+            if (verticais.length) {
+                let html = `<option value="0">Selecione</option>`;
+
+                verticais.forEach(vertical => {
+                    html += `
+                        <option value="${vertical['id']}">${vertical['descricao']}</option>
+                    `;
+                });
+
+                selectVerticais.innerHTML = html;
+                spinner.esconde();
+            } else {
+                limpaSelects(selectVerticais);
+                limpaSelects(selectProdutos);
+                spinner.esconde();
+            }
+        } else {
+            limpaSelects(selectVerticais);
+            limpaSelects(selectProdutos);
+            spinner.esconde();
+        }
+    }, false);
+
+    selectVerticais.addEventListener('change', async function(e) {
+        spinner.exibe();
+
+        if (e.target.value != 0) {
+            let formData = new FormData();
+            formData.append('vertical_id', e.target.value);
+
+            let produtos = await ajax.fazRequisicao(formData, '/buscar-produtos', 'POST', null)
+            
+            if (produtos.length) {
+                let html = `<option value="0">Selecione</option>`;
+
+                produtos.forEach(vertical => {
+                    html += `
+                        <option value="${vertical['id']}">${vertical['descricao'] + ' ' + vertical['visual_lar'] + 'x' + vertical['visual_alt']}</option>
+                    `;
+                });
+
+                selectProdutos.innerHTML = html;
+                spinner.esconde();
+            } else {
+                limpaSelects(selectProdutos);
+                spinner.esconde();
+            }
+        } else {
+            limpaSelects(selectProdutos);
+            spinner.esconde();
+        }
+    }, false);
+
+    spinner.esconde();
+}
+
+function limpaSelects(select) {
+    html = `<option value="">...</option>`;
+    select.innerHTML = html;
 }
 
 function validarFormulario() {

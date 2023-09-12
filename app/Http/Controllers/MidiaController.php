@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\Libs\Proc;
+use App\Services\Proc;
 use Exception;
 use Illuminate\Http\Request;
 
 class MidiaController extends Controller
 {
+    /**
+     * Classe de controle e acesso aos serviços.
+     * 
+     * @var Proc
+     */
     private Proc $libProc;
 
     public function __construct()
@@ -18,9 +23,9 @@ class MidiaController extends Controller
     public function index()
     {
         try {
-            $tiposMidia = $this->libProc->buscaTiposMidia();
-            $verticais  = $this->libProc->buscaVerticais();
-            $produtos   = $this->libProc->buscaProdutos();
+            $tiposMidia = $this->libProc->buscaTiposMidia()->get();
+            $verticais  = []; //$this->libProc->buscaVerticais()->get();
+            $produtos   = []; //$this->libProc->buscaProdutos()->get();
 
             // session([
             //     'msg-alert' => 'A instalação foi removida do sistema.', 

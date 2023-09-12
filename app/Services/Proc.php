@@ -1,10 +1,13 @@
 <?php
 
-namespace App\Services\Libs;
+namespace App\Services;
 
-use App\Models\LibProduto;
-use App\Models\LibTipoMidia;
+use App\Models\LibTipoMidia as ModelLibTipoMidia;
+use App\Models\LibVertical as ModelLibVertical;
+use App\Models\LibProduto as ModelLibProduto;
+use App\Services\Libs\LibTipoMidia;
 use App\Services\Libs\LibVertical;
+use App\Services\Libs\LibProduto;
 
 class Proc
 {

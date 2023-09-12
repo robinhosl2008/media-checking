@@ -15,13 +15,4 @@ class LibProduto extends Model
     * @var string
     */
     protected $table = 'lib_produto';
-
-    public function buscar($params)
-    {
-        $produtoId = (array_key_exists('produto_id', $params) && $params['produto_id']) ? $params['produto_id'] : '';
-        
-        $this->model = ($produtoId) ? $this->model->find($produtoId) : $this->model;
-
-        return $this->model->get();
-    }
 }

@@ -3,22 +3,30 @@
 namespace App\Services\Libs;
 
 use App\Models\LibVertical as ModelsLibVertical;
+use App\Services\CRUD;
 
-class LibVertical
+class LibVertical extends CRUD
 {
-    private ModelsLibVertical $model;
-
     public function __construct()
     {
-        $this->model = new ModelsLibVertical();
+        parent::__construct(new ModelsLibVertical());
     }
 
-    public function buscar($params)
+    /**
+     * Busca as verticais.
+     * 
+     * @param array $params Array contendo os parâmetros para a realização de buscas específicas.
+     */
+    public function buscar($params = [])
     {
-        $verticalId = (array_key_exists('vertical_id', $params) && $params['vertical_id']) ? $params['vertical_id'] : '';
+        $verticalId     = ($params['vertical_id']) ?? '';
+        $tipoMidiaId    = ($params['tipo_midia_id']) ?? '';
+        // $descricao      = ($params['descricao']) ?? '';
         
-        $this->model = ($verticalId) ?$this->model->find($verticalId) : $this->model;
+        $this->model = ($verticalId)    ? $this->model->find($verticalId)   : $this->model;
+        $this->model = ($tipoMidiaId)   ? $this->model->where('tipo_midia_id', '=', (int) $tipoMidiaId)  : $this->model;
+        // $this->model = ($descricao)     ? $this->model->where($descricao)    : $this->model;
 
-        return $this->model->get();
+        return $this->model;
     }
 }

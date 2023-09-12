@@ -37,27 +37,23 @@
                             <label for="tipo_midia" class="form-label">Tipo de Mídia:</label>
                             <select id="tipo_midia" name="tipo_midia" class="form-control">
                                 <option value="0">Selecione</option>
-                                <option value="1">Imagem</option>
-                                <option value="2">Vídeo</option>
+                                @foreach($tiposMidia as $tipo)
+                                
+                                <option value="{{ $tipo->id }}">{{ $tipo->descricao }}</option>
+                                
+                                @endforeach
                             </select>
                         </div>
                         <div class="mb-1 col-3">
                             <label for="vertical" class="form-label">Verticais:</label>
                             <select id="vertical" name="vertical" class="form-control">
-                                <option value="0">Selecione</option>
-                                @foreach($verticais as $vertical)
-                                <option value="{{ $vertical->id }}">{{ $vertical->descricao }}</option>
-                                @endforeach
+                                <option value="">...</option>
                             </select>
                         </div>
                         <div class="mb-1 col-2">
                             <label for="produto" class="form-label">Produto:</label>
                             <select id="produto" name="produto" class="form-control">
-                                <option value="0">Selecione</option>
-                                <option value="1">Protudo A 2x5</option>
-                                <option value="2">Protudo B 1x7</option>
-                                <option value="3">Protudo C 7x2</option>
-                                <option value="4">Protudo D 1.5x4</option>
+                                <option value="">...</option>
                             </select>
                         </div>
                         <div class="mb-1 col-4">
