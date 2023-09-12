@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
-class LibVerticalSeeder extends Seeder
+class LibTipoMidiaSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,13 +16,8 @@ class LibVerticalSeeder extends Seeder
     public function run(): void
     {
         DB::select("
-            INSERT INTO `lib_vertical` (descricao, tipo_midia_id)
-            VALUES ('DOOH Embarcado', 2),
-                ('Navee', 3),
-                ('Sinalização Interna', 1),
-                ('OOH', 1),
-                ('DOOH Terminais', 2),
-                ('Serviços e Experiênciais', 3);
+            INSERT INTO lib_tipo_midia (descricao)
+            VALUES ('Imagem'), ('Vídeo'), ('Default');
         ");
     }
 }
