@@ -36,6 +36,9 @@ button.btn-laranja-validar {
     height: 100%;
     width: 100%;
     /* perspective: 200px; */
+    resize: both;
+    overflow: hidden;
+    
 }
 
 #div_imagem {
@@ -60,7 +63,10 @@ button.btn-laranja-validar {
 
 #content_modelo #div_modelo {
     border: 1px solid aqua; 
+    padding: 0px;
     position: absolute; 
-    /* height: 300px; 
-    width: 150px; */
+    resize: both;
+    overflow: auto;
+    max-width: 100%;
+    max-height: 100%;
 }

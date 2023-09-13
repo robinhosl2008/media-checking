@@ -1,5 +1,9 @@
 const ajax = new Ajax();
 const spinner = new Spinner();
+var image = null;
+var image_src = null;
+var largura = null;
+var altura = null;
 
 spinner.exibe();
 
@@ -99,20 +103,40 @@ function validarFormulario() {
         return;
     }
 
-    let arrLargAlt = document.querySelectorAll('#produto')[0].selectedOptions[0].innerText.split(' ')[2].split('x');
-    let largura = arrLargAlt[0];
-    let altura = arrLargAlt[1];
+    let arrAux = document.querySelectorAll('#produto')[0].selectedOptions[0].innerText.split(' ');
+    let arrLargAlt = document.querySelectorAll('#produto')[0].selectedOptions[0].innerText.split(' ')[arrAux.length - 1].split('x');
+    var largura = arrLargAlt[0];
+    var altura = arrLargAlt[1];
 
-    let modelo = document.getElementById('div_modelo');
-    modelo.style.width = largura.replace('.', '') + 'px';
-    modelo.style.height = altura.replace('.', '') + 'px';
+    // var modelo = document.getElementById('div_modelo');
+    // modelo.style.width = largura.replace('.', '') + 'px';
+    // modelo.style.height = altura.replace('.', '') + 'px';
 
-    $("#div_modelo").draggable().resizable({
-        spectRatio: true
-    });
+    let div = document.querySelector('#div_imagem');
+    div.style.width = largura.replace('.', '') + 'px';
+    div.style.height = altura.replace('.', '') + 'px';
+    div.style.padding = '0px';
 
-    // let imagem = document.getElementById('imagem_modal');
-    // imagem.width = largura.replace('.', '') + 'px';
+    let imagem = document.getElementById('imagem_modal');
+    imagem.style.width = largura.replace('.', '') + 'px';
+    // imagem.style.maxHeight = altura.replace('.', '') + 'px';
 
     document.getElementById('open-modal').click();
+}
+
+function calculaRatio(modelo) {
+    var w = parseInt(modelo.style.width),
+        h = parseInt(modelo.style.height),
+        p = null;
+
+    if(w == h){
+        p = 100;
+    }else if(w > h){
+        p = (h / w) * 100;
+    }else if(w < h){
+        p = (w / h) * 100;
+    }
+    
+    modelo.style.paddingBottom = p.toFixed(2)+"%";
+    console.log(p.toFixed(2)+"%");
 }

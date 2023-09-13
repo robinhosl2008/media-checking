@@ -12,12 +12,12 @@
                     <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div id="div_layout" class="modal-body">
-                    <div id="content_modelo" class="row d-flex justify-content-center">
+                <div id="div_layout" class="modal-body row d-flex justify-content-center">
+                    <!-- <div id="content_modelo" class="row d-flex justify-content-center">
                         <div id="div_modelo"></div>
-                    </div>
+                    </div> -->
                     <div id="div_imagem">
-                        <img id="imagem_modal" src="{{ asset('img/picole.png') }}" class="rounded mx-auto d-block" alt="" srcset="">
+                        <img id="imagem_modal" src="" class="rounded mx-auto d-block" alt="" srcset="">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -27,6 +27,24 @@
             </div>
         </div>
     </div>
+
+    <style>
+        #div_imagem {
+            background: #fff;
+            box-sizing: border-box;
+            border: 1px solid #000;
+            /* resize: both; */
+            /* overflow: auto; */
+            /* max-width: 100%;
+            height: calc(100vh - 16px); */
+        }
+
+        #imagem_modal {
+            width: 100%;
+            border-radius: 0em !important;
+            /* padding-bottom: 75%; */
+        }
+    </style>
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
