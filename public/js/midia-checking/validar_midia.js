@@ -99,5 +99,20 @@ function validarFormulario() {
         return;
     }
 
-    document.querySelector('#open-modal').click();
+    let arrLargAlt = document.querySelectorAll('#produto')[0].selectedOptions[0].innerText.split(' ')[2].split('x');
+    let largura = arrLargAlt[0];
+    let altura = arrLargAlt[1];
+
+    let modelo = document.getElementById('div_modelo');
+    modelo.style.width = largura.replace('.', '') + 'px';
+    modelo.style.height = altura.replace('.', '') + 'px';
+
+    $("#div_modelo").draggable().resizable({
+        spectRatio: true
+    });
+
+    // let imagem = document.getElementById('imagem_modal');
+    // imagem.width = largura.replace('.', '') + 'px';
+
+    document.getElementById('open-modal').click();
 }

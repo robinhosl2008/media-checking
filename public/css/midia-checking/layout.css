@@ -61,6 +61,6 @@ button.btn-laranja-validar {
 #content_modelo #div_modelo {
     border: 1px solid aqua; 
     position: absolute; 
-    height: 300px; 
-    width: 150px;
+    /* height: 300px; 
+    width: 150px; */
 }
