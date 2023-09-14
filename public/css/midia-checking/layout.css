@@ -1,3 +1,7 @@
+body {
+    overflow-x: hidden;
+}
+
 img.logo-top {
     max-width: 3em;
 }

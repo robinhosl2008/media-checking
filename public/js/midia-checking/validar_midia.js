@@ -2,6 +2,7 @@ const ajax = new Ajax();
 const spinner = new Spinner();
 const divImagem = document.querySelector('#div_imagem');
 const divModelo = document.getElementById('div_modelo');
+const elemFile = document.getElementById('arquivo');
 
 var image = null;
 var image_src = null;
@@ -14,12 +15,8 @@ spinner.exibe();
 window.onload = function() {
     var elemArquivo = document.getElementById('arquivo');
     elemArquivo.addEventListener('change', function() {
-        if (this.files && this.files[0]) {
-            var file = new FileReader();
-            file.onload = function(e) {
-                validarFormulario(e);
-            };
-            file.readAsDataURL(this.files[0]);
+        if (elemFile.files && elemFile.files[0]) {
+            carregaImagem();
         }
     }, false);
 
@@ -45,6 +42,7 @@ window.onload = function() {
                 });
 
                 selectVerticais.innerHTML = html;
+                limpaSelects(selectProdutos);
                 spinner.esconde();
             } else {
                 limpaSelects(selectVerticais);
@@ -56,6 +54,9 @@ window.onload = function() {
             limpaSelects(selectProdutos);
             spinner.esconde();
         }
+
+        divImagem.style.display = 'none';
+        divModelo.style.display = 'none';
     }, false);
 
     selectVerticais.addEventListener('change', async function(e) {
@@ -86,9 +87,18 @@ window.onload = function() {
             limpaSelects(selectProdutos);
             spinner.esconde();
         }
+
+        divImagem.style.display = 'none';
+        divModelo.style.display = 'none';
     }, false);
 
     selectProdutos.addEventListener('change', function() {
+        if (elemFile.files && !elemFile.files.length) {
+            document.getElementById('imagem_modal').src = '';
+        } else {
+            carregaImagem();
+        }
+
         validarFormulario();
     });
 
@@ -96,6 +106,14 @@ window.onload = function() {
     divModelo.onwheel = zoom;
 
     spinner.esconde();
+}
+
+function carregaImagem() {
+    var file = new FileReader();
+    file.onload = function (e) {
+        validarFormulario(e);
+    };
+    file.readAsDataURL(elemFile.files[0]);
 }
 
 function zoom(event) {
@@ -122,7 +140,7 @@ function validarFormulario(e) {
         arquivo = document.getElementById('arquivo');
 
     if (tipoMidia == 0 || vertical == 0 || produto == 0 || (!arquivo.files && !arquivo.files[0])) {
-        exibirAlertaDeInput('warning', 'Todos os campos são obrigatórios.');
+        exibirAlertaDeInput('warning', 'Todos os campos são obrigatórios para exibir o preview.');
         return;
     }
 
