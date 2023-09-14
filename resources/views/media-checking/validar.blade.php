@@ -44,11 +44,41 @@
     </div>
 
     <div id="div_layout" class="row d-flex justify-content-center">
-        <div id="div_modelo"></div>
+        <div id="div_modelo">
+            <button id="x" 
+                onclick="document.getElementById('div_imagem').style.display = 'none';
+                document.getElementById('div_modelo').style.display = 'none';" 
+                class="btn btn-sm btn-primary">
+                <i class="bi-x-circle"></i>
+            </button>
+        </div>
+
         <div id="div_imagem">
             <img id="imagem_modal" src="" class="rounded mx-auto d-block" alt="" srcset="">
+            
+            <video
+                id="my-player"
+                class="video-js"
+                controls
+                autoplay="true"
+                preload="auto"
+                poster="{{ asset('img/Logo_ONBUS-final.png') }}"
+                data-setup='{}'>
+                <source src="//vjs.zencdn.net/v/oceans.mp4" type="video/mp4"></source>
+                <source src="//vjs.zencdn.net/v/oceans.webm" type="video/webm"></source>
+                <source src="//vjs.zencdn.net/v/oceans.ogv" type="video/ogg"></source>
+                <p class="vjs-no-js">
+                    To view this video please enable JavaScript, and consider upgrading to a
+                    web browser that
+                    <a href="https://videojs.com/html5-video-support/" target="_blank">
+                    supports HTML5 video
+                    </a>
+                </p>
+            </video>
         </div>
     </div>
+
+    
 
     <button type="button" style="display: none;" id="open-modal" data-bs-toggle="modal" data-bs-target="#exampleModal">Open</button>
 

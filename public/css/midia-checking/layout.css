@@ -48,9 +48,10 @@ button.btn-laranja-validar {
 #div_modelo {
     padding: 0px;
     position: absolute;
-    z-index: 999;
+    z-index: 99;
     border: 1px solid springgreen;
     display: none;
+    text-align: right;
 }
 
 #div_imagem {
@@ -88,4 +89,24 @@ button.btn-laranja-validar {
     overflow: auto;
     max-width: 100%;
     max-height: 100%;
+}
+
+#my-player {
+    display: none;
+}
+
+.video-js .vjs-tech {
+    position: fixed;
+}
+
+.vjs-control-bar {
+    font-size: 4px;
+    margin-bottom: -12px;
+}
+
+#x {    
+    right: -40px;
+    position: absolute;
+    max-width: 35px;
+    max-height: 35px;
 }

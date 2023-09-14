@@ -95,6 +95,8 @@ window.onload = function() {
     selectProdutos.addEventListener('change', function() {
         if (elemFile.files && !elemFile.files.length) {
             document.getElementById('imagem_modal').src = '';
+            document.getElementById('my-player').src = '';
+            document.getElementById('my-player').poster = '';
         } else {
             carregaImagem();
         }
@@ -145,7 +147,28 @@ function validarFormulario(e) {
     }
 
     if (e) {
-        document.getElementById('imagem_modal').src = e.target.result;
+        let imageModal = document.getElementById('imagem_modal');
+        let myPlayer = document.getElementById('my-player');
+
+        if (e.target.result.includes('image')) {
+            imageModal.src = e.target.result;
+
+            myPlayer.style.display = 'none';
+            imageModal.style.display = 'block';
+        } else if (e.target.result.includes('video')) {
+            let videoType = document.querySelector('input[type="file"]').files[0].type;
+
+            document.querySelector(`source[type="${videoType}"]`).src = e.target.result;
+            document.querySelector(`#my-player_html5_api`).src = e.target.result;
+
+            let myPlayerDimension = document.querySelector('.my-player-dimensions');
+            myPlayerDimension.style.width = '100%';
+            myPlayerDimension.style.height = '100%';
+
+            imageModal.style.display = 'none';
+            myPlayer.style.display = 'block';
+            myPlayer.style.position = 'inherit';
+        }
     }
 
     let arrAux = document.querySelectorAll('#produto')[0].selectedOptions[0].innerText.split(' ');

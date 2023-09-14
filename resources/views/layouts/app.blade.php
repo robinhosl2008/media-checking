@@ -23,7 +23,9 @@
         <!-- CSS -->
         <link rel="stylesheet" href="{{ asset('css/bootstrap/bootstrap.css') }}">
         <link rel="stylesheet" href="{{ asset('css/midia-checking/layout.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/video-js/video-js.css') }}">
         <link rel="stylesheet" href="{{ asset('js/jquery/jquery-ui-1.13.2/jquery-ui.css') }}">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
@@ -46,5 +48,7 @@
                 {{ $slot }}
             </main>
         </div>
+
+        <script src="{{ asset('js/video-js/video-js.js') }}"></script>
     </body>
 </html>
