@@ -1,9 +1,13 @@
 const ajax = new Ajax();
 const spinner = new Spinner();
+const divImagem = document.querySelector('#div_imagem');
+const divModelo = document.getElementById('div_modelo');
+
 var image = null;
 var image_src = null;
 var largura = null;
 var altura = null;
+var scale = 1;
 
 spinner.exibe();
 
@@ -13,7 +17,7 @@ window.onload = function() {
         if (this.files && this.files[0]) {
             var file = new FileReader();
             file.onload = function(e) {
-                document.getElementById('imagem_modal').src = e.target.result;
+                validarFormulario(e);
             };
             file.readAsDataURL(this.files[0]);
         }
@@ -84,7 +88,26 @@ window.onload = function() {
         }
     }, false);
 
+    selectProdutos.addEventListener('change', function() {
+        validarFormulario();
+    });
+
+    divImagem.onwheel = zoom;
+    divModelo.onwheel = zoom;
+
     spinner.esconde();
+}
+
+function zoom(event) {
+    event.preventDefault();
+    scale += event.deltaY * -0.001;
+
+    // Restrict scale
+    scale = Math.min(Math.max(0.125, scale), 4);
+
+    // Apply scale transform
+    divImagem.style.transform = `scale(${scale})`;
+    divModelo.style.transform = `scale(${scale})`;
 }
 
 function limpaSelects(select) {
@@ -92,7 +115,7 @@ function limpaSelects(select) {
     select.innerHTML = html;
 }
 
-function validarFormulario() {
+function validarFormulario(e) {
     var tipoMidia = document.getElementById('tipo_midia').value,
         vertical = document.getElementById('vertical').value,
         produto = document.getElementById('produto').value,
@@ -103,40 +126,29 @@ function validarFormulario() {
         return;
     }
 
+    if (e) {
+        document.getElementById('imagem_modal').src = e.target.result;
+    }
+
     let arrAux = document.querySelectorAll('#produto')[0].selectedOptions[0].innerText.split(' ');
     let arrLargAlt = document.querySelectorAll('#produto')[0].selectedOptions[0].innerText.split(' ')[arrAux.length - 1].split('x');
     var largura = arrLargAlt[0];
     var altura = arrLargAlt[1];
 
-    // var modelo = document.getElementById('div_modelo');
-    // modelo.style.width = largura.replace('.', '') + 'px';
-    // modelo.style.height = altura.replace('.', '') + 'px';
+    let modelo = document.getElementById('div_modelo');
+    modelo.style.width = largura.replace('.', '') + 'px';
+    modelo.style.height = altura.replace('.', '') + 'px';
+    modelo.style.padding = '0px';
+    modelo.style.display = 'block';
 
     let div = document.querySelector('#div_imagem');
     div.style.width = largura.replace('.', '') + 'px';
     div.style.height = altura.replace('.', '') + 'px';
     div.style.padding = '0px';
+    div.style.display = 'block';
 
     let imagem = document.getElementById('imagem_modal');
     imagem.style.width = largura.replace('.', '') + 'px';
-    // imagem.style.maxHeight = altura.replace('.', '') + 'px';
-
-    document.getElementById('open-modal').click();
-}
-
-function calculaRatio(modelo) {
-    var w = parseInt(modelo.style.width),
-        h = parseInt(modelo.style.height),
-        p = null;
-
-    if(w == h){
-        p = 100;
-    }else if(w > h){
-        p = (h / w) * 100;
-    }else if(w < h){
-        p = (w / h) * 100;
-    }
     
-    modelo.style.paddingBottom = p.toFixed(2)+"%";
-    console.log(p.toFixed(2)+"%");
+    $('#div_layout').draggable();
 }

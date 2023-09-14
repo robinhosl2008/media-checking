@@ -36,15 +36,30 @@ button.btn-laranja-validar {
     height: 100%;
     width: 100%;
     /* perspective: 200px; */
-    resize: both;
-    overflow: hidden;
-    
+    /* resize: both;
+    overflow: hidden; */
+
+}
+
+#div_modelo {
+    padding: 0px;
+    position: absolute;
+    z-index: 999;
+    border: 1px solid springgreen;
+    display: none;
 }
 
 #div_imagem {
-    padding: 50px;
+    background: #fff;
+    box-sizing: border-box;
     transform-style: preserve-3d;
     transform: rotateY(10deg);
+    display: none;
+}
+
+#imagem_modal {
+    width: 100%;
+    border-radius: 0em !important;
 }
 
 #alertas {
