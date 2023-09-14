@@ -35,7 +35,7 @@
                         </div>
                         <div class="mb-1 col-4">
                             <label for="arquivo" class="form-label">Arquivo:</label>
-                            <input type="file" name="arquivo" id="arquivo" class="form-control">
+                            <input type="file" name="arquivo" id="arquivo" accept="image/*,video/*" class="form-control">
                         </div>
                     </div>
                 </div>
