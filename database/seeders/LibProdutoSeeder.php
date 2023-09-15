@@ -70,7 +70,25 @@ class LibProdutoSeeder extends Seeder
                 (4, 'Mub', '1.10', '1.70', '1.20', '1.80'),
                 (4, 'Mub Backlight', '1.10', '1.70', '1.20', '1.80'),
                 (4, 'Totem de Plataforma', '0.61', '1.35', '0.63', '1.37'),
-                (4, 'Testeiras Backlight', '3.90', '0.90', '3.98', '0.98');
+                (4, 'Testeiras Backlight', '3.90', '0.90', '3.98', '0.98'),
+                (1, 'DOOH (TV Ônibus)', '1366', '768', '1366', '768'),
+                (5, 'Mega Aéreo (Alvorada)', '686', '342', '686', '342'),
+                (5, 'Picolé (Alvorada)', '170', '342', '170', '342'),
+                (5, 'Mega Aéreo (Campo Grande)', '550', '270', '550', '270'),
+                (5, 'Testeiras (Campo Grande)', '410', '140', '410', '140'),
+                (5, 'CDT (Paulo Portela)', '1440', '144', '1440', '144'),
+                (5, 'Telão P6 (Duque de Caxias)', '572', '304', '572', '304'),
+                (5, 'Painel Marquise P6 (Duque de Caxias)', '510', '204', '510', '204'),
+                (5, 'Totem Digital 42\" e 49\" (Duque de Caxias)', '1366', '768', '1366', '768'),
+                (5, 'Telas 40\" (Duque de Caxias)', '1366', '768', '1366', '768'),
+                (5, 'Dispenser de Álcool em Gel (Duque de Caxias)', '1366', '768', '1366', '768'),
+                (5, 'Telão LED P4 (Nilópolis)', '768', '510', '768', '510'),
+                (5, 'TV 32\" (Nilópolis)', '1366', '768', '1366', '768'),
+                (5, 'TV 40\" (Menezes Cortes)', '1366', '768', '1366', '768'),
+                (5, 'Dispenser de Álcool em Gel (Menezes Cortes)', '768', '1366', '768', '1366'),
+                (5, 'Carregador Digital 32\" (Menezes Cortes)', '768', '1366', '768', '1366'),
+                (5, 'Telão LED P4 Full Color (Nova Iguaçu)', '288', '586', '288', '586'),
+                (5, 'TV 32\" (Nova Iguaçu)', '1366', '768', '1366', '768');
         ");
     }
 }

@@ -73,7 +73,9 @@ window.onload = function() {
 
                 produtos.forEach(vertical => {
                     html += `
-                        <option value="${vertical['id']}">${vertical['descricao'] + ' ' + vertical['visual_lar'] + 'x' + vertical['visual_alt']}</option>
+                        <option value="${vertical['id']}">${vertical['descricao'] + ' ' + 
+                        ((selectTipoMidia.value == 1) ? vertical['visual_lar'] : Math.trunc(vertical['visual_lar'])) + 'x' + 
+                        ((selectTipoMidia.value == 1) ? vertical['visual_alt'] : Math.trunc(vertical['visual_alt']))}</option>
                     `;
                 });
 
