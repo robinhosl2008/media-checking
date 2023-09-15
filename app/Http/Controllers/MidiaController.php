@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\FFMpegHelper;
 use App\Services\Proc;
 use Exception;
 use Illuminate\Http\Request;
@@ -10,14 +11,14 @@ class MidiaController extends Controller
 {
     /**
      * Classe de controle e acesso aos serviços.
-     * 
-     * @var Proc
      */
     private Proc $libProc;
+    private FFMpegHelper $ffmpeg;
 
     public function __construct()
     {
         $this->libProc = new Proc();
+        $this->ffmpeg = new FFMpegHelper();
     }
 
     public function index()
@@ -41,4 +42,9 @@ class MidiaController extends Controller
             return $e->getMessage();
         }
     }
+
+    public function buscarResolucao(Request $request)
+	{
+        return $this->ffmpeg->buscarResolucao($request->file);
+	}
 }

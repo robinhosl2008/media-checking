@@ -9,11 +9,12 @@ var image_src = null;
 var largura = null;
 var altura = null;
 var scale = 1;
+var elemArquivo = null;
 
 spinner.exibe();
 
 window.onload = function() {
-    var elemArquivo = document.getElementById('arquivo');
+    elemArquivo = document.getElementById('arquivo');
     elemArquivo.addEventListener('change', function() {
         if (elemFile.files && elemFile.files[0]) {
             carregaImagem();
@@ -95,6 +96,9 @@ window.onload = function() {
     }, false);
 
     selectProdutos.addEventListener('change', function() {
+        document.getElementById('arquivo').value = '';
+        document.getElementById('imagem_modal').src = '';
+        document.querySelector('.info-midia').style.display = 'none';
         if (elemFile.files && !elemFile.files.length) {
             document.getElementById('imagem_modal').src = '';
             document.getElementById('my-player').src = '';
@@ -135,9 +139,11 @@ function zoom(event) {
 function limpaSelects(select) {
     html = `<option value="">...</option>`;
     select.innerHTML = html;
+    document.querySelector('.info-midia').style.display = 'none';
+    document.getElementById('imagem_modal').src = '';
 }
 
-function validarFormulario(e) {
+async function validarFormulario(e) {
     var tipoMidia = document.getElementById('tipo_midia').value,
         vertical = document.getElementById('vertical').value,
         produto = document.getElementById('produto').value,
@@ -152,25 +158,54 @@ function validarFormulario(e) {
         let imageModal = document.getElementById('imagem_modal');
         let myPlayer = document.getElementById('my-player');
 
-        if (e.target.result.includes('image')) {
-            imageModal.src = e.target.result;
+        if (e.target.result) {
+            if (e.target.result.includes('image')) {
+                imageModal.src = e.target.result;
 
-            myPlayer.style.display = 'none';
-            imageModal.style.display = 'block';
-        } else if (e.target.result.includes('video')) {
-            let videoType = document.querySelector('input[type="file"]').files[0].type;
+                myPlayer.style.display = 'none';
+                imageModal.style.display = 'block';
 
-            document.querySelector(`source[type="${videoType}"]`).src = e.target.result;
-            document.querySelector(`#my-player_html5_api`).src = e.target.result;
+                setTimeout(function() {
+                    let preview = document.querySelector('#imagem_modal');
+                    let textoTamanhoOriginal = preview.naturalWidth + 'x' + preview.naturalHeight;
+                    document.querySelector('.nome_arquivo').innerText = elemArquivo.files[0].name;
+                    document.querySelector('.tamanho_arquivo').innerText = textoTamanhoOriginal;
+                }, 1000);
+            } else if (e.target.result.includes('video')) {
+                let videoType = document.querySelector('input[type="file"]').files[0].type;
 
-            let myPlayerDimension = document.querySelector('.my-player-dimensions');
-            myPlayerDimension.style.width = '100%';
-            myPlayerDimension.style.height = '100%';
+                document.querySelector(`source[type="${videoType}"]`).src = e.target.result;
+                document.querySelector(`#my-player_html5_api`).src = e.target.result;
 
-            imageModal.style.display = 'none';
-            myPlayer.style.display = 'block';
-            myPlayer.style.position = 'inherit';
+                let myPlayerDimension = document.querySelector('.my-player-dimensions');
+                myPlayerDimension.style.width = '100%';
+                myPlayerDimension.style.height = '100%';
+
+                imageModal.style.display = 'none !important';
+                myPlayer.style.display = 'block';
+                myPlayer.style.position = 'inherit';
+
+                let formData = new FormData();
+                formData.append('file', document.querySelector('#arquivo').files[0]);
+
+                let callback = function(data = null) {
+                    if (data) {
+                        setTimeout(function() {
+                            let textoTamanhoOriginal = data.largura + 'x' + data.altura;
+                            document.querySelector('.nome_arquivo').innerText = elemArquivo.files[0].name;
+                            document.querySelector('.tamanho_arquivo').innerText = textoTamanhoOriginal;
+                            document.querySelector('.info-midia').style.display = 'block';
+                        }, 1000);
+                    }
+                };
+
+                await ajax.fazRequisicao(formData, '/buscar-resolucao', 'POST', callback);
+            }
+
+            document.querySelector('.info-midia').style.display = 'block';
         }
+    } else {
+        document.querySelector('.info-midia').style.display = 'none';
     }
 
     let arrAux = document.querySelectorAll('#produto')[0].selectedOptions[0].innerText.split(' ');

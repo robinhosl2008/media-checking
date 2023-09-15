@@ -38,6 +38,17 @@
                             <input type="file" name="arquivo" id="arquivo" accept="image/*,video/*" class="form-control">
                         </div>
                     </div>
+
+                    <div class="row mt-3 info-midia">
+                        <hr>
+
+                        <div class="mb-1 col-7 nome">
+                            Nome do Arquivo: <label class="nome_arquivo" class="form-label"></label>
+                        </div>
+                        <div class="mb-1 col-5 tamanho">
+                            Tamanho (largura x altura): <label class="tamanho_arquivo" class="form-label"></label>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

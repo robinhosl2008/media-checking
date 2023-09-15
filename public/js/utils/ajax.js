@@ -23,7 +23,7 @@ class Ajax {
                                 let alerts = new Alerts;
                                 alerts.exibeAlerta('info', `A concessionaria '${concessionariaNome}' não foi removida.`);
                             } else if (data['status'] == true) {
-                                callback();
+                                callback(data);
                             }
                         } else {
                             return resolve(data);

@@ -101,8 +101,8 @@ button.btn-laranja-validar {
 }
 
 .vjs-control-bar {
-    /* font-size: 4px; */
-    margin-bottom: -30px;
+    font-size: 4px;
+    margin-bottom: -12px;
 }
 
 #x {    
@@ -110,4 +110,16 @@ button.btn-laranja-validar {
     position: absolute;
     max-width: 35px;
     max-height: 35px;
+}
+
+.info-midia {
+    display: none;
+}
+
+.info-midia .nome {
+    position: absolute;
+}
+
+.info-midia .tamanho {
+    float: right;
 }

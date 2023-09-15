@@ -35,6 +35,7 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/buscar-verticais', [VerticalController::class, 'index'])->name('verticais.index');
     Route::post('/buscar-produtos', [ProdutoController::class, 'index'])->name('produto.index');
+    Route::post('/buscar-resolucao', [MidiaController::class, 'buscarResolucao'])->name('buscar-resolucao');
 });
 
 require __DIR__.'/auth.php';
