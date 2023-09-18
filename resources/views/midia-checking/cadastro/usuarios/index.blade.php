@@ -27,10 +27,11 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @forelse($usuarios as $usuario)
                                 <tr>
-                                    <td>Robson</td>
-                                    <td>robson@email.com</td>
-                                    <td>18/09/2023</td>
+                                    <td>{{ $usuario->name }}</td>
+                                    <td>{{ $usuario->email }}</td>
+                                    <td>{{ $usuario->created_at }}</td>
                                     <td class="text-center">
                                         <div class="btn-group" role="group" aria-label="Grupo de Ações">
                                             <button type="button" class="btn btn-sm btn-secondary" title="Editar"><i class="bi-pen"></i></button>
@@ -38,28 +39,9 @@
                                         </div>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>Fabricio</td>
-                                    <td>fabricio@email.com</td>
-                                    <td>18/09/2023</td>
-                                    <td class="text-center">
-                                        <div class="btn-group" role="group" aria-label="Grupo de Ações">
-                                            <button type="button" class="btn btn-sm btn-secondary" title="Editar"><i class="bi-pen"></i></button>
-                                            <button type="button" class="btn btn-sm btn-secondary" title="Remover"><i class="bi-x"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Thomas</td>
-                                    <td>thomas@email.com</td>
-                                    <td>18/09/2023</td>
-                                    <td class="text-center">
-                                        <div class="btn-group" role="group" aria-label="Grupo de Ações">
-                                            <button type="button" class="btn btn-sm btn-secondary" title="Editar"><i class="bi-pen"></i></button>
-                                            <button type="button" class="btn btn-sm btn-secondary" title="Remover"><i class="bi-x"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>
+                                @empty
+                                <tr coluns="4">Sem registros!</tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>

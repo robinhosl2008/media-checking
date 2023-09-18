@@ -18,7 +18,11 @@ class UsuarioController extends Controller
 
     public function show(Request $request): View
     {
-        return view('midia-checking.cadastro.usuarios.index');
+        $usuarios = $this->proc->buscarUsuarios($request->all())->get();
+
+        return view('midia-checking.cadastro.usuarios.index', [
+            'usuarios' => $usuarios
+        ]);
     }
 
     public function new(): View
