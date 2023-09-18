@@ -123,3 +123,20 @@ button.btn-laranja-validar {
 .info-midia .tamanho {
     float: right;
 }
+
+.dataTables_length select {
+    min-width: 60px;
+}
+
+.barra-lista {
+    height: 3em;
+    text-align: right;
+    background-color: #6c757d;
+    padding: 9px;
+}
+
+.barra-lista .btn-laranja {
+    background-color: #FD6801;
+    color: #ffffff;
+}
+

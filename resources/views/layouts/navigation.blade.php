@@ -58,7 +58,7 @@
                             </x-slot>
 
                             <x-slot name="content">
-                                <x-dropdown-link :href="route('dashboard')">
+                                <x-dropdown-link :href="route('cadastro-lista-usuario')">
                                     {{ 'Usuários' }}
                                 </x-dropdown-link>
 

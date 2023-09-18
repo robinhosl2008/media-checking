@@ -15,7 +15,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         <script src="{{ asset('js/jquery/jquery-3.7.1.js') }}"></script>
         <script src="{{ asset('js/jquery/jquery-ui-1.13.2/jquery-ui.js') }}"></script>
-        <script src="{{ asset('js/bootstrap/bootstrap.bundle.js') }}"></script>
+        <script src="{{ asset('js/bootstrap/bootstrap.js') }}"></script>
         <script src="{{ asset('js/utils/alerts.js') }}"></script>
         <script src="{{ asset('js/utils/ajax.js') }}"></script>
         <script src="{{ asset('js/utils/spinner.js') }}"></script>
