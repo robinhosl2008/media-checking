@@ -40,28 +40,32 @@ Route::middleware('auth')->group(function () {
     Route::post('/buscar-resolucao', [MidiaController::class, 'buscarResolucao'])->name('buscar-resolucao');
 
     // Cadastro/Usuários
-    Route::get('/cadastro/usuario', [UsuarioController::class, 'index'])->name('lista-usuario');
-    Route::get('/cadastro/usuario/cadastra', [UsuarioController::class, 'store'])->name('cadastra-usuario');
-    Route::get('/cadastro/usuario/{id}/edita', [UsuarioController::class, 'update'])->name('edita-usuario');
-    Route::get('/cadastro/usuario/{id}/remove', [UsuarioController::class, 'destroy'])->name('remove-usuario');
+    Route::get('/cadastro/usuario', [UsuarioController::class, 'show'])->name('show-usuario');
+    Route::get('/cadastro/usuario/new', [UsuarioController::class, 'new'])->name('new-usuario');
+    Route::get('/cadastro/usuario/cadastrar', [UsuarioController::class, 'store'])->name('cadastrar-usuario');
+    Route::get('/cadastro/usuario/{id}/editar', [UsuarioController::class, 'update'])->name('editar-usuario');
+    Route::get('/cadastro/usuario/{id}/remover', [UsuarioController::class, 'destroy'])->name('remover-usuario');
 
     // Cadastro/Tipos de Mídia
-    Route::get('/cadastro/tipo-midia', [TipoMidiaController::class, 'index'])->name('lista-tipo-midia');
-    Route::get('/cadastro/tipo-midia/cadastra', [TipoMidiaController::class, 'store'])->name('cadastra-tipo-midia');
-    Route::get('/cadastro/tipo-midia/{id}/edita', [TipoMidiaController::class, 'update'])->name('edita-tipo-midia');
-    Route::get('/cadastro/tipo-midia/{id}/remove', [TipoMidiaController::class, 'destroy'])->name('remove-tipo-midia');
+    Route::get('/cadastro/tipo-midia', [TipoMidiaController::class, 'show'])->name('show-tipo-midia');
+    Route::get('/cadastro/tipo-midia/new', [TipoMidiaController::class, 'new'])->name('new-tipo-midia');
+    Route::get('/cadastro/tipo-midia/cadastrar', [TipoMidiaController::class, 'store'])->name('cadastrar-tipo-midia');
+    Route::get('/cadastro/tipo-midia/{id}/editar', [TipoMidiaController::class, 'update'])->name('editar-tipo-midia');
+    Route::get('/cadastro/tipo-midia/{id}/remover', [TipoMidiaController::class, 'destroy'])->name('remover-tipo-midia');
 
     // Cadastro/Verticais
-    Route::get('/cadastro/verticais', [VerticalController::class, 'index'])->name('lista-verticais');
-    Route::get('/cadastro/verticais/cadastra', [VerticalController::class, 'store'])->name('cadastra-verticais');
-    Route::get('/cadastro/verticais/{id}/edita', [VerticalController::class, 'update'])->name('edita-verticais');
-    Route::get('/cadastro/verticais/{id}/remove', [VerticalController::class, 'destroy'])->name('remove-verticais');
+    Route::get('/cadastro/verticais', [VerticalController::class, 'show'])->name('show-verticais');
+    Route::get('/cadastro/verticais/new', [VerticalController::class, 'new'])->name('new-verticais');
+    Route::get('/cadastro/verticais/cadastrar', [VerticalController::class, 'store'])->name('cadastrar-verticais');
+    Route::get('/cadastro/verticais/{id}/editar', [VerticalController::class, 'update'])->name('editar-verticais');
+    Route::get('/cadastro/verticais/{id}/remover', [VerticalController::class, 'destroy'])->name('remover-verticais');
 
     // Cadastro/Produtos
-    Route::get('/cadastro/produtos', [ProdutoController::class, 'index'])->name('lista-produtos');
-    Route::get('/cadastro/produtos/cadastra', [VerticalController::class, 'store'])->name('cadastra-produtos');
-    Route::get('/cadastro/produtos/{id}/edita', [VerticalController::class, 'update'])->name('edita-produtos');
-    Route::get('/cadastro/produtos/{id}/remove', [VerticalController::class, 'destroy'])->name('remove-produtos');
+    Route::get('/cadastro/produtos', [ProdutoController::class, 'show'])->name('show-produtos');
+    Route::get('/cadastro/produtos/new', [ProdutoController::class, 'new'])->name('new-produtos');
+    Route::get('/cadastro/produtos/cadastrar', [ProdutoController::class, 'store'])->name('cadastrar-produtos');
+    Route::get('/cadastro/produtos/{id}/editar', [ProdutoController::class, 'update'])->name('editar-produtos');
+    Route::get('/cadastro/produtos/{id}/remover', [ProdutoController::class, 'destroy'])->name('remover-produtos');
 });
 
 require __DIR__.'/auth.php';

@@ -58,19 +58,19 @@
                             </x-slot>
 
                             <x-slot name="content">
-                                <x-dropdown-link :href="route('lista-usuario')">
+                                <x-dropdown-link :href="route('show-usuario')">
                                     {{ 'Usuários' }}
                                 </x-dropdown-link>
 
-                                <x-dropdown-link :href="route('lista-tipo-midia')">
+                                <x-dropdown-link :href="route('show-tipo-midia')">
                                     {{ 'Tipos de Mídia' }}
                                 </x-dropdown-link>
 
-                                <x-dropdown-link :href="route('lista-verticais')">
+                                <x-dropdown-link :href="route('show-verticais')">
                                     {{ 'Verticais' }}
                                 </x-dropdown-link>
 
-                                <x-dropdown-link :href="route('lista-produtos')">
+                                <x-dropdown-link :href="route('show-produtos')">
                                     {{ 'Produtos' }}
                                 </x-dropdown-link>
                             </x-slot>

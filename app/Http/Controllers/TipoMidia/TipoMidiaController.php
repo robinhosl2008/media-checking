@@ -16,8 +16,13 @@ class TipoMidiaController extends Controller
         $this->proc = new Proc();
     }
 
-    public function index(Request $request): View
+    public function show(Request $request): View
     {
         return view('midia-checking.cadastro.tipos-midia.index');
+    }
+
+    public function new(): View
+    {
+        return view('midia-checking.cadastro.tipos-midia.form');
     }
 }

@@ -16,11 +16,6 @@ class ProdutoController extends Controller
         $this->proc = new Proc();
     }
 
-    public function index(Request $request): View
-    {
-        return view('midia-checking.cadastro.produtos.index');
-    }
-
     public function buscar(Request $request)
     {
         $params = [
@@ -30,5 +25,15 @@ class ProdutoController extends Controller
         ];
         
         return $this->proc->buscaProdutos($params)->get();
+    }
+
+    public function show(Request $request): View
+    {
+        return view('midia-checking.cadastro.produtos.index');
+    }
+
+    public function new(Request $request): View
+    {
+        return view('midia-checking.cadastro.produtos.form');
     }
 }

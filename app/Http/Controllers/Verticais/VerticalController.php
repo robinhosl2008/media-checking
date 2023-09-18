@@ -16,11 +16,6 @@ class VerticalController extends Controller
         $this->proc = new Proc();
     }
 
-    public function index(Request $request): View
-    {
-        return view('midia-checking.cadastro.verticais.index');
-    }
-
     public function buscar(Request $request)
     {
         $params = [
@@ -30,5 +25,15 @@ class VerticalController extends Controller
         ];
         
         return $this->proc->buscaVerticais($params)->get();
+    }
+
+    public function show(Request $request): View
+    {
+        return view('midia-checking.cadastro.verticais.index');
+    }
+
+    public function new(Request $request): View
+    {
+        return view('midia-checking.cadastro.verticais.form');
     }
 }
