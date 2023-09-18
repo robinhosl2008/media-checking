@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Verticais;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 use App\Services\Proc;
 
 class VerticalController extends Controller
@@ -15,7 +16,12 @@ class VerticalController extends Controller
         $this->proc = new Proc();
     }
 
-    public function index(Request $request)
+    public function index(Request $request): View
+    {
+        return view('midia-checking.cadastro.verticais.index');
+    }
+
+    public function buscar(Request $request)
     {
         $params = [
             'vertical_id'   => ($request->vertical_id) ?? '',

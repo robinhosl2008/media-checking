@@ -8,6 +8,6 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        return view('media-checking/dashboard');
+        return view('midia-checking/dashboard');
     }
 }

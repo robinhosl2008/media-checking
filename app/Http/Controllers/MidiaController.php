@@ -33,7 +33,7 @@ class MidiaController extends Controller
             //     'tipo-msg-alert' => 'success'
             // ]);
 
-            return view('media-checking/validar', [
+            return view('midia-checking/validar', [
                 'tiposMidia'    => $tiposMidia,
                 'verticais'     => $verticais,
                 'produtos'      => $produtos

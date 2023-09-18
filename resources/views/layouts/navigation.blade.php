@@ -32,7 +32,7 @@
                             </x-slot>
 
                             <x-slot name="content">
-                                <x-dropdown-link :href="route('media-checking.validar')">
+                                <x-dropdown-link :href="route('midia-checking.validar')">
                                     {{ 'Validar Mídia' }}
                                 </x-dropdown-link>
 
@@ -58,19 +58,19 @@
                             </x-slot>
 
                             <x-slot name="content">
-                                <x-dropdown-link :href="route('cadastro-lista-usuario')">
+                                <x-dropdown-link :href="route('lista-usuario')">
                                     {{ 'Usuários' }}
                                 </x-dropdown-link>
 
-                                <x-dropdown-link :href="route('dashboard')">
+                                <x-dropdown-link :href="route('lista-tipo-midia')">
                                     {{ 'Tipos de Mídia' }}
                                 </x-dropdown-link>
 
-                                <x-dropdown-link :href="route('dashboard')">
+                                <x-dropdown-link :href="route('lista-verticais')">
                                     {{ 'Verticais' }}
                                 </x-dropdown-link>
 
-                                <x-dropdown-link :href="route('dashboard')">
+                                <x-dropdown-link :href="route('lista-produtos')">
                                     {{ 'Produtos' }}
                                 </x-dropdown-link>
                             </x-slot>

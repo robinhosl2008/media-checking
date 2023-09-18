@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Usuarios;
+namespace App\Http\Controllers\TipoMidia;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Services\Proc;
 
-class UsuarioController extends Controller
+class TipoMidiaController extends Controller
 {
     private Proc $proc;
 
@@ -18,6 +18,6 @@ class UsuarioController extends Controller
 
     public function index(Request $request): View
     {
-        return view('midia-checking.cadastro.usuarios.index');
+        return view('midia-checking.cadastro.tipos-midia.index');
     }
 }
