@@ -36,7 +36,7 @@
                                     {{ 'Validar Mídia' }}
                                 </x-dropdown-link>
 
-                                <x-dropdown-link :href="route('dashboard')">
+                                <x-dropdown-link :href="route('midia-checking.converter')">
                                     {{ 'Converter Mídia' }}
                                 </x-dropdown-link>
                             </x-slot>

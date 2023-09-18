@@ -6,6 +6,7 @@ use App\Helpers\FFMpegHelper;
 use App\Services\Proc;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class MidiaController extends Controller
 {
@@ -21,7 +22,7 @@ class MidiaController extends Controller
         $this->ffmpeg = new FFMpegHelper();
     }
 
-    public function index()
+    public function validar()
     {
         try {
             $tiposMidia = $this->libProc->buscaTiposMidia()->get();
@@ -41,6 +42,11 @@ class MidiaController extends Controller
         } catch(Exception $e) {
             return $e->getMessage();
         }
+    }
+
+    public function converter(Request $request): View
+    {
+        return view('midia-checking/converter');
     }
 
     public function buscarResolucao(Request $request)
