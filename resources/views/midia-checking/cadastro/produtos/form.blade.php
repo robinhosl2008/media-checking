@@ -29,6 +29,9 @@
                                 <label for="vertical" class="form-label">Vertical:</label>
                                 <select name="vertical" id="vertical" class="form-control">
                                     <option value="0">Selecione</option>
+                                    @foreach($verticais as $vertical)
+                                    <option value="{{ $vertical->id }}">{{ $vertical->descricao }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>

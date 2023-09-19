@@ -38,6 +38,10 @@ class ProdutoController extends Controller
 
     public function new(Request $request): View
     {
-        return view('midia-checking.cadastro.produtos.form');
+        $verticais = $this->proc->buscaVerticais([])->get();
+        
+        return view('midia-checking.cadastro.produtos.form', [
+            'verticais' => $verticais
+        ]);
     }
 }
