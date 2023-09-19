@@ -20,4 +20,9 @@ class LibVertical extends Model
     {
         return $this->belongsTo(LibTipoMidia::class, 'tipo_midia_id');
     }
+
+    public function produto()
+    {
+        return $this->hasMany(LibProduto::class, 'vertical_id');
+    }
 }

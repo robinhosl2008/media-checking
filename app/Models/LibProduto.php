@@ -15,4 +15,9 @@ class LibProduto extends Model
     * @var string
     */
     protected $table = 'lib_produto';
+
+    public function vertical()
+    {
+        return $this->belongsTo(LibVertical::class, 'vertical_id');
+    }
 }

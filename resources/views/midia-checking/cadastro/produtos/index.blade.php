@@ -31,14 +31,15 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @forelse($produtos as $produto)
                                 <tr>
-                                    <td>Bilheteria (Frente)</td>
-                                    <td class="text-center">2.92</td>
-                                    <td class="text-center">1.68</td>
-                                    <td class="text-center">2.92</td>
-                                    <td class="text-center">1.68</td>
-                                    <td class="text-center">OOH</td>
-                                    <td class="text-center">18/09/2023</td>
+                                    <td>{{ $produto->descricao }}</td>
+                                    <td class="text-center">{{ $produto->area_lar }}</td>
+                                    <td class="text-center">{{ $produto->area_alt }}</td>
+                                    <td class="text-center">{{ $produto->visual_lar }}</td>
+                                    <td class="text-center">{{ $produto->visual_alt }}</td>
+                                    <td class="text-center">{{ $produto->vertical->descricao }}</td>
+                                    <td class="text-center">{{ $produto->created_at }}</td>
                                     <td class="text-center">
                                         <div class="btn-group" role="group" aria-label="Grupo de Ações">
                                             <button type="button" class="btn btn-sm btn-secondary" title="Editar"><i class="bi-pen"></i></button>
@@ -46,21 +47,9 @@
                                         </div>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>Testeiras (Campo Grande)</td>
-                                    <td class="text-center">410</td>
-                                    <td class="text-center">140</td>
-                                    <td class="text-center">410</td>
-                                    <td class="text-center">140</td>
-                                    <td class="text-center">DOOH Terminais</td>
-                                    <td class="text-center">18/09/2023</td>
-                                    <td class="text-center">
-                                        <div class="btn-group" role="group" aria-label="Grupo de Ações">
-                                            <button type="button" class="btn btn-sm btn-secondary" title="Editar"><i class="bi-pen"></i></button>
-                                            <button type="button" class="btn btn-sm btn-secondary" title="Remover"><i class="bi-x"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>
+                                @empty
+                                <tr><td colspan="8">Sem registros!</td></tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>
