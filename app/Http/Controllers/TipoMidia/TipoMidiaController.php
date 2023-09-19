@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\TipoMidia;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreTipoMidiaRequest;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Services\Proc;
@@ -35,8 +36,15 @@ class TipoMidiaController extends Controller
         ]);
     }
 
-    public function new(): View
+    public function form(): View
     {
         return view('midia-checking.cadastro.tipos-midia.form');
+    }
+
+    public function salvar(StoreTipoMidiaRequest $request)
+    {
+        $validated = $request->validated();
+
+        dd($validated);
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Verticais;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreVerticalRequest;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Services\Proc;
@@ -36,12 +37,19 @@ class VerticalController extends Controller
         ]);
     }
 
-    public function new(Request $request): View
+    public function form(Request $request): View
     {
         $tiposMidia = $this->proc->buscaTiposMidia([])->get();
 
         return view('midia-checking.cadastro.verticais.form', [
             'tiposMidia' => $tiposMidia
         ]);
+    }
+
+    public function salvar(StoreVerticalRequest $request)
+    {
+        $validated = $request->validated();
+
+        dd($validated);
     }
 }

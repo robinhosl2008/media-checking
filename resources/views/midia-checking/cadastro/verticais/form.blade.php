@@ -8,6 +8,20 @@
         </h2>
     </x-slot>
   
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error[1] }}</li>
+
+                <script>
+                    alertMessageId = `{{ $error[0] }}`;
+                </script>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -16,23 +30,25 @@
                 </div>
 
                 <div class="p-6 text-gray-900">
-                    <form action="#" method="post" onsubmit="event.preventDefault();">
+                    <form action="{{ route('salvar-verticais') }}" method="post">
                         @csrf
                         
                         <div class="row">  
                             <div class="col-8">
-                                <label for="nome" class="form-label">Nome:</label>
+                                <label for="nome" class="form-label">*Nome:</label>
                                 <input type="text" name="nome" id="nome" class="form-control" value="">
+                                <p class="erro-input"><i>Campo obrigatório!</i></p>
                             </div>
 
                             <div class="col-4">
-                                <label for="tipo_midia" class="form-label">Tipo de Mídia:</label>
+                                <label for="tipo_midia" class="form-label">*Tipo de Mídia:</label>
                                 <select name="tipo_midia" id="tipo_midia" class="form-control">
-                                    <option value="0">Selecione</option>
+                                    <option value="">Selecione</option>
                                     @foreach($tiposMidia as $tipoMidia)
                                     <option value="{{ $tipoMidia->id }}">{{ $tipoMidia->descricao }}</option>
                                     @endforeach
                                 </select>
+                                <p class="erro-input"><i>Campo obrigatório!</i></p>
                             </div>
                         </div>
 
@@ -48,5 +64,5 @@
         </div>
     </div>
 
-    <script src="{{ asset('js/midia-checking/cadastro/usuario.js') }}"></script>
+    <script src="{{ asset('js/midia-checking/cadastro/main.js') }}"></script>
 </x-app-layout>

@@ -8,6 +8,20 @@
         </h2>
     </x-slot>
   
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error[1] }}</li>
+
+                <script>
+                    alertMessageId = `{{ $error[0] }}`;
+                </script>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -16,23 +30,25 @@
                 </div>
 
                 <div class="p-6 text-gray-900">
-                    <form action="#" method="post" onsubmit="event.preventDefault();">
+                    <form action="{{ route('salvar-produtos') }}" method="post">
                         @csrf
                         
                         <div class="row">  
                             <div class="col-8">
-                                <label for="nome" class="form-label">Nome:</label>
+                                <label for="nome" class="form-label">*Nome:</label>
                                 <input type="text" name="nome" id="nome" class="form-control" value="">
+                                <p class="erro-input"><i>Campo obrigatório!</i></p>
                             </div>
 
                             <div class="col-4">
-                                <label for="vertical" class="form-label">Vertical:</label>
+                                <label for="vertical" class="form-label">*Vertical:</label>
                                 <select name="vertical" id="vertical" class="form-control">
-                                    <option value="0">Selecione</option>
+                                    <option value="">Selecione</option>
                                     @foreach($verticais as $vertical)
                                     <option value="{{ $vertical->id }}">{{ $vertical->descricao }}</option>
                                     @endforeach
                                 </select>
+                                <p class="erro-input"><i>Campo obrigatório!</i></p>
                             </div>
                         </div>
 
@@ -46,12 +62,14 @@
                                 <input type="text" name="area_alt" id="area_alt" class="form-control" value="">
                             </div>
                             <div class="col-3">
-                                <label for="visual_lar" class="form-label">Visual (Lar):</label>
+                                <label for="visual_lar" class="form-label">*Visual (Lar):</label>
                                 <input type="text" name="visual_lar" id="visual_lar" class="form-control" value="">
+                                <p class="erro-input"><i>Campo obrigatório!</i></p>
                             </div>
                             <div class="col-3">
-                                <label for="visual_alt" class="form-label">Visual (Alt):</label>
+                                <label for="visual_alt" class="form-label">*Visual (Alt):</label>
                                 <input type="text" name="visual_alt" id="visual_alt" class="form-control" value="">
+                                <p class="erro-input"><i>Campo obrigatório!</i></p>
                             </div>
                         </div>
 
@@ -67,5 +85,5 @@
         </div>
     </div>
 
-    <script src="{{ asset('js/midia-checking/cadastro/verticais.js') }}"></script>
+    <script src="{{ asset('js/midia-checking/cadastro/main.js') }}"></script>
 </x-app-layout>

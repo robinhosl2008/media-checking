@@ -12,7 +12,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="barra-lista">
-                <a href="{{ route('new-verticais') }}" class="btn-nova-vertical btn btn-sm btn-laranja">Novo Vertical</a>    
+                    <a href="{{ route('form-verticais') }}" class="btn-nova-vertical btn btn-sm btn-laranja">Novo Vertical</a>    
                 </div>
 
                 <div class="p-6 text-gray-900">
@@ -52,6 +52,7 @@
         </div>
     </div>
 
+    <script src="{{ asset('js/midia-checking/cadastro/main.js') }}"></script>
     <script src="{{ asset('js/midia-checking/cadastro/tipo-midia.js') }}"></script>
     <script src="{{ asset('js/datatable/jquery.dataTables.min.js') }}"></script>
 </x-app-layout>

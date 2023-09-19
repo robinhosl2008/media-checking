@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Produtos;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreProdutoRequest;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Services\Proc;
@@ -36,12 +37,19 @@ class ProdutoController extends Controller
         ]);
     }
 
-    public function new(Request $request): View
+    public function form(Request $request): View
     {
         $verticais = $this->proc->buscaVerticais([])->get();
         
         return view('midia-checking.cadastro.produtos.form', [
             'verticais' => $verticais
         ]);
+    }
+
+    public function salvar(StoreProdutoRequest $request)
+    {
+        $validated = $request->validated();
+
+        dd($validated);
     }
 }

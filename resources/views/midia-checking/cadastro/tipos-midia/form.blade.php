@@ -11,14 +11,6 @@
     @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
-            <?php
-            // echo "<pre>";
-            // print_r($errors);
-            // echo "</pre>";
-            // exit();
-            ?><?php 
-    // print_r($errors->all()); exit(); 
-    ?>
             @foreach ($errors->all() as $error)
                 <li>{{ $error[1] }}</li>
 
@@ -38,7 +30,7 @@
                 </div>
 
                 <div class="p-6 text-gray-900">
-                    <form action="#" method="post" onsubmit="event.preventDefault();">
+                    <form action="{{ route('salvar-tipo-midia') }}" method="post">
                         @csrf
                         
                         <div class="row">  

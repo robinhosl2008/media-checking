@@ -12,7 +12,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="barra-lista">
-                    <a href="{{ route('new-tipo-midia') }}" class="btn-novo-tipo-midia btn btn-sm btn-laranja">Novo Tipo de Mídia</a>    
+                    <a href="{{ route('form-tipo-midia') }}" class="btn-novo-tipo-midia btn btn-sm btn-laranja">Novo Tipo de Mídia</a>    
                 </div>
 
                 <div class="p-6 text-gray-900">

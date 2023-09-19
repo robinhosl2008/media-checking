@@ -26,7 +26,7 @@ class UsuarioController extends Controller
         ]);
     }
 
-    public function new(Request $request): View
+    public function form(Request $request): View
     {
         return view('midia-checking.cadastro.usuarios.form');
     }
