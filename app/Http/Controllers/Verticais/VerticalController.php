@@ -38,6 +38,10 @@ class VerticalController extends Controller
 
     public function new(Request $request): View
     {
-        return view('midia-checking.cadastro.verticais.form');
+        $tiposMidia = $this->proc->buscaTiposMidia([])->get();
+
+        return view('midia-checking.cadastro.verticais.form', [
+            'tiposMidia' => $tiposMidia
+        ]);
     }
 }

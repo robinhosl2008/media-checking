@@ -29,6 +29,9 @@
                                 <label for="tipo_midia" class="form-label">Tipo de Mídia:</label>
                                 <select name="tipo_midia" id="tipo_midia" class="form-control">
                                     <option value="0">Selecione</option>
+                                    @foreach($tiposMidia as $tipoMidia)
+                                    <option value="{{ $tipoMidia->id }}">{{ $tipoMidia->descricao }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
