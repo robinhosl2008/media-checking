@@ -18,7 +18,11 @@ class TipoMidiaController extends Controller
 
     public function show(Request $request): View
     {
-        return view('midia-checking.cadastro.tipos-midia.index');
+        $tiposMidia = $this->proc->buscaTiposMidia($request->all())->get();
+
+        return view('midia-checking.cadastro.tipos-midia.index', [
+            'tiposMidia' => $tiposMidia
+        ]);
     }
 
     public function new(): View

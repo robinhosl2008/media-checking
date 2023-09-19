@@ -27,10 +27,11 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @forelse($verticais as $vertical)
                                 <tr>
-                                    <td>DOOH Embarcado</td>
-                                    <td>Vídeo</td>
-                                    <td>18/09/2023</td>
+                                    <td>{{ $vertical->descricao }}</td>
+                                    <td>{{ $vertical->tipoMidia->descricao }}</td>
+                                    <td>{{ $vertical->created_at }}</td>
                                     <td class="text-center">
                                         <div class="btn-group" role="group" aria-label="Grupo de Ações">
                                             <button type="button" class="btn btn-sm btn-secondary" title="Editar"><i class="bi-pen"></i></button>
@@ -38,28 +39,11 @@
                                         </div>
                                     </td>
                                 </tr>
+                                @empty
                                 <tr>
-                                    <td>DOOH Terminal</td>
-                                    <td>Vídeo</td>
-                                    <td>18/09/2023</td>
-                                    <td class="text-center">
-                                        <div class="btn-group" role="group" aria-label="Grupo de Ações">
-                                            <button type="button" class="btn btn-sm btn-secondary" title="Editar"><i class="bi-pen"></i></button>
-                                            <button type="button" class="btn btn-sm btn-secondary" title="Remover"><i class="bi-x"></i></button>
-                                        </div>
-                                    </td>
+                                    <td colspan="4">Sem registros!</td>
                                 </tr>
-                                <tr>
-                                    <td>OOH</td>
-                                    <td>Imagem</td>
-                                    <td>18/09/2023</td>
-                                    <td class="text-center">
-                                        <div class="btn-group" role="group" aria-label="Grupo de Ações">
-                                            <button type="button" class="btn btn-sm btn-secondary" title="Editar"><i class="bi-pen"></i></button>
-                                            <button type="button" class="btn btn-sm btn-secondary" title="Remover"><i class="bi-x"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>

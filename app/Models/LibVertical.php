@@ -15,4 +15,9 @@ class LibVertical extends Model
      * @var string
      */
     protected $table = 'lib_vertical';
+
+    public function tipoMidia()
+    {
+        return $this->belongsTo(LibTipoMidia::class, 'tipo_midia_id');
+    }
 }

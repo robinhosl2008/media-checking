@@ -29,7 +29,11 @@ class VerticalController extends Controller
 
     public function show(Request $request): View
     {
-        return view('midia-checking.cadastro.verticais.index');
+        $verticais = $this->proc->buscaVerticais($request->all())->get();
+
+        return view('midia-checking.cadastro.verticais.index', [
+            'verticais' => $verticais
+        ]);
     }
 
     public function new(Request $request): View

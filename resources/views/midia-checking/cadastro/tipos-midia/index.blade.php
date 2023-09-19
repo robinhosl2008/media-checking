@@ -26,9 +26,10 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @forelse($tiposMidia as $tipoMidia)
                                 <tr>
-                                    <td>Imagem</td>
-                                    <td>18/09/2023</td>
+                                    <td>{{ $tipoMidia->descricao }}</td>
+                                    <td>{{ $tipoMidia->created_at }}</td>
                                     <td class="text-center">
                                         <div class="btn-group" role="group" aria-label="Grupo de Ações">
                                             <button type="button" class="btn btn-sm btn-secondary" title="Editar"><i class="bi-pen"></i></button>
@@ -36,16 +37,11 @@
                                         </div>
                                     </td>
                                 </tr>
+                                @empty
                                 <tr>
-                                    <td>Vídeo</td>
-                                    <td>18/09/2023</td>
-                                    <td class="text-center">
-                                        <div class="btn-group" role="group" aria-label="Grupo de Ações">
-                                            <button type="button" class="btn btn-sm btn-secondary" title="Editar"><i class="bi-pen"></i></button>
-                                            <button type="button" class="btn btn-sm btn-secondary" title="Remover"><i class="bi-x"></i></button>
-                                        </div>
-                                    </td>
+                                    <td colspan="3">Sem registros!</td>
                                 </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>

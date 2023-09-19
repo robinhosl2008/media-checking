@@ -40,7 +40,9 @@
                                     </td>
                                 </tr>
                                 @empty
-                                <tr coluns="4">Sem registros!</tr>
+                                <tr>
+                                    <td colspan="4">Sem registros!</td>
+                                </tr>
                                 @endforelse
                             </tbody>
                         </table>
