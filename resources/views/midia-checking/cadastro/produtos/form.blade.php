@@ -26,16 +26,35 @@
                             </div>
 
                             <div class="col-4">
-                                <label for="tipo_midia" class="form-label">Tipo de Mídia:</label>
-                                <select name="tipo_midia" id="tipo_midia" class="form-control">
+                                <label for="vertical" class="form-label">Vertical:</label>
+                                <select name="vertical" id="vertical" class="form-control">
                                     <option value="0">Selecione</option>
                                 </select>
                             </div>
                         </div>
 
+                        <div class="row mt-3">  
+                            <div class="col-3">
+                                <label for="area_lar" class="form-label">Área (Lar):</label>
+                                <input type="text" name="area_lar" id="area_lar" class="form-control" value="">
+                            </div>
+                            <div class="col-3">
+                                <label for="area_alt" class="form-label">Área (Alt):</label>
+                                <input type="text" name="area_alt" id="area_alt" class="form-control" value="">
+                            </div>
+                            <div class="col-3">
+                                <label for="visual_lar" class="form-label">Visual (Lar):</label>
+                                <input type="text" name="visual_lar" id="visual_lar" class="form-control" value="">
+                            </div>
+                            <div class="col-3">
+                                <label for="visual_alt" class="form-label">Visual (Alt):</label>
+                                <input type="text" name="visual_alt" id="visual_alt" class="form-control" value="">
+                            </div>
+                        </div>
+
                         <div class="mt-3 row">  
                             <div class="col-12 btn-rigth">
-                                <button type="button" class="btn btn-sm btn-secondary" onclick="window.history.back();">Cancelar</button>
+                                <button type="button" class="btn btn-sm btn-secondary" onclick="window.history.back();">voltar</button>
                                 <button type="submit" class="btn btn-sm btn-laranja">Salvar</button>
                             </div>
                         </div>
@@ -45,5 +64,5 @@
         </div>
     </div>
 
-    <script src="{{ asset('js/midia-checking/cadastro/usuario.js') }}"></script>
+    <script src="{{ asset('js/midia-checking/cadastro/verticais.js') }}"></script>
 </x-app-layout>
