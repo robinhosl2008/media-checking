@@ -1,3 +1,5 @@
+const usuario = new Usuario();
+
 window.onload = function() {
     let tabela = document.getElementById('myTable');
 
@@ -22,6 +24,36 @@ window.onload = function() {
             });
         });
     }
+
+    let usuarioId = usuario.buscaIdUsuario();
+    let inputsTrocaSenha = document.querySelectorAll('div.input-troca-senha');
+    if (!usuarioId) {
+        exibirInputs(inputs);
+    }
+
+    let checkboxTrocaSenha = document.getElementById('troca_senha');
+
+    if (checkboxTrocaSenha) {
+        checkboxTrocaSenha.addEventListener('click', function() {
+            if (checkboxTrocaSenha.checked) {
+                exibirInputs(inputsTrocaSenha);
+            } else if (!checkboxTrocaSenha.checked) {
+                esconderInputs(inputsTrocaSenha);
+            }
+        });
+    }
+}
+
+function esconderInputs(inputs) {
+    inputs.forEach(function (input) {
+        input.style.display = 'none';
+    });
+}
+
+function exibirInputs(inputs) {
+    inputs.forEach(function (input) {
+        input.style.display = 'block';
+    });
 }
 
 function exibeErroInput(inputId) {

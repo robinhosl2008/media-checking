@@ -42,9 +42,9 @@ Route::middleware('auth')->group(function () {
 
     // Cadastro/Usuários
     Route::get('/cadastro/usuario', [UsuarioController::class, 'show'])->name('show-usuario');
-    Route::get('/cadastro/usuario/form', [UsuarioController::class, 'form'])->name('form-usuario');
+    Route::get('/cadastro/usuario/form', [UsuarioController::class, 'form'])->name('criar-usuario');
     Route::post('/cadastro/usuario/salvar', [UsuarioController::class, 'salvar'])->name('salvar-usuario');
-    Route::get('/cadastro/usuario/{id}/editar', [UsuarioController::class, 'update'])->name('editar-usuario');
+    Route::get('/cadastro/usuario/{id}/form', [UsuarioController::class, 'form'])->name('editar-usuario');
     Route::get('/cadastro/usuario/{id}/remover', [UsuarioController::class, 'destroy'])->name('remover-usuario');
 
     // Cadastro/Tipos de Mídia

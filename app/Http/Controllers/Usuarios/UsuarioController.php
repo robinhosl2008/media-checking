@@ -17,9 +17,20 @@ class UsuarioController extends Controller
         $this->proc = new Proc();
     }
 
+    public function buscar(Request $request)
+    {
+        $params = [
+            'usuario_id' => ($request->id) ?? '',
+            'nome'       => ($request->nome) ?? '',
+            'email'      => ($request->email) ?? ''
+        ];
+        
+        return $this->proc->buscarUsuarios($params)->get();
+    }
+
     public function show(Request $request): View
     {
-        $usuarios = $this->proc->buscarUsuarios($request->all())->get();
+        $usuarios = $this->buscar($request);
 
         return view('midia-checking.cadastro.usuarios.index', [
             'usuarios' => $usuarios
@@ -28,7 +39,13 @@ class UsuarioController extends Controller
 
     public function form(Request $request): View
     {
-        return view('midia-checking.cadastro.usuarios.form');
+        $usuario = [];
+        if ($request->id)
+            $usuario = $this->buscar($request)->first();
+        
+        return view('midia-checking.cadastro.usuarios.form', [
+            'usuario' => $usuario 
+        ]);
     }
 
     public function salvar(StoreUsuarioRequest $request)
@@ -40,5 +57,10 @@ class UsuarioController extends Controller
 
 
         // Envio para o método proc salvar o usuário.
+    }
+
+    public function update()
+    {
+        
     }
 }

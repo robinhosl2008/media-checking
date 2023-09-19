@@ -12,7 +12,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="barra-lista">
-                    <a href="{{ route('form-usuario') }}" class="btn-novo-usuario btn btn-sm btn-laranja">Novo Usuário</a>    
+                    <a href="{{ route('criar-usuario') }}" class="btn-novo-usuario btn btn-sm btn-laranja">Novo Usuário</a>    
                 </div>
 
                 <div class="p-6 text-gray-900">
@@ -34,8 +34,8 @@
                                     <td>{{ $usuario->created_at }}</td>
                                     <td class="text-center">
                                         <div class="btn-group" role="group" aria-label="Grupo de Ações">
-                                            <button type="button" class="btn btn-sm btn-secondary" title="Editar"><i class="bi-pen"></i></button>
-                                            <button type="button" class="btn btn-sm btn-secondary" title="Remover"><i class="bi-x"></i></button>
+                                            <a href="{{ route('editar-usuario', ['id' => $usuario->id]) }}" class="btn btn-sm btn-secondary" title="Editar"><i class="bi-pen"></i></a>
+                                            <a href="{{ route('remover-usuario', ['id' => $usuario->id]) }}" class="btn btn-sm btn-secondary" title="Remover"><i class="bi-x"></i></a>
                                         </div>
                                     </td>
                                 </tr>

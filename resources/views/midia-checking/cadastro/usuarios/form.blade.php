@@ -21,7 +21,12 @@
         </ul>
     </div>
     @endif
-
+<?php
+// echo "<pre>";
+// print_r($usuario);
+// echo "</pre>";
+// exit();
+?>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -32,17 +37,18 @@
                 <div class="p-6 text-gray-900">
                     <form action="{{ route('salvar-usuario') }}" method="post">
                         @csrf
+                        <input type="hidden" id="usuario_id" name="usuario_id" value="{{ ($usuario->id) ?? '' }}">
                         
                         <div class="row">  
                             <div class="col-6">
                                 <label for="nome" class="form-label">*Nome:</label>
-                                <input type="text" name="nome" id="nome" class="form-control" value="{{ old('nome') }}">
+                                <input type="text" name="nome" id="nome" class="form-control" value="{{ ($usuario->name) ?? old('nome') }}">
                                 <p class="erro-input"><i>Campo obrigatório!</i></p>
                             </div>
 
                             <div class="col-6">
                                 <label for="email" class="form-label">*E-mail:</label>
-                                <input type="text" name="email" id="email" class="form-control" value="{{ old('email') }}">
+                                <input type="text" name="email" id="email" class="form-control" value="{{ ($usuario->email) ?? old('email') }}">
                                 <p class="erro-input"><i>Campo obrigatório!</i></p>
                             </div>
                         </div>
@@ -58,13 +64,23 @@
                                 <p class="erro-input"><i>Campo obrigatório!</i></p>
                             </div> -->
 
-                            <div class="col-6">
+                            @if(!is_array($usuario) && $usuario->id)
+                            <div class="row" style="margin: auto;">
+                                <hr>
+                                <div class="mb-3 form-check">
+                                    <label for="troca_senha" class="form-check-label">Deseja trocar a senha? </label>
+                                    <input type="checkbox" name="troca_senha" id="troca_senha" class="form-check-input" value="1">
+                                </div>
+                            </div>
+                            @endif
+
+                            <div class="col-6 input-troca-senha">
                                 <label for="senha" class="form-label">*Senha:</label>
                                 <input type="text" name="senha" id="senha" class="form-control" value="{{ old('senha') }}">
                                 <p class="erro-input"><i>Campo obrigatório!</i></p>
                             </div>
 
-                            <div class="col-6">
+                            <div class="col-6 input-troca-senha">
                                 <label for="confirma_senha" class="form-label">*Confirme sua Senha:</label>
                                 <input type="password" name="confirma_senha" id="confirma_senha" class="form-control" value="{{ old('confirma_senha') }}">
                                 <p class="erro-input"><i>Campo obrigatório!</i></p>
@@ -83,5 +99,6 @@
         </div>
     </div>
 
+    <script src="{{ asset('js/midia-checking/cadastro/usuario.js') }}"></script>
     <script src="{{ asset('js/midia-checking/cadastro/main.js') }}"></script>
 </x-app-layout>

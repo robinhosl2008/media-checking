@@ -167,3 +167,9 @@ div.alert.alert-danger {
     width: 100%;
 }
 /* Fim - Alerts */
+
+/* Início - Usuário */
+div.input-troca-senha {
+    display: none;
+}
+/* Fim - Usuário */
