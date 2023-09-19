@@ -52,6 +52,7 @@
         </div>
     </div>
 
+    <script src="{{ asset('js/midia-checking/cadastro/main.js') }}"></script>
     <script src="{{ asset('js/midia-checking/cadastro/usuario.js') }}"></script>
     <script src="{{ asset('js/datatable/jquery.dataTables.min.js') }}"></script>
 </x-app-layout>

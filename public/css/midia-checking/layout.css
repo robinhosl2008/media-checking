@@ -149,3 +149,21 @@ header a {
     text-decoration: none;
     color: black;
 }
+
+/* Início - Alerts */
+p.erro-input {
+    display: none;
+    font-size: 12px;
+    color: red;
+    position: absolute;
+}
+
+input.form-control.erro-input {
+    border: 1px solid red;
+}
+
+div.alert.alert-danger {
+    position: absolute;
+    width: 100%;
+}
+/* Fim - Alerts */

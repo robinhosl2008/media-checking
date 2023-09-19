@@ -7,7 +7,21 @@
             <a href="{{ route('show-usuario') }}">{{ __('Usuários') }}</a> / Cadastro
         </h2>
     </x-slot>
-  
+
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error[1] }}</li>
+
+                <script>
+                    alertMessageId = `{{ $error[0] }}`;
+                </script>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -16,18 +30,20 @@
                 </div>
 
                 <div class="p-6 text-gray-900">
-                    <form action="#" method="post" onsubmit="event.preventDefault();">
+                    <form action="{{ route('salvar-usuario') }}" method="post">
                         @csrf
                         
                         <div class="row">  
                             <div class="col-6">
-                                <label for="nome" class="form-label">Nome:</label>
+                                <label for="nome" class="form-label">*Nome:</label>
                                 <input type="text" name="nome" id="nome" class="form-control" value="">
+                                <p class="erro-input"><i>Campo obrigatório!</i></p>
                             </div>
 
                             <div class="col-6">
-                                <label for="email" class="form-label">E-mail:</label>
+                                <label for="email" class="form-label">*E-mail:</label>
                                 <input type="text" name="email" id="email" class="form-control" value="">
+                                <p class="erro-input"><i>Campo obrigatório!</i></p>
                             </div>
                         </div>
 
@@ -39,16 +55,19 @@
                                     <option value="1">Administrador</option>
                                     <option value="2">Visitante</option>
                                 </select>
+                                <p class="erro-input"><i>Campo obrigatório!</i></p>
                             </div> -->
 
                             <div class="col-6">
-                                <label for="senha" class="form-label">Senha:</label>
+                                <label for="senha" class="form-label">*Senha:</label>
                                 <input type="text" name="senha" id="senha" class="form-control" value="">
+                                <p class="erro-input"><i>Campo obrigatório!</i></p>
                             </div>
 
                             <div class="col-6">
-                                <label for="confirma_senha" class="form-label">Confirme sua Senha:</label>
+                                <label for="confirma_senha" class="form-label">*Confirme sua Senha:</label>
                                 <input type="password" name="confirma_senha" id="confirma_senha" class="form-control" value="">
+                                <p class="erro-input"><i>Campo obrigatório!</i></p>
                             </div>
                         </div>
 
@@ -64,5 +83,5 @@
         </div>
     </div>
 
-    <script src="{{ asset('js/midia-checking/cadastro/usuario.js') }}"></script>
+    <script src="{{ asset('js/midia-checking/cadastro/main.js') }}"></script>
 </x-app-layout>

@@ -8,6 +8,28 @@
         </h2>
     </x-slot>
   
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            <?php
+            // echo "<pre>";
+            // print_r($errors);
+            // echo "</pre>";
+            // exit();
+            ?><?php 
+    // print_r($errors->all()); exit(); 
+    ?>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error[1] }}</li>
+
+                <script>
+                    alertMessageId = `{{ $error[0] }}`;
+                </script>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -23,6 +45,7 @@
                             <div class="col-12">
                                 <label for="nome" class="form-label">Nome:</label>
                                 <input type="text" name="nome" id="nome" class="form-control" value="">
+                                <p class="erro-input"><i>Campo obrigatório!</i></p>
                             </div>
                         </div>
 
@@ -38,5 +61,5 @@
         </div>
     </div>
 
-    <script src="{{ asset('js/midia-checking/cadastro/tipo-midia.js') }}"></script>
+    <script src="{{ asset('js/midia-checking/cadastro/main.js') }}"></script>
 </x-app-layout>

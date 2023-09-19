@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Usuarios;
 
+use App\Http\Requests\StoreUsuarioRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -25,8 +26,19 @@ class UsuarioController extends Controller
         ]);
     }
 
-    public function new(): View
+    public function new(Request $request): View
     {
         return view('midia-checking.cadastro.usuarios.form');
+    }
+
+    public function salvar(StoreUsuarioRequest $request)
+    {
+        $validador = $request->validated();
+
+        dd($validador);
+        // Valido as informações com o Laravel.
+
+
+        // Envio para o método proc salvar o usuário.
     }
 }

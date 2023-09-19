@@ -43,28 +43,28 @@ Route::middleware('auth')->group(function () {
     // Cadastro/Usuários
     Route::get('/cadastro/usuario', [UsuarioController::class, 'show'])->name('show-usuario');
     Route::get('/cadastro/usuario/new', [UsuarioController::class, 'new'])->name('new-usuario');
-    Route::get('/cadastro/usuario/cadastrar', [UsuarioController::class, 'store'])->name('cadastrar-usuario');
+    Route::post('/cadastro/usuario/salvar', [UsuarioController::class, 'salvar'])->name('salvar-usuario');
     Route::get('/cadastro/usuario/{id}/editar', [UsuarioController::class, 'update'])->name('editar-usuario');
     Route::get('/cadastro/usuario/{id}/remover', [UsuarioController::class, 'destroy'])->name('remover-usuario');
 
     // Cadastro/Tipos de Mídia
     Route::get('/cadastro/tipo-midia', [TipoMidiaController::class, 'show'])->name('show-tipo-midia');
     Route::get('/cadastro/tipo-midia/new', [TipoMidiaController::class, 'new'])->name('new-tipo-midia');
-    Route::get('/cadastro/tipo-midia/cadastrar', [TipoMidiaController::class, 'store'])->name('cadastrar-tipo-midia');
+    Route::get('/cadastro/tipo-midia/salvar', [TipoMidiaController::class, 'salvar'])->name('salvar-tipo-midia');
     Route::get('/cadastro/tipo-midia/{id}/editar', [TipoMidiaController::class, 'update'])->name('editar-tipo-midia');
     Route::get('/cadastro/tipo-midia/{id}/remover', [TipoMidiaController::class, 'destroy'])->name('remover-tipo-midia');
 
     // Cadastro/Verticais
     Route::get('/cadastro/verticais', [VerticalController::class, 'show'])->name('show-verticais');
     Route::get('/cadastro/verticais/new', [VerticalController::class, 'new'])->name('new-verticais');
-    Route::get('/cadastro/verticais/cadastrar', [VerticalController::class, 'store'])->name('cadastrar-verticais');
+    Route::get('/cadastro/verticais/salvar', [VerticalController::class, 'salvar'])->name('salvar-verticais');
     Route::get('/cadastro/verticais/{id}/editar', [VerticalController::class, 'update'])->name('editar-verticais');
     Route::get('/cadastro/verticais/{id}/remover', [VerticalController::class, 'destroy'])->name('remover-verticais');
 
     // Cadastro/Produtos
     Route::get('/cadastro/produtos', [ProdutoController::class, 'show'])->name('show-produtos');
     Route::get('/cadastro/produtos/new', [ProdutoController::class, 'new'])->name('new-produtos');
-    Route::get('/cadastro/produtos/cadastrar', [ProdutoController::class, 'store'])->name('cadastrar-produtos');
+    Route::get('/cadastro/produtos/salvar', [ProdutoController::class, 'salvar'])->name('salvar-produtos');
     Route::get('/cadastro/produtos/{id}/editar', [ProdutoController::class, 'update'])->name('editar-produtos');
     Route::get('/cadastro/produtos/{id}/remover', [ProdutoController::class, 'destroy'])->name('remover-produtos');
 });
