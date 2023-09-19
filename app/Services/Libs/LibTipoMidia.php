@@ -20,9 +20,11 @@ class LibTipoMidia extends CRUD
     public function buscar($params = [])
     {
         $tipoMidiaId = (array_key_exists('tipo_midia_id', $params) && $params['tipo_midia_id']) ? $params['tipo_midia_id'] : '';
+        $descricao   = (array_key_exists('descricao', $params) && $params['descricao']) ? $params['descricao'] : '';
         
         $this->model = $this->model->where('id', '<>', 3);
         $this->model = ($tipoMidiaId) ? $this->model->find($tipoMidiaId) : $this->model;
+        $this->model = ($descricao)   ? $this->model->where('descricao', 'LIKE', "%{$descricao}%") : $this->model;
 
         return $this->model;
     }

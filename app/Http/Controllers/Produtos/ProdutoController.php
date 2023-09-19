@@ -29,7 +29,11 @@ class ProdutoController extends Controller
 
     public function show(Request $request): View
     {
-        return view('midia-checking.cadastro.produtos.index');
+        $produtos = $this->buscar($request);
+        
+        return view('midia-checking.cadastro.produtos.index', [
+            'produtos' => $produtos
+        ]);
     }
 
     public function new(Request $request): View
