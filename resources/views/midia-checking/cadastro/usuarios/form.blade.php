@@ -8,7 +8,13 @@
         </h2>
     </x-slot>
 
-    @if ($errors->any())
+            <?php
+            // echo "<pre>";
+            // print_r($errors->all());
+            // echo "</pre>";
+            // exit();
+            ?>
+    @if ($errors->any() && is_array($errors->all()[0]))
     <div class="alert alert-danger">
         <ul>
             @foreach ($errors->all() as $error)
@@ -37,7 +43,7 @@
                 <div class="p-6 text-gray-900">
                     <form action="{{ route('salvar-usuario') }}" method="post">
                         @csrf
-                        <input type="hidden" id="usuario_id" name="usuario_id" value="{{ ($usuario->id) ?? '' }}">
+                        <input type="hidden" id="id" name="id" value="{{ ($usuario->id) ?? '' }}">
                         
                         <div class="row">  
                             <div class="col-6">
@@ -69,18 +75,18 @@
                                 <hr>
                                 <div class="mb-3 form-check">
                                     <label for="troca_senha" class="form-check-label">Deseja trocar a senha? </label>
-                                    <input type="checkbox" name="troca_senha" id="troca_senha" class="form-check-input" value="1">
+                                    <input type="checkbox" name="troca_senha" id="troca_senha" class="form-check-input" {{ (old('troca_senha') == 1) ? 'checked' : '' }} value="1">
                                 </div>
                             </div>
                             @endif
 
-                            <div class="col-6 input-troca-senha">
+                            <div class="col-6 input-troca-senha" style="{{ (old('troca_senha') == 1) ? 'display: block;' : '' }}">
                                 <label for="senha" class="form-label">*Senha:</label>
                                 <input type="text" name="senha" id="senha" class="form-control" value="{{ old('senha') }}">
                                 <p class="erro-input"><i>Campo obrigatório!</i></p>
                             </div>
 
-                            <div class="col-6 input-troca-senha">
+                            <div class="col-6 input-troca-senha" style="{{ (old('troca_senha') == 1) ? 'display: block;' : '' }}">
                                 <label for="confirma_senha" class="form-label">*Confirme sua Senha:</label>
                                 <input type="password" name="confirma_senha" id="confirma_senha" class="form-control" value="{{ old('confirma_senha') }}">
                                 <p class="erro-input"><i>Campo obrigatório!</i></p>

@@ -3,6 +3,6 @@ class Usuario
     constructor() {}
 
     buscaIdUsuario() {
-        return document.getElementById('usuario_id').value;
+        return document.getElementById('id').value;
     }
 }

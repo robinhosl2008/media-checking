@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Usuarios;
 use App\Http\Requests\StoreUsuarioRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
 use App\Services\Proc;
 
@@ -48,11 +49,43 @@ class UsuarioController extends Controller
         ]);
     }
 
+    public function validaSenhaUsuario($arr)
+    {
+        $validator = Validator::make($arr, [
+            'senha' => 'required|string',
+            'confirma_senha' => 'required|string'
+        ], [
+            'senha' => ['senha', 'Informe uma senha para o usuário.'],
+            'confirma_senha' => ['confirma_senha', 'Você não informou a senha ou não são iguais.']
+        ]);
+        
+        return $validator;
+    }
+
     public function salvar(StoreUsuarioRequest $request)
     {
-        $validador = $request->validated();
+        $validator = $request->validated();
+        $aux = null;
+        if (array_key_exists('id', $validator) && $validator['id']) {
+            if (array_key_exists('troca_senha', $validator) && $validator['troca_senha']) {
+                $aux = $this->validaSenhaUsuario($request->all());
+            }
+        } else {
+            $aux = $this->validaSenhaUsuario($request->all());
+        }
 
-        dd($validador);
+        if ($aux && $aux->stopOnFirstFailure()->fails()) {
+            return redirect()
+                ->route('criar-usuario')
+                ->withErrors($validator)
+                ->withInput();
+        }
+        
+
+        dd($validator);
+        
+        
+
         // Valido as informações com o Laravel.
 
 

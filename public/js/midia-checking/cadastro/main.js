@@ -56,7 +56,7 @@ function exibirInputs(inputs) {
     });
 }
 
-function exibeErroInput(inputId) {
+function exibeErroInput(inputId = 'id') {
     let input = document.getElementById(inputId),
         inputErrorMessage = input.parentElement.querySelector('p.erro-input');
 

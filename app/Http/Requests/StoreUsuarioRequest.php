@@ -29,20 +29,20 @@ class StoreUsuarioRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nome' => 'required|string',
-            'email' => 'required|email',
-            'senha' => 'required|string',
-            'confirma_senha' => 'required|string'
+            'id'             => '',
+            'nome'           => 'required|string',
+            'email'          => 'required|email',
+            'troca_senha'    => '',
+            'senha'          => '',
+            'confirma_senha' => ''
         ];
     }
 
     public function messages(): array
     {
         return [
-            'nome' => ['nome', 'O nome do usuário deve ser informado e deve ter ao menos 3 caracteres.'],
+            'nome'  => ['nome', 'O nome do usuário deve ser informado e deve ter ao menos 3 caracteres.'],
             'email' => ['email', 'O e-mail do usuário não foi informado ou não é um e-mail válido.'],
-            'senha' => ['senha', 'Informe uma senha para o usuário.'],
-            'confirma_senha' => ['confirma_senha', 'Deve confirmar sua senha.']
         ];
     }
 }
