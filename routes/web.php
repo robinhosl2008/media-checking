@@ -41,28 +41,29 @@ Route::middleware('auth')->group(function () {
     Route::post('/buscar-resolucao', [MidiaController::class, 'buscarResolucao'])->name('buscar-resolucao');
 
     // Cadastro/Usuários
-    Route::get('/cadastro/usuario', [UsuarioController::class, 'show'])->name('show-usuario');
-    Route::get('/cadastro/usuario/form', [UsuarioController::class, 'form'])->name('criar-usuario');
-    Route::post('/cadastro/usuario/salvar', [UsuarioController::class, 'salvar'])->name('salvar-usuario');
-    Route::get('/cadastro/usuario/{id}/form', [UsuarioController::class, 'form'])->name('editar-usuario');
-    Route::get('/cadastro/usuario/{id}/remover', [UsuarioController::class, 'destroy'])->name('remover-usuario');
+    Route::get('/cadastro/usuario', [UsuarioController::class, 'listar'])->name('listar-usuario');
+    Route::get('/cadastro/usuario/criar', [UsuarioController::class, 'criar'])->name('criar-usuario');
+    Route::get('/cadastro/usuario/{id}/editar', [UsuarioController::class, 'editar'])->name('editar-usuario');
+    Route::post('/cadastro/usuario/salvar-criacao', [UsuarioController::class, 'salvarCriacao'])->name('salvar-criacao-usuario');
+    Route::put('/cadastro/usuario/salvar-edicao', [UsuarioController::class, 'salvarEdicao'])->name('salvar-edicao-usuario');
+    Route::delete('/cadastro/usuario/{id}/remover', [UsuarioController::class, 'remover'])->name('remover-usuario');
 
     // Cadastro/Tipos de Mídia
-    Route::get('/cadastro/tipo-midia', [TipoMidiaController::class, 'show'])->name('show-tipo-midia');
+    Route::get('/cadastro/tipo-midia', [TipoMidiaController::class, 'listar'])->name('listar-tipo-midia');
     Route::get('/cadastro/tipo-midia/form', [TipoMidiaController::class, 'form'])->name('form-tipo-midia');
     Route::post('/cadastro/tipo-midia/salvar', [TipoMidiaController::class, 'salvar'])->name('salvar-tipo-midia');
     Route::get('/cadastro/tipo-midia/{id}/editar', [TipoMidiaController::class, 'update'])->name('editar-tipo-midia');
     Route::get('/cadastro/tipo-midia/{id}/remover', [TipoMidiaController::class, 'destroy'])->name('remover-tipo-midia');
 
     // Cadastro/Verticais
-    Route::get('/cadastro/verticais', [VerticalController::class, 'show'])->name('show-verticais');
+    Route::get('/cadastro/verticais', [VerticalController::class, 'listar'])->name('listar-verticais');
     Route::get('/cadastro/verticais/form', [VerticalController::class, 'form'])->name('form-verticais');
     Route::post('/cadastro/verticais/salvar', [VerticalController::class, 'salvar'])->name('salvar-verticais');
     Route::get('/cadastro/verticais/{id}/editar', [VerticalController::class, 'update'])->name('editar-verticais');
     Route::get('/cadastro/verticais/{id}/remover', [VerticalController::class, 'destroy'])->name('remover-verticais');
 
     // Cadastro/Produtos
-    Route::get('/cadastro/produtos', [ProdutoController::class, 'show'])->name('show-produtos');
+    Route::get('/cadastro/produtos', [ProdutoController::class, 'listar'])->name('listar-produtos');
     Route::get('/cadastro/produtos/form', [ProdutoController::class, 'form'])->name('form-produtos');
     Route::post('/cadastro/produtos/salvar', [ProdutoController::class, 'salvar'])->name('salvar-produtos');
     Route::get('/cadastro/produtos/{id}/editar', [ProdutoController::class, 'update'])->name('editar-produtos');

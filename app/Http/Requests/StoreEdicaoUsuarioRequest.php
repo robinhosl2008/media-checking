@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreUsuarioRequest extends FormRequest
+class StoreEdicaoUsuarioRequest extends FormRequest
 {
     /**
      * Indicates if the validator should stop on the first rule failure.
@@ -12,7 +12,7 @@ class StoreUsuarioRequest extends FormRequest
      * @var bool
      */
     protected $stopOnFirstFailure = true;
-
+    
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -24,17 +24,19 @@ class StoreUsuarioRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
+        $trocaSenha = $this->troca_senha;
+        
         return [
-            'id'             => '',
+            'id'             => 'required|integer',
             'nome'           => 'required|string',
             'email'          => 'required|email',
             'troca_senha'    => '',
-            'senha'          => '',
-            'confirma_senha' => ''
+            'senha'          => ($trocaSenha) ? 'required|string' : '',
+            'confirma_senha' => ($trocaSenha) ? 'required|string|same:senha' : ''
         ];
     }
 
@@ -43,6 +45,8 @@ class StoreUsuarioRequest extends FormRequest
         return [
             'nome'  => ['nome', 'O nome do usuário deve ser informado e deve ter ao menos 3 caracteres.'],
             'email' => ['email', 'O e-mail do usuário não foi informado ou não é um e-mail válido.'],
+            'senha' => ['senha', 'Informe uma senha para o usuário.'],
+            'confirma_senha' => ['confirma_senha', 'Você não informou a senha ou não são iguais.']
         ];
     }
 }

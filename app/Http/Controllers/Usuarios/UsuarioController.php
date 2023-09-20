@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Usuarios;
 
-use App\Http\Requests\StoreUsuarioRequest;
+use App\Http\Requests\StoreEdicaoUsuarioRequest;
+use App\Http\Requests\StoreNovoUsuarioRequest;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
 use App\Services\Proc;
 
@@ -29,7 +30,7 @@ class UsuarioController extends Controller
         return $this->proc->buscarUsuarios($params)->get();
     }
 
-    public function show(Request $request): View
+    public function listar(Request $request): View
     {
         $usuarios = $this->buscar($request);
 
@@ -38,13 +39,20 @@ class UsuarioController extends Controller
         ]);
     }
 
-    public function form(Request $request): View
+    public function criar(Request $request): View
+    {
+        return view('midia-checking.cadastro.usuarios.criar', [
+            'usuario' => []
+        ]);
+    }
+
+    public function editar(Request $request): View
     {
         $usuario = [];
         if ($request->id)
             $usuario = $this->buscar($request)->first();
         
-        return view('midia-checking.cadastro.usuarios.form', [
+        return view('midia-checking.cadastro.usuarios.editar', [
             'usuario' => $usuario 
         ]);
     }
@@ -62,26 +70,26 @@ class UsuarioController extends Controller
         return $validator;
     }
 
-    public function salvar(StoreUsuarioRequest $request)
+    public function salvarCriacao(StoreNovoUsuarioRequest $request)
     {
         $validator = $request->validated();
-        $aux = null;
-        if (array_key_exists('id', $validator) && $validator['id']) {
-            if (array_key_exists('troca_senha', $validator) && $validator['troca_senha']) {
-                $aux = $this->validaSenhaUsuario($request->all());
-            }
-        } else {
-            $aux = $this->validaSenhaUsuario($request->all());
-        }
-
-        if ($aux && $aux->stopOnFirstFailure()->fails()) {
-            return redirect()
-                ->route('criar-usuario')
-                ->withErrors($validator)
-                ->withInput();
-        }
         
 
+        dd($validator);
+        
+        
+
+        // Valido as informações com o Laravel.
+
+
+        // Envio para o método proc salvar o usuário.
+    }
+
+    public function salvarEdicao(StoreEdicaoUsuarioRequest $request)
+    {
+        $validator = $request->validated();
+
+        
         dd($validator);
         
         
