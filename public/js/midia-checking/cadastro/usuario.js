@@ -1,8 +1,14 @@
-class Usuario
-{
+class Usuario {
     constructor() {}
 
     buscaIdUsuario() {
-        return document.getElementById('id').value;
+        let inputId = document.getElementById('id');
+        
+        if (inputId) 
+            inputId.value;
+    }
+
+    callbackRemoveUsuario() {
+        alert();
     }
 }

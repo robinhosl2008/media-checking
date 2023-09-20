@@ -46,7 +46,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/cadastro/usuario/{id}/editar', [UsuarioController::class, 'editar'])->name('editar-usuario');
     Route::post('/cadastro/usuario/salvar-criacao', [UsuarioController::class, 'salvarCriacao'])->name('salvar-criacao-usuario');
     Route::put('/cadastro/usuario/salvar-edicao', [UsuarioController::class, 'salvarEdicao'])->name('salvar-edicao-usuario');
-    Route::delete('/cadastro/usuario/{id}/remover', [UsuarioController::class, 'remover'])->name('remover-usuario');
+    Route::delete('/cadastro/usuario/remover', [UsuarioController::class, 'remover'])->name('remover-usuario');
 
     // Cadastro/Tipos de Mídia
     Route::get('/cadastro/tipo-midia', [TipoMidiaController::class, 'listar'])->name('listar-tipo-midia');

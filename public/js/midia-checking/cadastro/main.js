@@ -1,6 +1,6 @@
-const usuario = new Usuario();
-
 window.onload = function() {
+    const usuario = new Usuario();
+
     let tabela = document.getElementById('myTable');
 
     if (tabela)
