@@ -34,7 +34,7 @@ class StoreNovoUsuarioRequest extends FormRequest
             'email'          => 'required|email',
             'troca_senha'    => '',
             'senha'          => 'required|string',
-            'confirma_senha' => 'required|string'
+            'confirma_senha' => 'required|string|same:senha'
         ];
     }
     
