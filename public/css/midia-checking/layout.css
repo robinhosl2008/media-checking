@@ -168,6 +168,18 @@ div.alert.alert-danger {
 }
 /* Fim - Alerts */
 
+/* Início - Confirmação */
+.modal-content {
+    margin-top: 50%;
+}
+
+.modal-content .modal-header {
+    color: #ffffff;
+    text-align: left;
+    background-color: #6c757d;
+}
+/* Fim - Comfirmação */
+
 /* Início - Usuário */
 div.input-troca-senha {
     display: none;

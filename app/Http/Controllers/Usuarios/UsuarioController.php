@@ -100,8 +100,8 @@ class UsuarioController extends Controller
         // Envio para o método proc salvar o usuário.
     }
 
-    public function update()
+    public function remover(Request $request)
     {
-        
+        dd($request->all());
     }
 }
