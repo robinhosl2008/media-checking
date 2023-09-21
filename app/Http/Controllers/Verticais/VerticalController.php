@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Verticais;
 
+use App\Http\Requests\Vertical\SalvarVerticalRequest;
+use App\Http\Requests\Vertical\EditarVerticalRequest;
+use App\Http\Requests\Vertical\RemoverVerticalRequest;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreVerticalRequest;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Services\Proc;
@@ -20,7 +23,7 @@ class VerticalController extends Controller
     public function buscar(Request $request)
     {
         $params = [
-            'vertical_id'   => ($request->vertical_id) ?? '',
+            'id'            => ($request->id) ?? '',
             'tipo_midia_id' => ($request->tipo_midia_id) ?? '',
             'descricao'     => ($request->descricao) ?? ''
         ];
@@ -28,7 +31,7 @@ class VerticalController extends Controller
         return $this->proc->buscaVerticais($params)->get();
     }
 
-    public function show(Request $request): View
+    public function listar(Request $request): View
     {
         $verticais = $this->buscar($request);
 
@@ -37,19 +40,49 @@ class VerticalController extends Controller
         ]);
     }
 
-    public function form(Request $request): View
+    public function criar(): View
     {
-        $tiposMidia = $this->proc->buscaTiposMidia([])->get();
+        $tiposMidia = $this->proc->buscaTiposMidia()->get();
 
-        return view('midia-checking.cadastro.verticais.form', [
-            'tiposMidia' => $tiposMidia
+        return view('midia-checking.cadastro.verticais.criar', [
+            'tiposMidia' => $tiposMidia,
+            'vertical' => null
         ]);
     }
 
-    public function salvar(StoreVerticalRequest $request)
+    public function editar(Request $request): View
+    {
+        $vertical = null;
+        if ($request->id) {
+            $vertical = $this->buscar($request)->first();
+        }
+
+        $tiposMidia = $this->proc->buscaTiposMidia([])->get();
+
+        return view('midia-checking.cadastro.verticais.editar', [
+            'tiposMidia' => $tiposMidia,
+            'vertical' => $vertical
+        ]);
+    }
+
+    public function salvarCriacao(SalvarVerticalRequest $request): RedirectResponse
     {
         $validated = $request->validated();
 
         dd($validated);
+    }
+
+    public function salvarEdicao(EditarVerticalRequest $request): RedirectResponse
+    {
+        $validated = $request->validated();
+
+        dd($validated);
+    }
+
+    public function removerVertical(RemoverVerticalRequest $request): RedirectResponse
+    {
+        $validated = $request->validated();
+
+        return redirect()->route('listar-verticais');
     }
 }

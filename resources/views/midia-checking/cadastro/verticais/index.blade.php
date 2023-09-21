@@ -2,17 +2,24 @@
     <link rel="stylesheet" href="{{ asset('css/midia-checking/layout.css') }}">
     <link rel="stylesheet" href="{{ asset('css/datatable/jquery.dataTables.min.css') }}">
 
+    <script src="{{ asset('js/utils/confirm.js') }}"></script>
+    <script>
+        const confirm = new Confirm();
+    </script>
+
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Verticais') }}
         </h2>
     </x-slot>
+
+    <x-confirm></x-confirm>
   
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="barra-lista">
-                    <a href="{{ route('form-verticais') }}" class="btn-nova-vertical btn btn-sm btn-laranja">Novo Vertical</a>    
+                    <a href="{{ route('criar-verticais') }}" class="btn-nova-vertical btn btn-sm btn-laranja">Novo Vertical</a>    
                 </div>
 
                 <div class="p-6 text-gray-900">
@@ -34,8 +41,21 @@
                                     <td>{{ $vertical->created_at }}</td>
                                     <td class="text-center">
                                         <div class="btn-group" role="group" aria-label="Grupo de Ações">
-                                            <button type="button" class="btn btn-sm btn-secondary" title="Editar"><i class="bi-pen"></i></button>
-                                            <button type="button" class="btn btn-sm btn-secondary" title="Remover"><i class="bi-x"></i></button>
+                                            <a href="{{ route('editar-verticais', ['id' => $vertical->id]) }}" class="btn btn-sm btn-secondary" title="Editar">
+                                                <i class="bi-pen"></i>
+                                            </a>
+                                            <form action="{{ route('remover-verticais') }}" method="post">
+                                                @csrf
+                                                <input type="hidden" name="_method" value="delete"/>
+                                                <input type="hidden" name="id" value="{{ $vertical->id }}">
+                                                <button type="button" class="btn btn-sm btn-secondary" title="Remover"  data-bs-toggle="modal" data-bs-target="#confirm-modal"
+                                                onclick="confirm.exibeModalConfirme(
+                                                    `Tem certeza que deseja remover a vertical '{{ addslashes($vertical->descricao) }}'?`, 
+                                                    this.form
+                                                );">
+                                                    <i class="bi-x"></i>
+                                                </button>
+                                            </form>
                                         </div>
                                     </td>
                                 </tr>

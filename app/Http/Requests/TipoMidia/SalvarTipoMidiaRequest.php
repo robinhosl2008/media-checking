@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\TipoMidia;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DestroyUsuarioRequest extends FormRequest
+class SalvarTipoMidiaRequest extends FormRequest
 {
     /**
      * Indicates if the validator should stop on the first rule failure.
@@ -29,14 +29,15 @@ class DestroyUsuarioRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id' => 'required|integer'
+            'id'   => '',
+            'nome' => 'required|string'
         ];
     }
 
     public function messages(): array
     {
         return [
-            'id' => ['id', 'O usuário não pode ser removido.']
+            'nome' => ['nome', 'O nome do tipo de mídia deve ser informado.']
         ];
     }
 }

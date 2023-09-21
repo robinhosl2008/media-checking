@@ -4,7 +4,7 @@
 
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            <a href="{{ route('listar-tipo-midia') }}">{{ __('Tipos de Mídia') }}</a> / Cadastro
+            <a href="{{ route('listar-tipo-midia') }}">{{ __('Tipos de Mídia') }}</a> / {{ ($tipoMidia != null && $tipoMidia->id) ? 'Edição' : 'Cadastro' }}
         </h2>
     </x-slot>
   
@@ -30,13 +30,13 @@
                 </div>
 
                 <div class="p-6 text-gray-900">
-                    <form action="{{ route('salvar-novo-tipo-midia') }}" method="post">
+                    <form action="{{ route('salvar-criacao-tipo-midia') }}" method="post">
                         @csrf
                         
                         <div class="row">  
                             <div class="col-12">
                                 <label for="nome" class="form-label">Nome:</label>
-                                <input type="text" name="nome" id="nome" class="form-control" value="{{ $tipoMidia->descricao }}">
+                                <input type="text" name="nome" id="nome" class="form-control" value="{{ ($tipoMidia->descricao) ?? '' }}">
                                 <p class="erro-input"><i>Campo obrigatório!</i></p>
                             </div>
                         </div>

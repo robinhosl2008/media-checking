@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\TipoMidia;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreTipoMidiaRequest extends FormRequest
+class RemoverTipoMidiaRequest extends FormRequest
 {
     /**
      * Indicates if the validator should stop on the first rule failure.
@@ -29,14 +29,14 @@ class StoreTipoMidiaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nome' => 'required|string'
+            'id' => 'required|integer'
         ];
     }
 
     public function messages(): array
     {
         return [
-            'nome' => ['nome', 'O nome do tipo de mídia deve ser informado e ter no mínimo 3 caracteres.']
+            'id' => ['id', 'Não foi possível realizar está ação.']
         ];
     }
 }

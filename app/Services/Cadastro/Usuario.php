@@ -14,12 +14,12 @@ class Usuario extends CRUD
 
     public function buscar($params = [])
     {
-        $usuario_id     = ((int) $params['usuario_id']) ?? '';
+        $id             = ((int) $params['id']) ?? '';
         $usuario_nome   = ($params['nome']) ?? '';
         $usuario_email  = ($params['email']) ?? '';
 
-        if($usuario_id){
-            $this->model = $this->model->where('id', '=', $usuario_id);
+        if($id){
+            $this->model = $this->model->where('id', '=', $id);
         }
 
         $this->model = ($usuario_nome) ? $this->model->where('name', 'LIKE', "%{$usuario_nome}%") : $this->model;

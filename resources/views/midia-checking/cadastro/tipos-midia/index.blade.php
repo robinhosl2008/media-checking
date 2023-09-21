@@ -20,7 +20,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="barra-lista">
-                    <a href="{{ route('form-tipo-midia') }}" class="btn-novo-tipo-midia btn btn-sm btn-laranja">Novo Tipo de Mídia</a>    
+                    <a href="{{ route('criar-tipo-midia') }}" class="btn-novo-tipo-midia btn btn-sm btn-laranja">Novo Tipo de Mídia</a>    
                 </div>
 
                 <div class="p-6 text-gray-900">
@@ -40,7 +40,7 @@
                                     <td>{{ $tipoMidia->created_at }}</td>
                                     <td class="text-center">
                                         <div class="btn-group" role="group" aria-label="Grupo de Ações">
-                                            <a href="{{ route('form-tipo-midia', ['id' => $tipoMidia->id]) }}" class="btn btn-sm btn-secondary" title="Editar">
+                                            <a href="{{ route('editar-tipo-midia', ['id' => $tipoMidia->id]) }}" class="btn btn-sm btn-secondary" title="Editar">
                                                 <i class="bi-pen"></i>
                                             </a>
                                             <form action="{{ route('remover-tipo-midia') }}" method="post">

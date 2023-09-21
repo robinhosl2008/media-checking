@@ -4,7 +4,7 @@
 
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            <a href="{{ route('show-verticais') }}">{{ __('Verticais') }}</a> / Cadastro
+            <a href="{{ route('listar-verticais') }}">{{ __('Verticais') }}</a> / Editar
         </h2>
     </x-slot>
   
@@ -30,22 +30,25 @@
                 </div>
 
                 <div class="p-6 text-gray-900">
-                    <form action="{{ route('salvar-verticais') }}" method="post">
+                    <form action="{{ route('salvar-edicao-verticais') }}" method="post">
                         @csrf
+                        @method('PUT')
+
+                        <input type="hidden" name="id" value="{{ ($vertical->id) }}">
                         
                         <div class="row">  
                             <div class="col-8">
                                 <label for="nome" class="form-label">*Nome:</label>
-                                <input type="text" name="nome" id="nome" class="form-control" value="">
+                                <input type="text" name="nome" id="nome" class="form-control" value="{{ ($vertical->id) ? $vertical->descricao : old('nome') }}">
                                 <p class="erro-input"><i>Campo obrigatório!</i></p>
                             </div>
-
+                            
                             <div class="col-4">
                                 <label for="tipo_midia" class="form-label">*Tipo de Mídia:</label>
                                 <select name="tipo_midia" id="tipo_midia" class="form-control">
                                     <option value="">Selecione</option>
                                     @foreach($tiposMidia as $tipoMidia)
-                                    <option value="{{ $tipoMidia->id }}">{{ $tipoMidia->descricao }}</option>
+                                    <option value="{{ $tipoMidia->id }}" <?php echo ($vertical->id) ? (($vertical->tipoMidia->id == $tipoMidia->id) ? 'selected' : '' ) : ((old('tipo_midia') == $tipoMidia->id) ? 'selected' : ''); ?>>{{ $tipoMidia->descricao }}</option>
                                     @endforeach
                                 </select>
                                 <p class="erro-input"><i>Campo obrigatório!</i></p>
@@ -54,7 +57,7 @@
 
                         <div class="mt-3 row">  
                             <div class="col-12 btn-rigth">
-                                <button type="button" class="btn btn-sm btn-secondary" onclick="window.history.back();">Cancelar</button>
+                                <a href="{{ route('listar-verticais') }}" class="btn btn-sm btn-secondary">Voltar</a>
                                 <button type="submit" class="btn btn-sm btn-laranja">Salvar</button>
                             </div>
                         </div>

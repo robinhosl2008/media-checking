@@ -50,17 +50,19 @@ Route::middleware('auth')->group(function () {
 
     // Cadastro/Tipos de Mídia
     Route::get('/cadastro/tipo-midia', [TipoMidiaController::class, 'listar'])->name('listar-tipo-midia');
-    Route::get('/cadastro/tipo-midia/form/{id?}', [TipoMidiaController::class, 'form'])->name('form-tipo-midia');
-    Route::post('/cadastro/tipo-midia/salvar-novo', [TipoMidiaController::class, 'salvar'])->name('salvar-novo-tipo-midia');
-    Route::put('/cadastro/tipo-midia/salvar-edicao', [TipoMidiaController::class, 'editar'])->name('salvar-edicao-tipo-midia');
-    Route::delete('/cadastro/tipo-midia/remover', [TipoMidiaController::class, 'remover'])->name('remover-tipo-midia');
+    Route::get('/cadastro/tipo-midia/criar', [TipoMidiaController::class, 'criar'])->name('criar-tipo-midia');
+    Route::get('/cadastro/tipo-midia/{id}/editar', [TipoMidiaController::class, 'editar'])->name('editar-tipo-midia');
+    Route::post('/cadastro/tipo-midia/salvar-criacao', [TipoMidiaController::class, 'salvarCriacao'])->name('salvar-criacao-tipo-midia');
+    Route::put('/cadastro/tipo-midia/salvar-edicao', [TipoMidiaController::class, 'salvarEdicao'])->name('salvar-edicao-tipo-midia');
+    Route::delete('/cadastro/tipo-midia/remover', [TipoMidiaController::class, 'removerTipoMidia'])->name('remover-tipo-midia');
 
     // Cadastro/Verticais
     Route::get('/cadastro/verticais', [VerticalController::class, 'listar'])->name('listar-verticais');
-    Route::get('/cadastro/verticais/form', [VerticalController::class, 'form'])->name('form-verticais');
-    Route::post('/cadastro/verticais/salvar', [VerticalController::class, 'salvar'])->name('salvar-verticais');
-    Route::get('/cadastro/verticais/{id}/editar', [VerticalController::class, 'update'])->name('editar-verticais');
-    Route::get('/cadastro/verticais/{id}/remover', [VerticalController::class, 'destroy'])->name('remover-verticais');
+    Route::get('/cadastro/verticais/criar', [VerticalController::class, 'criar'])->name('criar-verticais');
+    Route::get('/cadastro/verticais/{id}/editar', [VerticalController::class, 'editar'])->name('editar-verticais');
+    Route::post('/cadastro/verticais/salvar-criacao', [VerticalController::class, 'salvarCriacao'])->name('salvar-criacao-verticais');
+    Route::put('/cadastro/verticais/salvar-edicao', [VerticalController::class, 'salvarEdicao'])->name('salvar-edicao-verticais');
+    Route::delete('/cadastro/verticais/remover', [VerticalController::class, 'removerVertical'])->name('remover-verticais');
 
     // Cadastro/Produtos
     Route::get('/cadastro/produtos', [ProdutoController::class, 'listar'])->name('listar-produtos');

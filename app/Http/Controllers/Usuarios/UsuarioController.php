@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Usuarios;
 
-use App\Http\Requests\StoreEdicaoUsuarioRequest;
-use App\Http\Requests\StoreNovoUsuarioRequest;
-use App\Http\Requests\DestroyUsuarioRequest;
+use App\Http\Requests\Usuario\EditarUsuarioRequest;
+use App\Http\Requests\Usuario\SalvarUsuarioRequest;
+use App\Http\Requests\Usuario\RemoverUsuarioRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -22,9 +22,9 @@ class UsuarioController extends Controller
     public function buscar(Request $request)
     {
         $params = [
-            'usuario_id' => ($request->id) ?? '',
-            'nome'       => ($request->nome) ?? '',
-            'email'      => ($request->email) ?? ''
+            'id'    => ($request->id) ?? '',
+            'nome'  => ($request->nome) ?? '',
+            'email' => ($request->email) ?? ''
         ];
         
         return $this->proc->buscarUsuarios($params)->get();
@@ -57,25 +57,9 @@ class UsuarioController extends Controller
         ]);
     }
 
-    public function salvarCriacao(StoreNovoUsuarioRequest $request)
+    public function salvarCriacao(SalvarUsuarioRequest $request)
     {
         $validator = $request->validated();
-        
-
-        dd($validator);
-        
-        
-
-        // Valido as informações com o Laravel.
-
-
-        // Envio para o método proc salvar o usuário.
-    }
-
-    public function salvarEdicao(StoreEdicaoUsuarioRequest $request)
-    {
-        $validator = $request->validated();
-
         
         dd($validator);
         
@@ -87,11 +71,24 @@ class UsuarioController extends Controller
         // Envio para o método proc salvar o usuário.
     }
 
-    public function remover(DestroyUsuarioRequest $request)
+    public function salvarEdicao(EditarUsuarioRequest $request)
     {
         $validator = $request->validated();
 
+        dd($validator);
         
+        
+
+        // Valido as informações com o Laravel.
+
+
+        // Envio para o método proc salvar o usuário.
+    }
+
+    public function remover(RemoverUsuarioRequest $request)
+    {
+        $validator = $request->validated();
+
         dd($validator);
     }
 }

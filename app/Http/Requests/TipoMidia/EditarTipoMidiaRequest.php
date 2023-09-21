@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\TipoMidia;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreVerticalRequest extends FormRequest
+class EditarTipoMidiaRequest extends FormRequest
 {
     /**
      * Indicates if the validator should stop on the first rule failure.
@@ -29,16 +29,15 @@ class StoreVerticalRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nome' => 'required|string',
-            'tipo_midia' => 'required|integer'
+            'id'   => '',
+            'nome' => 'required'
         ];
     }
 
     public function messages(): array
     {
         return [
-            'nome' => ['nome', 'Um nome deve ser informado para a criação da vertical.'],
-            'tipo_midia' => ['tipo_midia', 'Um tipo de mídia deve ser selecionado.']
+            'nome' => ['nome', 'O nome do tipo de mídia deve ser informado.']
         ];
     }
 }
