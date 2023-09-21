@@ -26,7 +26,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
-                    <button type="button" class="btn btn-primary btn-sim">Sim</button>
+                    <button type="button" class="btn btn-primary btn-sim btn-laranja">Sim</button>
                 </div>
             </div>
         </div>
