@@ -66,10 +66,11 @@ Route::middleware('auth')->group(function () {
 
     // Cadastro/Produtos
     Route::get('/cadastro/produtos', [ProdutoController::class, 'listar'])->name('listar-produtos');
-    Route::get('/cadastro/produtos/form', [ProdutoController::class, 'form'])->name('form-produtos');
-    Route::post('/cadastro/produtos/salvar', [ProdutoController::class, 'salvar'])->name('salvar-produtos');
-    Route::get('/cadastro/produtos/{id}/editar', [ProdutoController::class, 'update'])->name('editar-produtos');
-    Route::get('/cadastro/produtos/{id}/remover', [ProdutoController::class, 'destroy'])->name('remover-produtos');
+    Route::get('/cadastro/produtos/criar', [ProdutoController::class, 'criar'])->name('criar-produtos');
+    Route::get('/cadastro/produtos/{id}/editar', [ProdutoController::class, 'editar'])->name('editar-produtos');
+    Route::post('/cadastro/produtos/salvar-criacao', [ProdutoController::class, 'salvarCriacao'])->name('salvar-criacao-produtos');
+    Route::put('/cadastro/produtos/salvar-edicao', [ProdutoController::class, 'salvarEdicao'])->name('salvar-edicao-produtos');
+    Route::delete('/cadastro/produtos/remover', [ProdutoController::class, 'removerProduto'])->name('remover-produtos');
 });
 
 require __DIR__.'/auth.php';

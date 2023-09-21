@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Produtos;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Produto\SalvarProdutoRequest;
 use App\Http\Requests\StoreProdutoRequest;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -20,6 +21,7 @@ class ProdutoController extends Controller
     public function buscar(Request $request)
     {
         $params = [
+            'id'            => ($request->id) ?? '',
             'vertical_id'   => ($request->vertical_id) ?? '',
             'tipo_midia_id' => ($request->tipo_midia_id) ?? '',
             'descricao'     => ($request->descricao) ?? ''
@@ -28,7 +30,7 @@ class ProdutoController extends Controller
         return $this->proc->buscaProdutos($params)->get();
     }
 
-    public function show(Request $request): View
+    public function listar(Request $request): View
     {
         $produtos = $this->buscar($request);
         
@@ -37,16 +39,27 @@ class ProdutoController extends Controller
         ]);
     }
 
-    public function form(Request $request): View
+    public function criar(): View
     {
-        $verticais = $this->proc->buscaVerticais([])->get();
+        $verticais = $this->proc->buscaVerticais()->get();
         
-        return view('midia-checking.cadastro.produtos.form', [
+        return view('midia-checking.cadastro.produtos.criar', [
             'verticais' => $verticais
         ]);
     }
 
-    public function salvar(StoreProdutoRequest $request)
+    public function editar(Request $request): View
+    {
+        $produto = $this->buscar($request)->first();
+        $verticais = $this->proc->buscaVerticais()->get();
+        
+        return view('midia-checking.cadastro.produtos.editar', [
+            'produto' => $produto,
+            'verticais' => $verticais
+        ]);
+    }
+
+    public function salvarCriacao(SalvarProdutoRequest $request)
     {
         $validated = $request->validated();
 

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Produto;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreProdutoRequest extends FormRequest
+class SalvarProdutoRequest extends FormRequest
 {
     /**
      * Indicates if the validator should stop on the first rule failure.
@@ -33,8 +33,8 @@ class StoreProdutoRequest extends FormRequest
             'vertical'   => 'required|integer',
             'area_lar'   => '',
             'area_alt'   => '',
-            'visual_lar' => 'required|decimal',
-            'visual_alt' => 'required|decimal',
+            'visual_lar' => 'required',
+            'visual_alt' => 'required',
         ];
     }
 

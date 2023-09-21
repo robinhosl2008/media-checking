@@ -19,10 +19,10 @@ class LibProduto extends CRUD
      */
     public function buscar($params = [])
     {
-        $produtoId = (array_key_exists('produto_id', $params) && $params['produto_id']) ? $params['produto_id'] : '';
+        $produtoId = (array_key_exists('id', $params) && $params['id']) ? (int) $params['id'] : '';
         $verticalId = (array_key_exists('vertical_id', $params) && $params['vertical_id']) ? $params['vertical_id'] : '';
         
-        $this->model = ($produtoId) ? $this->model->find($produtoId) : $this->model;
+        $this->model = ($produtoId) ? $this->model->where('id', '=', $produtoId) : $this->model;
         $this->model = ($verticalId) ? $this->model->where('vertical_id', '=', $verticalId) : $this->model;
         
         return $this->model;

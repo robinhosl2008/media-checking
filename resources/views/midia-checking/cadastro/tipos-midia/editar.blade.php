@@ -4,7 +4,7 @@
 
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            <a href="{{ route('listar-tipo-midia') }}">{{ __('Tipos de Mídia') }}</a> / {{ ($tipoMidia != null && $tipoMidia->id) ? 'Edição' : 'Cadastro' }}
+            <a href="{{ route('listar-tipo-midia') }}">{{ __('Tipos de Mídia') }}</a> / Editar
         </h2>
     </x-slot>
   
