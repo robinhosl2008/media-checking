@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Usuarios;
 
 use App\Http\Requests\StoreEdicaoUsuarioRequest;
 use App\Http\Requests\StoreNovoUsuarioRequest;
-use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\DestroyUsuarioRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -57,19 +57,6 @@ class UsuarioController extends Controller
         ]);
     }
 
-    public function validaSenhaUsuario($arr)
-    {
-        $validator = Validator::make($arr, [
-            'senha' => 'required|string',
-            'confirma_senha' => 'required|string'
-        ], [
-            'senha' => ['senha', 'Informe uma senha para o usuário.'],
-            'confirma_senha' => ['confirma_senha', 'Você não informou a senha ou não são iguais.']
-        ]);
-        
-        return $validator;
-    }
-
     public function salvarCriacao(StoreNovoUsuarioRequest $request)
     {
         $validator = $request->validated();
@@ -100,8 +87,11 @@ class UsuarioController extends Controller
         // Envio para o método proc salvar o usuário.
     }
 
-    public function remover(Request $request)
+    public function remover(DestroyUsuarioRequest $request)
     {
-        dd($request->all());
+        $validator = $request->validated();
+
+        
+        dd($validator);
     }
 }
