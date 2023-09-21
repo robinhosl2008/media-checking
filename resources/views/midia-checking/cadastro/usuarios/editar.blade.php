@@ -8,12 +8,6 @@
         </h2>
     </x-slot>
 
-            <?php
-            // echo "<pre>";
-            // print_r($errors->all());
-            // echo "</pre>";
-            // exit();
-            ?>
     @if ($errors->any() && is_array($errors->all()[0]))
     <div class="alert alert-danger">
         <ul>
@@ -27,12 +21,7 @@
         </ul>
     </div>
     @endif
-<?php
-// echo "<pre>";
-// print_r($usuario);
-// echo "</pre>";
-// exit();
-?>
+
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -97,7 +86,7 @@
 
                         <div class="mt-3 row">  
                             <div class="col-12 btn-rigth">
-                                <button type="button" class="btn btn-sm btn-secondary" onclick="window.history.back();">Voltar</button>
+                                <a href="{{ route('listar-usuario') }}" class="btn btn-sm btn-secondary">Voltar</a>
                                 <button type="submit" class="btn btn-sm btn-laranja">Salvar</button>
                             </div>
                         </div>

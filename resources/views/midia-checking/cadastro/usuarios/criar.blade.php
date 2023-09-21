@@ -74,7 +74,7 @@
 
                         <div class="mt-3 row">  
                             <div class="col-12 btn-rigth">
-                                <button type="button" class="btn btn-sm btn-secondary" onclick="window.history.back();">Voltar</button>
+                                <a href="{{ route('listar-usuario') }}" class="btn btn-sm btn-secondary">Voltar</a>
                                 <button type="submit" class="btn btn-sm btn-laranja">Salvar</button>
                             </div>
                         </div>
