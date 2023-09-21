@@ -36,7 +36,7 @@ class StoreTipoMidiaRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'nome' => ['nome', 'O nome do tipo de mídia deve ser informado.']
+            'nome' => ['nome', 'O nome do tipo de mídia deve ser informado e ter no mínimo 3 caracteres.']
         ];
     }
 }

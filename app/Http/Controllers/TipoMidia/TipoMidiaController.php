@@ -7,6 +7,7 @@ use App\Http\Requests\StoreTipoMidiaRequest;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Services\Proc;
+use Illuminate\Http\RedirectResponse;
 
 class TipoMidiaController extends Controller
 {
@@ -20,7 +21,7 @@ class TipoMidiaController extends Controller
     public function buscar(Request $request)
     {
         $params = [
-            'tipo_midia_id'   => ($request->tipo_midia_id) ?? '',
+            'id'   => ($request->tipo_midia_id) ?? '',
             'descricao'     => ($request->descricao) ?? ''
         ];
         
@@ -36,9 +37,16 @@ class TipoMidiaController extends Controller
         ]);
     }
 
-    public function form(): View
+    public function form(Request $request): View
     {
-        return view('midia-checking.cadastro.tipos-midia.form');
+        $tipoMidia = null;
+        if ($request->id) {
+            $tipoMidia = $this->buscar($request)->first();
+        }
+
+        return view('midia-checking.cadastro.tipos-midia.form', [
+            'tipoMidia' => $tipoMidia
+        ]);
     }
 
     public function salvar(StoreTipoMidiaRequest $request)
@@ -46,5 +54,15 @@ class TipoMidiaController extends Controller
         $validated = $request->validated();
 
         dd($validated);
+    }
+
+    public function editar(Request $request): RedirectResponse
+    {
+        return redirect()->route('listar-tipo-midia');
+    }
+
+    public function remover(Request $request): RedirectResponse
+    {
+        return redirect()->route('listar-tipo-midia');
     }
 }

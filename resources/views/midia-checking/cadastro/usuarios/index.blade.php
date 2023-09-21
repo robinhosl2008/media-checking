@@ -14,24 +14,8 @@
     </x-slot>
   
     <!-- Modal -->
-    <div class="modal fade" id="confirm-modal" tabindex="-1" aria-labelledby="confirm-modalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="confirm-modalLabel">Confirme sua ação</h5>
-                    <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
-                </div>
-                <div class="modal-body">
-                    
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
-                    <button type="button" class="btn btn-primary btn-sim btn-laranja">Sim</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
+    <x-confirm></x-confirm>
+    
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -67,7 +51,7 @@
                                                 <input type="hidden" name="id" value="{{ $usuario->id }}">
                                                 <button type="button" class="btn btn-sm btn-secondary" title="Remover"  data-bs-toggle="modal" data-bs-target="#confirm-modal"
                                                 onclick="confirm.exibeModalConfirme(
-                                                    'Tem certeza que deseja remover o usuário {{ addslashes($usuario->name) }}?', 
+                                                    `Tem certeza que deseja remover o usuário '{{ addslashes($usuario->name) }}'?`, 
                                                     this.form
                                                 );">
                                                     <i class="bi-x"></i>

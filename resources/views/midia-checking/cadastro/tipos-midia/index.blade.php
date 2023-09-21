@@ -2,12 +2,20 @@
     <link rel="stylesheet" href="{{ asset('css/midia-checking/layout.css') }}">
     <link rel="stylesheet" href="{{ asset('css/datatable/jquery.dataTables.min.css') }}">
 
+    <script src="{{ asset('js/utils/confirm.js') }}"></script>
+    <script>
+        const confirm = new Confirm();
+    </script>
+
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Tipos de Mídia') }}
         </h2>
     </x-slot>
-  
+   
+    <!-- Modal -->
+    <x-confirm></x-confirm>
+
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -32,8 +40,21 @@
                                     <td>{{ $tipoMidia->created_at }}</td>
                                     <td class="text-center">
                                         <div class="btn-group" role="group" aria-label="Grupo de Ações">
-                                            <button type="button" class="btn btn-sm btn-secondary" title="Editar"><i class="bi-pen"></i></button>
-                                            <button type="button" class="btn btn-sm btn-secondary" title="Remover"><i class="bi-x"></i></button>
+                                            <a href="{{ route('form-tipo-midia', ['id' => $tipoMidia->id]) }}" class="btn btn-sm btn-secondary" title="Editar">
+                                                <i class="bi-pen"></i>
+                                            </a>
+                                            <form action="{{ route('remover-tipo-midia') }}" method="post">
+                                                @csrf
+                                                <input type="hidden" name="_method" value="delete"/>
+                                                <input type="hidden" name="id" value="{{ $tipoMidia->id }}">
+                                                <button type="button" class="btn btn-sm btn-secondary" title="Remover"  data-bs-toggle="modal" data-bs-target="#confirm-modal"
+                                                onclick="confirm.exibeModalConfirme(
+                                                    `Tem certeza que deseja remover o tipo de mídia '{{ addslashes($tipoMidia->descricao) }}'?`, 
+                                                    this.form
+                                                );">
+                                                    <i class="bi-x"></i>
+                                                </button>
+                                            </form>
                                         </div>
                                     </td>
                                 </tr>

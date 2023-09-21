@@ -50,10 +50,10 @@ Route::middleware('auth')->group(function () {
 
     // Cadastro/Tipos de Mídia
     Route::get('/cadastro/tipo-midia', [TipoMidiaController::class, 'listar'])->name('listar-tipo-midia');
-    Route::get('/cadastro/tipo-midia/form', [TipoMidiaController::class, 'form'])->name('form-tipo-midia');
-    Route::post('/cadastro/tipo-midia/salvar', [TipoMidiaController::class, 'salvar'])->name('salvar-tipo-midia');
-    Route::get('/cadastro/tipo-midia/{id}/editar', [TipoMidiaController::class, 'update'])->name('editar-tipo-midia');
-    Route::get('/cadastro/tipo-midia/{id}/remover', [TipoMidiaController::class, 'destroy'])->name('remover-tipo-midia');
+    Route::get('/cadastro/tipo-midia/form/{id?}', [TipoMidiaController::class, 'form'])->name('form-tipo-midia');
+    Route::post('/cadastro/tipo-midia/salvar-novo', [TipoMidiaController::class, 'salvar'])->name('salvar-novo-tipo-midia');
+    Route::put('/cadastro/tipo-midia/salvar-edicao', [TipoMidiaController::class, 'editar'])->name('salvar-edicao-tipo-midia');
+    Route::delete('/cadastro/tipo-midia/remover', [TipoMidiaController::class, 'remover'])->name('remover-tipo-midia');
 
     // Cadastro/Verticais
     Route::get('/cadastro/verticais', [VerticalController::class, 'listar'])->name('listar-verticais');
