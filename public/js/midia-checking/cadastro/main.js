@@ -1,6 +1,4 @@
 window.onload = function() {
-    const usuario = new Usuario();
-
     let tabela = document.getElementById('myTable');
 
     if (tabela)
@@ -25,16 +23,12 @@ window.onload = function() {
         });
     }
 
-    let usuarioId = usuario.buscaIdUsuario();
-    let inputsTrocaSenha = document.querySelectorAll('div.input-troca-senha');
-    if (!usuarioId) {
-        exibirInputs(inputs);
-    }
-
     let checkboxTrocaSenha = document.getElementById('troca_senha');
 
     if (checkboxTrocaSenha) {
         checkboxTrocaSenha.addEventListener('click', function() {
+            let inputsTrocaSenha = document.querySelectorAll('div.input-troca-senha');
+            
             if (checkboxTrocaSenha.checked) {
                 exibirInputs(inputsTrocaSenha);
             } else if (!checkboxTrocaSenha.checked) {

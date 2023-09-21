@@ -27,7 +27,7 @@ class TipoMidiaController extends Controller
         return $this->proc->buscaTiposMidia($params)->get();
     }
 
-    public function show(Request $request): View
+    public function listar(Request $request): View
     {
         $tiposMidia = $this->buscar($request);
 

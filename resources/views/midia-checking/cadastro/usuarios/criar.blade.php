@@ -86,4 +86,12 @@
 
     <script src="{{ asset('js/midia-checking/cadastro/usuario.js') }}"></script>
     <script src="{{ asset('js/midia-checking/cadastro/main.js') }}"></script>
+
+    <script>
+        const usuario = new Usuario();
+        let usuarioId = usuario.buscaIdUsuario();
+        if (!usuarioId) {
+            exibirInputs(inputs);
+        }
+    </script>
 </x-app-layout>
