@@ -21,14 +21,15 @@ class Vertical extends CRUD
      */
     public function buscar($params = [])
     {
-        $id          = ($params['id']) ? $params['id'] : '';
-        $tipo_midia  = ($params['tipo_midia_id']) ? $params['tipo_midia_id'] : '';
-        $descricao   = ($params['descricao']) ? $params['descricao'] : '';
+        $id          = (array_key_exists('id', $params) && $params['id']) ? $params['id'] : '';
+        $tipo_midia  = (array_key_exists('tipo_midia_id', $params) && $params['tipo_midia_id']) ? $params['tipo_midia_id'] : '';
+        $descricao   = (array_key_exists('descricao', $params) && $params['descricao']) ? $params['descricao'] : '';
 
         $this->model = ($id) ? $this->model->where('id', '=', $id) : $this->model;
         $this->model = ($tipo_midia) ? $this->model->where('tipo_midia_id', 'LIKE', "%{$tipo_midia}%") : $this->model;
         $this->model = ($descricao) ? $this->model->where('descricao', 'LIKE', "%{$descricao}%") : $this->model;
-        
+        $this->model = $this->model->orderByDesc('id');
+
         return $this->model;
     }
 

@@ -26,6 +26,7 @@ class TipoMidia extends CRUD
         
         $this->model = ($id) ? $this->model->where('id', '=', $id) : $this->model;
         $this->model = ($descricao)   ? $this->model->where('descricao', 'LIKE', "%{$descricao}%") : $this->model;
+        $this->model = $this->model->orderByDesc('id');
         
         return $this->model;
     }

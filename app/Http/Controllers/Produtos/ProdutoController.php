@@ -2,22 +2,33 @@
 
 namespace App\Http\Controllers\Produtos;
 
-use App\Http\Requests\Produto\EditarProdutoRequest;
-use App\Http\Requests\Produto\SalvarProdutoRequest;
-use App\Http\Requests\Produto\RemoverProdutoRequest;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
+use App\Services\{
+    ProcProduto,
+    ProcVertical
+};
+use App\Http\Requests\Produto\{
+    EditarProdutoRequest,
+    SalvarProdutoRequest,
+    RemoverProdutoRequest
+};
+use Illuminate\Http\{
+    RedirectResponse,
+    Request
+};
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
-use App\Services\Proc;
+use Exception;
 
 class ProdutoController extends Controller
 {
-    private Proc $proc;
+    private ProcProduto $proc;
+    private ProcVertical $procVertical;
 
     public function __construct()
     {
-        $this->proc = new Proc();
+        $this->proc = new ProcProduto();
+        $this->procVertical = new ProcVertical();
     }
 
     public function buscar(Request $request)
@@ -29,7 +40,7 @@ class ProdutoController extends Controller
             'descricao'     => ($request->descricao) ?? ''
         ];
         
-        return $this->proc->buscaProdutos($params)->get();
+        return $this->proc->buscar($params)->get();
     }
 
     public function listar(Request $request): View
@@ -43,7 +54,7 @@ class ProdutoController extends Controller
 
     public function criar(): View
     {
-        $verticais = $this->proc->buscaVerticais()->get();
+        $verticais = $this->procVertical->buscar([])->get();
         
         return view('midia-checking.cadastro.produtos.criar', [
             'verticais' => $verticais
@@ -53,7 +64,7 @@ class ProdutoController extends Controller
     public function editar(Request $request): View
     {
         $produto = $this->buscar($request)->first();
-        $verticais = $this->proc->buscaVerticais()->get();
+        $verticais = $this->procVertical->buscar()->get();
         
         return view('midia-checking.cadastro.produtos.editar', [
             'produto' => $produto,
@@ -65,23 +76,68 @@ class ProdutoController extends Controller
     {
         $validated = $request->validated();
 
-        // dd($validated);
-        return redirect('/cadastro/produtos')->with('msg', 'Produto cadastrado.');
+        try {
+            DB::beginTransaction();
+
+            $this->proc->salvarProduto($validated);
+
+            DB::commit();
+
+            return redirect('/cadastro/produtos')
+                ->with('typeMessage', 'success')
+                ->with('msg', 'Produto cadastrado.');
+        } catch(Exception $e) {
+            DB::rollBack();
+
+            return redirect('/cadastro/produtos')
+                ->with('typeMessage', 'warning')
+                ->with('msg', 'Um erro ocorreu ao tentar salvar o produto. ' . $e->getMessage());
+        }
     }
 
     public function salvarEdicao(EditarProdutoRequest $request): RedirectResponse
     {
         $validated = $request->validated();
 
-        // dd($validated);
-        return redirect('/cadastro/produtos')->with('msg', 'Produto atualizado.');
+        try {
+            DB::beginTransaction();
+
+            $this->proc->editaProduto($validated);
+
+            DB::commit();
+
+            return redirect('/cadastro/produtos')
+                ->with('typeMessage', 'success')
+                ->with('msg', 'Produto editado.');
+        } catch(Exception $e) {
+            DB::rollBack();
+
+            return redirect('/cadastro/produtos')
+                ->with('typeMessage', 'warning')
+                ->with('msg', 'Um erro ocorreu ao tentar editar o produto. ' . $e->getMessage());
+        }
     }
 
     public function removerProduto(RemoverProdutoRequest $request): RedirectResponse
     {
         $validated = $request->validated();
 
-        // dd($validated);
-        return redirect('/cadastro/produtos')->with('msg', 'Produto removido.');
+        try {
+            DB::beginTransaction();
+
+            $this->proc->removeProduto($validated);
+
+            DB::commit();
+
+            return redirect('/cadastro/produtos')
+                ->with('typeMessage', 'success')
+                ->with('msg', 'Produto excluido.');
+        } catch(Exception $e) {
+            DB::rollBack();
+
+            return redirect('/cadastro/produtos')
+                ->with('typeMessage', 'warning')
+                ->with('msg', 'Um erro ocorreu ao tentar excluir o produto. ' . $e->getMessage());
+        }
     }
 }
