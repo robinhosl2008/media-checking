@@ -14,7 +14,7 @@
     </x-slot>
     
     @if (session('msg'))
-        <div class="alert alert-success">
+        <div class="alert alert-{{session('typeMessage')}}">
             {{ session('msg') }}
         </div>
 

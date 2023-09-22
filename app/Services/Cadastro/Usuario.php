@@ -41,9 +41,8 @@ class Usuario extends CRUD
         $this->model->name      = $nome;
         $this->model->email     = $email;
         $this->model->password  = $senha;
-        $status = $this->model->save();
 
-        if (!$status) {
+        if (!$this->model->save()) {
             throw new Exception('Um erro ocorreu ao tentar salvar o novo usuário.', 1);
         }
     }
