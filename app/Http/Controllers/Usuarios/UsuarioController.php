@@ -59,36 +59,25 @@ class UsuarioController extends Controller
 
     public function salvarCriacao(SalvarUsuarioRequest $request)
     {
-        $validator = $request->validated();
-        
-        dd($validator);
-        
-        
+        $validated = $request->validated();
 
-        // Valido as informações com o Laravel.
-
-
-        // Envio para o método proc salvar o usuário.
+        // dd($validated);
+        return redirect('/cadastro/usuario')->with('msg', 'Usuário cadastrado.');
     }
 
     public function salvarEdicao(EditarUsuarioRequest $request)
     {
-        $validator = $request->validated();
+        $validated = $request->validated();
 
-        dd($validator);
-        
-        
-
-        // Valido as informações com o Laravel.
-
-
-        // Envio para o método proc salvar o usuário.
+        // dd($validated);
+        return redirect('/cadastro/usuario')->with('msg', 'Usuário editado.');
     }
 
     public function remover(RemoverUsuarioRequest $request)
     {
-        $validator = $request->validated();
+        $validated = $request->validated();
 
-        dd($validator);
+        // dd($validated);
+        return redirect('/cadastro/usuario')->with('msg', 'Usuário removido.');
     }
 }

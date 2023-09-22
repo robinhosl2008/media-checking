@@ -12,6 +12,18 @@
             {{ __('Verticais') }}
         </h2>
     </x-slot>
+    
+    @if (session('msg'))
+        <div class="alert alert-success">
+            {{ session('msg') }}
+        </div>
+
+        <script>
+            setTimeout(() => {
+                document.querySelector('.alert').style.display = 'none';
+            }, 5000);
+        </script>
+    @endif
 
     <x-confirm></x-confirm>
   

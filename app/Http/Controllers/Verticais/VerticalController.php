@@ -69,20 +69,23 @@ class VerticalController extends Controller
     {
         $validated = $request->validated();
 
-        dd($validated);
+        // dd($validated);
+        return redirect('/cadastro/verticais')->with('msg', 'Vertical cadastrada.');
     }
 
     public function salvarEdicao(EditarVerticalRequest $request): RedirectResponse
     {
         $validated = $request->validated();
 
-        dd($validated);
+        // dd($validated);
+        return redirect('/cadastro/verticais')->with('msg', 'Vertical editada.');
     }
 
     public function removerVertical(RemoverVerticalRequest $request): RedirectResponse
     {
         $validated = $request->validated();
 
-        return redirect()->route('listar-verticais');
+        // dd($validated);
+        return redirect('/cadastro/verticais')->with('msg', 'Vertical removida.');
     }
 }

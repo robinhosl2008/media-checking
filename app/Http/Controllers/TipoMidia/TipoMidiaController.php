@@ -64,20 +64,23 @@ class TipoMidiaController extends Controller
     {
         $validated = $request->validated();
 
-        dd($validated);
+        // dd($validated);
+        return redirect('/cadastro/tipo-mida')->with('msg', 'Tipo de mídia cadastrado.');
     }
 
     public function salvarEdicao(EditarTipoMidiaRequest $request): RedirectResponse
     {
         $validated = $request->validated();
 
-        return redirect()->route('listar-tipo-midia');
+        // dd($validated);
+        return redirect('/cadastro/tipo-mida')->with('msg', 'Tipo de mídia atualizado.');
     }
 
     public function removerTipoMidia(RemoverTipoMidiaRequest $request): RedirectResponse
     {
         $validated = $request->validated();
 
-        return redirect()->route('listar-tipo-midia');
+        // dd($validated);
+        return redirect('/cadastro/tipo-mida')->with('msg', 'Tipo de mídia removido.');
     }
 }

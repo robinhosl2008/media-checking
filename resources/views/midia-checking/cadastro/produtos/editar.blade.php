@@ -33,6 +33,8 @@
                     <form action="{{ route('salvar-edicao-produtos') }}" method="post">
                         @csrf
                         @method('PUT')
+
+                        <input type="hidden" name="id" value="{{ (old('id')) ? old('id') : ($produto->id) ?? '' }}">
                         
                         <div class="row">  
                             <div class="col-8">

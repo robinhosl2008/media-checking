@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Produtos;
 
-use App\Http\Controllers\Controller;
+use App\Http\Requests\Produto\EditarProdutoRequest;
 use App\Http\Requests\Produto\SalvarProdutoRequest;
-use App\Http\Requests\StoreProdutoRequest;
+use App\Http\Requests\Produto\RemoverProdutoRequest;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Services\Proc;
@@ -59,10 +61,27 @@ class ProdutoController extends Controller
         ]);
     }
 
-    public function salvarCriacao(SalvarProdutoRequest $request)
+    public function salvarCriacao(SalvarProdutoRequest $request): RedirectResponse
     {
         $validated = $request->validated();
 
-        dd($validated);
+        // dd($validated);
+        return redirect('/cadastro/produtos')->with('msg', 'Produto cadastrado.');
+    }
+
+    public function salvarEdicao(EditarProdutoRequest $request): RedirectResponse
+    {
+        $validated = $request->validated();
+
+        // dd($validated);
+        return redirect('/cadastro/produtos')->with('msg', 'Produto atualizado.');
+    }
+
+    public function removerProduto(RemoverProdutoRequest $request): RedirectResponse
+    {
+        $validated = $request->validated();
+
+        // dd($validated);
+        return redirect('/cadastro/produtos')->with('msg', 'Produto removido.');
     }
 }
