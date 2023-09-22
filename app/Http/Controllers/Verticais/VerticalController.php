@@ -2,22 +2,31 @@
 
 namespace App\Http\Controllers\Verticais;
 
-use App\Http\Requests\Vertical\SalvarVerticalRequest;
-use App\Http\Requests\Vertical\EditarVerticalRequest;
-use App\Http\Requests\Vertical\RemoverVerticalRequest;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
+use App\Services\ProcTipoMidia;
+use App\Services\ProcVertical;
+use App\Http\Requests\Vertical\{
+    SalvarVerticalRequest,
+    EditarVerticalRequest,
+    RemoverVerticalRequest
+};
+use Illuminate\Http\{
+    RedirectResponse,
+    Request
+};
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
-use App\Services\Proc;
+use Exception;
 
 class VerticalController extends Controller
 {
-    private Proc $proc;
+    private ProcVertical $proc;
+    private ProcTipoMidia $procTipoMidia;
 
     public function __construct()
     {
-        $this->proc = new Proc();
+        $this->proc = new ProcVertical();
+        $this->procTipoMidia = new ProcTipoMidia();
     }
 
     public function buscar(Request $request)
@@ -28,7 +37,7 @@ class VerticalController extends Controller
             'descricao'     => ($request->descricao) ?? ''
         ];
         
-        return $this->proc->buscaVerticais($params)->get();
+        return $this->proc->buscar($params)->get();
     }
 
     public function listar(Request $request): View
@@ -42,7 +51,7 @@ class VerticalController extends Controller
 
     public function criar(): View
     {
-        $tiposMidia = $this->proc->buscaTiposMidia()->get();
+        $tiposMidia = $this->procTipoMidia->buscar()->get();
 
         return view('midia-checking.cadastro.verticais.criar', [
             'tiposMidia' => $tiposMidia,
@@ -57,7 +66,7 @@ class VerticalController extends Controller
             $vertical = $this->buscar($request)->first();
         }
 
-        $tiposMidia = $this->proc->buscaTiposMidia([])->get();
+        $tiposMidia = $this->procTipoMidia->buscar()->get();
 
         return view('midia-checking.cadastro.verticais.editar', [
             'tiposMidia' => $tiposMidia,
@@ -69,16 +78,46 @@ class VerticalController extends Controller
     {
         $validated = $request->validated();
 
-        // dd($validated);
-        return redirect('/cadastro/verticais')->with('msg', 'Vertical cadastrada.');
+        try {
+            DB::beginTransaction();
+
+            $this->proc->salvarVertical($validated);
+
+            DB::commit();
+
+            return redirect('/cadastro/verticais')
+                ->with('typeMessage', 'success')
+                ->with('msg', 'Vertical cadastrada.');
+        } catch(Exception $e) {
+            DB::rollBack();
+
+            return redirect('/cadastro/verticais')
+                ->with('typeMessage', 'warning')
+                ->with('msg', 'Um erro ocorreu ao tentar salvar a vertical. ' . $e->getMessage());
+        }
     }
 
     public function salvarEdicao(EditarVerticalRequest $request): RedirectResponse
     {
         $validated = $request->validated();
 
-        // dd($validated);
-        return redirect('/cadastro/verticais')->with('msg', 'Vertical editada.');
+        try {
+            DB::beginTransaction();
+
+            $this->proc->editaVertical($validated);
+
+            DB::commit();
+
+            return redirect('/cadastro/verticais')
+                ->with('typeMessage', 'success')
+                ->with('msg', 'Vertical editada.');
+        } catch(Exception $e) {
+            DB::rollBack();
+
+            return redirect('/cadastro/verticais')
+                ->with('typeMessage', 'warning')
+                ->with('msg', 'Um erro ocorreu ao tentar editar a vertical. ' . $e->getMessage());
+        }
     }
 
     public function removerVertical(RemoverVerticalRequest $request): RedirectResponse

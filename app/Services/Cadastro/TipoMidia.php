@@ -24,7 +24,6 @@ class TipoMidia extends CRUD
         $id          = (array_key_exists('id', $params) && $params['id']) ? $params['id'] : '';
         $descricao   = (array_key_exists('descricao', $params) && $params['descricao']) ? $params['descricao'] : '';
         
-        $this->model = $this->model->where('id', '<>', 3);
         $this->model = ($id) ? $this->model->where('id', '=', $id) : $this->model;
         $this->model = ($descricao)   ? $this->model->where('descricao', 'LIKE', "%{$descricao}%") : $this->model;
         
@@ -32,7 +31,7 @@ class TipoMidia extends CRUD
     }
 
     public function salvarTipoMidia($params = [])
-    { 
+    {
         $nome = ($params['nome']) ?? throw new Exception('O nome do tipo de mídia não foi informado.', 1);
        
         $this->model->descricao = $nome;
