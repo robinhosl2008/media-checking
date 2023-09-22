@@ -25,14 +25,18 @@
         </script>
     @endif
 
-    <!-- Modal -->
+    <!-- Modal de Confirmação -->
     <x-confirm></x-confirm>
 
+    <!-- Filtro de Tipos de Mídia -->
+    <x-filtro-produto></x-filtro-produto>
+    
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="barra-lista">
-                <a href="{{ route('criar-produtos') }}" class="btn-novo-usuario btn btn-sm btn-laranja">Novo Produto</a>    
+                    <button type="button" class="btn btn-sm btn-laranja" data-bs-toggle="modal" data-bs-target="#filtroProdutos">Filtro</button>
+                    <a href="{{ route('criar-produtos') }}" class="btn-novo-usuario btn btn-sm btn-laranja">Novo Produto</a>    
                 </div>
 
                 <div class="p-6 text-gray-900">

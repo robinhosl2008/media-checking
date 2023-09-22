@@ -25,13 +25,17 @@
         </script>
     @endif
 
-    <!-- Modal -->
+    <!-- Modal de Confirmação -->
     <x-confirm></x-confirm>
 
+    <!-- Filtro de Tipos de Mídia -->
+    <x-filtro-tipo-midia></x-filtro-tipo-midia>
+    
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="barra-lista">
+                    <button type="button" class="btn btn-sm btn-laranja" data-bs-toggle="modal" data-bs-target="#filtroTipoMidia">Filtro</button>
                     <a href="{{ route('criar-tipo-midia') }}" class="btn-novo-tipo-midia btn btn-sm btn-laranja">Novo Tipo de Mídia</a>    
                 </div>
 
