@@ -63,7 +63,6 @@
 
                             @if(!is_array($usuario) && $usuario->id)
                             <div class="row" style="margin: auto;">
-                                <hr>
                                 <div class="mb-3 form-check">
                                     <label for="troca_senha" class="form-check-label">Deseja trocar a senha? </label>
                                     <input type="checkbox" name="troca_senha" id="troca_senha" class="form-check-input" {{ (old('troca_senha') == 1) ? 'checked' : '' }} value="1">

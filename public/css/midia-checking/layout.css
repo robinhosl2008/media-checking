@@ -162,7 +162,7 @@ input.form-control.erro-input {
     border: 1px solid red;
 }
 
-div.alert.alert-danger {
+div.alert {
     position: absolute;
     width: 100%;
 }

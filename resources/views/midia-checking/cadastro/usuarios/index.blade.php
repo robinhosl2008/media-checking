@@ -14,14 +14,14 @@
     </x-slot>
     
     @if (session('msg'))
-        <div class="alert alert-success">
+        <div class="alert alert-{{session('typeMessage')}}">
             {{ session('msg') }}
         </div>
 
         <script>
             setTimeout(() => {
                 document.querySelector('.alert').style.display = 'none';
-            }, 5000);
+            }, 10000);
         </script>
     @endif
 

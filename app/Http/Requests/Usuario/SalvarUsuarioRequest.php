@@ -32,7 +32,6 @@ class SalvarUsuarioRequest extends FormRequest
             'id'             => '',
             'nome'           => 'required|string',
             'email'          => 'required|email',
-            'troca_senha'    => '',
             'senha'          => 'required|string',
             'confirma_senha' => 'required|string|same:senha'
         ];

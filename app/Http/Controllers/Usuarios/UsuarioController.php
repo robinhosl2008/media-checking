@@ -6,17 +6,19 @@ use App\Http\Requests\Usuario\EditarUsuarioRequest;
 use App\Http\Requests\Usuario\SalvarUsuarioRequest;
 use App\Http\Requests\Usuario\RemoverUsuarioRequest;
 use App\Http\Controllers\Controller;
+use App\Services\ProcUsuario;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
-use App\Services\Proc;
+use Exception;
 
 class UsuarioController extends Controller
 {
-    private Proc $proc;
+    private ProcUsuario $proc;
 
     public function __construct()
     {
-        $this->proc = new Proc();
+        $this->proc = new ProcUsuario();
     }
 
     public function buscar(Request $request)
@@ -61,23 +63,68 @@ class UsuarioController extends Controller
     {
         $validated = $request->validated();
 
-        // dd($validated);
-        return redirect('/cadastro/usuario')->with('msg', 'Usuário cadastrado.');
+        try {
+            DB::beginTransaction();
+
+            $this->proc->salvarUsuario($validated);
+
+            DB::commit();
+
+            return redirect('/cadastro/usuario')
+                ->with('typeMessage', 'success')
+                ->with('msg', 'Usuário cadastrado.');
+        } catch(Exception $e) {
+            DB::rollBack();
+
+            return redirect('/cadastro/usuario')
+                ->with('typeMessage', 'warning')
+                ->with('msg', 'Um erro ocorreu ao salvar o novo usuário. ' . $e->getMessage());
+        }
     }
 
     public function salvarEdicao(EditarUsuarioRequest $request)
     {
         $validated = $request->validated();
 
-        // dd($validated);
-        return redirect('/cadastro/usuario')->with('msg', 'Usuário editado.');
+        try {
+            DB::beginTransaction();
+
+            $this->proc->editaUsuario($validated);
+
+            DB::commit();
+
+            return redirect('/cadastro/usuario')
+                ->with('typeMessage', 'success')
+                ->with('msg', 'Usuário editado.');
+        } catch(Exception $e) {
+            DB::rollBack();
+
+            return redirect('/cadastro/usuario')
+                ->with('typeMessage', 'warning')
+                ->with('msg', 'Um erro ocorreu ao tentar editar o usuário. ' . $e->getMessage());
+        }
     }
 
     public function remover(RemoverUsuarioRequest $request)
     {
         $validated = $request->validated();
 
-        // dd($validated);
-        return redirect('/cadastro/usuario')->with('msg', 'Usuário removido.');
+        try {
+            DB::beginTransaction();
+
+            $this->proc->removeUsuario($validated);
+
+            DB::commit();
+
+            return redirect('/cadastro/usuario')
+                ->with('typeMessage', 'success')
+                ->with('msg', 'Usuário removido.');
+        } catch(Exception $e) {
+            DB::rollBack();
+            
+            return redirect('/cadastro/usuario')
+                ->with('typeMessage', 'success')
+                ->with('msg', 'Usuário removido.');
+        }
     }
 }
