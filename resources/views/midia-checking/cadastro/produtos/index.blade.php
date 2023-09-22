@@ -59,7 +59,7 @@
                                     <td class="text-center">{{ $produto->visual_lar }}</td>
                                     <td class="text-center">{{ $produto->visual_alt }}</td>
                                     <td class="text-center">{{ $produto->vertical->descricao }}</td>
-                                    <td class="text-center">{{ $produto->created_at }}</td>
+                                    <td class="text-center">{{ DateTime::createFromFormat('Y-m-d H:m:s', $produto->created_at)->format("d/m/Y") }}</td>
                                     <td class="text-center">
                                         <div class="btn-group" role="group" aria-label="Grupo de Ações">
                                             <a href="{{ route('editar-produtos', ['id' => $produto->id]) }}" class="btn btn-sm btn-secondary" title="Editar">

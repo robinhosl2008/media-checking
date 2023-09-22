@@ -32,6 +32,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="barra-lista">
+                    <button type="button" class="btn btn-sm btn-laranja">Filtro</button>
                     <a href="{{ route('criar-usuario') }}" class="btn-novo-usuario btn btn-sm btn-laranja">Novo Usuário</a>    
                 </div>
 
@@ -51,7 +52,7 @@
                                 <tr>
                                     <td>{{ $usuario->name }}</td>
                                     <td>{{ $usuario->email }}</td>
-                                    <td>{{ $usuario->created_at }}</td>
+                                    <td>{{ DateTime::createFromFormat('Y-m-d H:m:s', $usuario->created_at)->format("d/m/Y") }}</td>
                                     <td class="text-center">
                                         <div class="btn-group" role="group" aria-label="Grupo de Ações">
                                             <a href="{{ route('editar-usuario', ['id' => $usuario->id]) }}" class="btn btn-sm btn-secondary" title="Editar">

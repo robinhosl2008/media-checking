@@ -49,7 +49,7 @@
                                 @forelse($tiposMidia as $tipoMidia)
                                 <tr>
                                     <td>{{ $tipoMidia->descricao }}</td>
-                                    <td>{{ $tipoMidia->created_at }}</td>
+                                    <td>{{ DateTime::createFromFormat('Y-m-d H:m:s', $tipoMidia->created_at)->format("d/m/Y") }}</td>
                                     <td class="text-center">
                                         <div class="btn-group" role="group" aria-label="Grupo de Ações">
                                             <a href="{{ route('editar-tipo-midia', ['id' => $tipoMidia->id]) }}" class="btn btn-sm btn-secondary" title="Editar">

@@ -50,7 +50,7 @@
                                 <tr>
                                     <td>{{ $vertical->descricao }}</td>
                                     <td>{{ $vertical->tipoMidia->descricao }}</td>
-                                    <td>{{ $vertical->created_at }}</td>
+                                    <td>{{ DateTime::createFromFormat('Y-m-d H:m:s', $vertical->created_at)->format("d/m/Y") }}</td>
                                     <td class="text-center">
                                         <div class="btn-group" role="group" aria-label="Grupo de Ações">
                                             <a href="{{ route('editar-verticais', ['id' => $vertical->id]) }}" class="btn btn-sm btn-secondary" title="Editar">
