@@ -124,7 +124,22 @@ class VerticalController extends Controller
     {
         $validated = $request->validated();
 
-        // dd($validated);
-        return redirect('/cadastro/verticais')->with('msg', 'Vertical removida.');
+        try {
+            DB::beginTransaction();
+
+            $this->proc->removeVertical($validated);
+
+            DB::commit();
+
+            return redirect('/cadastro/verticais')
+                ->with('typeMessage', 'success')
+                ->with('msg', 'Vertical removida.');
+        } catch(Exception $e) {
+            DB::rollBack();
+
+            return redirect('/cadastro/verticais')
+                ->with('typeMessage', 'warning')
+                ->with('msg', 'Um erro ocorreu ao tentar remover a vertical. ' . $e->getMessage());
+        }
     }
 }
