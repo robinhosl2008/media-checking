@@ -26,10 +26,21 @@ class UsuarioController extends Controller
         $params = [
             'id'    => ($request->id) ?? '',
             'nome'  => ($request->nome) ?? '',
-            'email' => ($request->email) ?? ''
+            'email' => ($request->email) ?? '',
+            'dt_inicio' => ($request->dt_inicio) ?? '',
+            'dt_fim' => ($request->dt_fim) ?? '',
         ];
-        
-        return $this->proc->buscarUsuarios($params)->get();
+
+        $usuarios = $this->proc->buscarUsuarios($params)->get();
+
+        if ($request->getMethod() == 'POST') {
+            return view('midia-checking.cadastro.usuarios.index', [
+                'usuarios' => $usuarios,
+                'params' => $params
+            ]);
+        } else {
+            return $usuarios;
+        }
     }
 
     public function listar(Request $request): View
@@ -37,7 +48,8 @@ class UsuarioController extends Controller
         $usuarios = $this->buscar($request);
 
         return view('midia-checking.cadastro.usuarios.index', [
-            'usuarios' => $usuarios
+            'usuarios' => $usuarios,
+            'params' => []
         ]);
     }
 

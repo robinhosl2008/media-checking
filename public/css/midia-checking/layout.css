@@ -21,6 +21,11 @@ button.laranja,
     color: white !important;
 }
 
+button.laranja,
+.btn-laranja:hover {
+    background-color: white;
+}
+
 nav.laranja .menu a {
     text-decoration: none;
     color: white;

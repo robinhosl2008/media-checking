@@ -1,7 +1,7 @@
 window.onload = function() {
     let tabela = document.getElementById('myTable');
 
-    if (tabela)
+    if (tabela && tabela.children[1].children.length > 1)
         new DataTable('#myTable', {
             searching: false,
             ordering:  false

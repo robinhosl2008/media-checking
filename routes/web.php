@@ -42,6 +42,7 @@ Route::middleware('auth')->group(function () {
 
     // Cadastro/Usuários
     Route::get('/cadastro/usuario', [UsuarioController::class, 'listar'])->name('listar-usuario');
+    Route::post('/cadastro/usuario', [UsuarioController::class, 'buscar'])->name('buscar-usuario');
     Route::get('/cadastro/usuario/criar', [UsuarioController::class, 'criar'])->name('criar-usuario');
     Route::get('/cadastro/usuario/{id}/editar', [UsuarioController::class, 'editar'])->name('editar-usuario');
     Route::post('/cadastro/usuario/salvar-criacao', [UsuarioController::class, 'salvarCriacao'])->name('salvar-criacao-usuario');

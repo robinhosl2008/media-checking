@@ -19,9 +19,16 @@ class Usuario extends CRUD
         $id             = ((int) $params['id']) ?? '';
         $usuario_nome   = ($params['nome']) ?? '';
         $usuario_email  = ($params['email']) ?? '';
+        $dt_inicio      = ($params['dt_inicio']) ?? '';
+        $dt_fim         = ($params['dt_fim']) ?? '';
 
-        if($id){
+        if ($id){
             $this->model = $this->model->where('id', '=', $id);
+        }
+
+        if ($dt_inicio && $dt_fim) {
+            $this->model = $this->model->where('created_at', '>', $dt_inicio);
+            $this->model = $this->model->where('created_at', '<', $dt_fim);
         }
 
         $this->model = ($usuario_nome) ? $this->model->where('name', 'LIKE', "%{$usuario_nome}%") : $this->model;

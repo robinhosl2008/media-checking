@@ -2,9 +2,10 @@
 
 namespace App\Services;
 
+use App\Helpers\Data;
 use App\Services\Cadastro\Usuario;
 
-class ProcUsuario
+class ProcUsuario extends Data
 {
     private Usuario $usuario;
 
