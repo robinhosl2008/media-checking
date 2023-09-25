@@ -33,11 +33,24 @@ class VerticalController extends Controller
     {
         $params = [
             'id'            => ($request->id) ?? '',
-            'tipo_midia_id' => ($request->tipo_midia_id) ?? '',
-            'descricao'     => ($request->descricao) ?? ''
+            'tipo_midia_id' => ($request->tipo_midia) ?? '',
+            'descricao'     => ($request->nome) ?? '',
+            'dt_inicio'     => ($request->dt_inicio) ?? '',
+            'dt_fim'        => ($request->dt_fim) ?? ''
         ];
         
-        return $this->proc->buscar($params)->get();
+        $verticais = $this->proc->buscar($params)->get();
+        $tiposMidia = $this->procTipoMidia->buscar()->get();
+
+        if ($request->getMethod() == 'POST') {
+            return view('midia-checking.cadastro.verticais.index', [
+                'verticais' => $verticais,
+                'tiposMidia' => $tiposMidia,
+                'params' => $params
+            ]);
+        } else {
+            return $verticais;
+        }
     }
 
     public function listar(Request $request): View
@@ -47,7 +60,8 @@ class VerticalController extends Controller
 
         return view('midia-checking.cadastro.verticais.index', [
             'verticais' => $verticais,
-            'tiposMidia' => $tiposMidia
+            'tiposMidia' => $tiposMidia,
+            'params' => []
         ]);
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Services\Cadastro;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Services\CRUD;
 use App\Models\User;
@@ -16,23 +17,26 @@ class Usuario extends CRUD
 
     public function buscar($params = [])
     {
-        $id             = ((int) $params['id']) ?? '';
-        $usuario_nome   = ($params['nome']) ?? '';
-        $usuario_email  = ($params['email']) ?? '';
-        $dt_inicio      = ($params['dt_inicio']) ?? '';
-        $dt_fim         = ($params['dt_fim']) ?? '';
+        $id         = ((int) $params['id']) ?? '';
+        $nome       = ($params['nome']) ?? '';
+        $email      = ($params['email']) ?? '';
+        $dt_inicio  = ($params['dt_inicio']) ?? '';
+        $dt_fim     = ($params['dt_fim']) ?? '';
 
         if ($id){
             $this->model = $this->model->where('id', '=', $id);
         }
 
-        if ($dt_inicio && $dt_fim) {
-            $this->model = $this->model->where('created_at', '>', $dt_inicio);
-            $this->model = $this->model->where('created_at', '<', $dt_fim);
+        if ($dt_inicio) {
+            $this->model = $this->model->where('created_at', '>=', $dt_inicio);
         }
 
-        $this->model = ($usuario_nome) ? $this->model->where('name', 'LIKE', "%{$usuario_nome}%") : $this->model;
-        $this->model = ($usuario_email) ? $this->model->where('email', 'LIKE', "%{$usuario_email}%") : $this->model;
+        if ($dt_fim) {
+            $this->model = $this->model->where('created_at', '<=', $dt_fim);
+        }
+
+        $this->model = ($nome) ? $this->model->where(DB::raw('lower(name)'), 'LIKE', "%$nome%") : $this->model;
+        $this->model = ($email) ? $this->model->where(DB::raw('lower(email)'), 'LIKE', "%$email%") : $this->model;
         $this->model = $this->model->orderByDesc('id');
 
         return $this->model;

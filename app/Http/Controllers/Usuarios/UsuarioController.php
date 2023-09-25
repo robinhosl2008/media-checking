@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Usuarios;
 
-use App\Http\Requests\Usuario\EditarUsuarioRequest;
-use App\Http\Requests\Usuario\SalvarUsuarioRequest;
-use App\Http\Requests\Usuario\RemoverUsuarioRequest;
 use App\Http\Controllers\Controller;
 use App\Services\ProcUsuario;
+use App\Http\Requests\Usuario\{
+    EditarUsuarioRequest,
+    SalvarUsuarioRequest,
+    RemoverUsuarioRequest
+};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;

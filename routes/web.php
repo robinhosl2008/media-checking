@@ -51,6 +51,7 @@ Route::middleware('auth')->group(function () {
 
     // Cadastro/Tipos de Mídia
     Route::get('/cadastro/tipo-midia', [TipoMidiaController::class, 'listar'])->name('listar-tipo-midia');
+    Route::post('/cadastro/tipo-midia', [TipoMidiaController::class, 'buscar'])->name('buscar-tipo-midia');
     Route::get('/cadastro/tipo-midia/criar', [TipoMidiaController::class, 'criar'])->name('criar-tipo-midia');
     Route::get('/cadastro/tipo-midia/{id}/editar', [TipoMidiaController::class, 'editar'])->name('editar-tipo-midia');
     Route::post('/cadastro/tipo-midia/salvar-criacao', [TipoMidiaController::class, 'salvarCriacao'])->name('salvar-criacao-tipo-midia');
@@ -59,6 +60,7 @@ Route::middleware('auth')->group(function () {
 
     // Cadastro/Verticais
     Route::get('/cadastro/verticais', [VerticalController::class, 'listar'])->name('listar-verticais');
+    Route::post('/cadastro/verticais', [VerticalController::class, 'buscar'])->name('buscar-verticais');
     Route::get('/cadastro/verticais/criar', [VerticalController::class, 'criar'])->name('criar-verticais');
     Route::get('/cadastro/verticais/{id}/editar', [VerticalController::class, 'editar'])->name('editar-verticais');
     Route::post('/cadastro/verticais/salvar-criacao', [VerticalController::class, 'salvarCriacao'])->name('salvar-criacao-verticais');
@@ -67,6 +69,7 @@ Route::middleware('auth')->group(function () {
 
     // Cadastro/Produtos
     Route::get('/cadastro/produtos', [ProdutoController::class, 'listar'])->name('listar-produtos');
+    Route::post('/cadastro/produtos', [ProdutoController::class, 'buscar'])->name('buscar-produtos');
     Route::get('/cadastro/produtos/criar', [ProdutoController::class, 'criar'])->name('criar-produtos');
     Route::get('/cadastro/produtos/{id}/editar', [ProdutoController::class, 'editar'])->name('editar-produtos');
     Route::post('/cadastro/produtos/salvar-criacao', [ProdutoController::class, 'salvarCriacao'])->name('salvar-criacao-produtos');

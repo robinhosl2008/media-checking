@@ -35,12 +35,24 @@ class ProdutoController extends Controller
     {
         $params = [
             'id'            => ($request->id) ?? '',
-            'vertical_id'   => ($request->vertical_id) ?? '',
-            'tipo_midia_id' => ($request->tipo_midia_id) ?? '',
-            'descricao'     => ($request->descricao) ?? ''
+            'vertical_id'   => ($request->vertical) ?? '',
+            'descricao'     => ($request->nome) ?? '',
+            'dt_inicio'     => ($request->dt_inicio) ?? '',
+            'dt_fim'        => ($request->dt_fim) ?? ''
         ];
         
-        return $this->proc->buscar($params)->get();
+        $produtos = $this->proc->buscar($params)->get();
+        $verticais = $this->procVertical->buscar([])->get();
+
+        if ($request->getMethod() == 'POST') {
+            return view('midia-checking.cadastro.produtos.index', [
+                'produtos' => $produtos,
+                'verticais' => $verticais,
+                'params' => $params
+            ]);
+        } else {
+            return $produtos;
+        }
     }
 
     public function listar(Request $request): View
@@ -50,7 +62,8 @@ class ProdutoController extends Controller
         
         return view('midia-checking.cadastro.produtos.index', [
             'produtos' => $produtos,
-            'verticais' => $verticais
+            'verticais' => $verticais,
+            'params' => []
         ]);
     }
 

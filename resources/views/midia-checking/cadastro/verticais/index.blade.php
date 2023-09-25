@@ -29,13 +29,16 @@
     <x-confirm></x-confirm>
 
     <!-- Filtro de Tipos de Mídia -->
-    <x-filtro-vertical :tiposMidia="$tiposMidia"></x-filtro-vertical>
+    <x-filtro-vertical :tiposMidia="$tiposMidia" :params="$params"></x-filtro-vertical>
     
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="barra-lista">
-                    <button type="button" class="btn btn-sm btn-laranja" data-bs-toggle="modal" data-bs-target="#filtroVerticais">Filtro</button>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-sm btn-laranja" data-bs-toggle="modal" data-bs-target="#filtroVerticais">Filtro</button>
+                        <a href="{{ route('listar-verticais') }}" class="btn btn-sm btn-laranja"><i class="bi-trash"></i></a>
+                    </div>
                     <a href="{{ route('criar-verticais') }}" class="btn-nova-vertical btn btn-sm btn-laranja">Novo Vertical</a>    
                 </div>
 

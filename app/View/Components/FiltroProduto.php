@@ -12,7 +12,8 @@ class FiltroProduto extends Component
      * Create a new component instance.
      */
     public function __construct(
-        public object $verticais
+        public object $verticais,
+        public array $params,
     ) {}
 
     /**

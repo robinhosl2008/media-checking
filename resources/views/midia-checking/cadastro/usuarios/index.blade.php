@@ -58,7 +58,7 @@
                                 <tr>
                                     <td>{{ $usuario->name }}</td>
                                     <td>{{ $usuario->email }}</td>
-                                    <td>{{ DateTime::createFromFormat('Y-m-d H:m:s', $usuario->created_at)->format("d/m/Y") }}</td>
+                                    <td>{{ $usuario->created_at->format("d/m/Y") }}</td>
                                     <td class="text-center">
                                         <div class="btn-group" role="group" aria-label="Grupo de Ações">
                                             <a href="{{ route('editar-usuario', ['id' => $usuario->id]) }}" class="btn btn-sm btn-secondary" title="Editar">

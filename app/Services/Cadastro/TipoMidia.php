@@ -2,6 +2,7 @@
 
 namespace App\Services\Cadastro;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Services\CRUD;
 use App\Models\LibTipoMidia;
@@ -22,10 +23,20 @@ class TipoMidia extends CRUD
     public function buscar($params = [])
     {
         $id          = (array_key_exists('id', $params) && $params['id']) ? $params['id'] : '';
-        $descricao   = (array_key_exists('descricao', $params) && $params['descricao']) ? $params['descricao'] : '';
+        $descricao   = (array_key_exists('nome', $params) && $params['nome']) ? $params['nome'] : '';
+        $dt_inicio   = (array_key_exists('dt_inicio', $params) && $params['dt_inicio']) ? $params['dt_inicio'] : '';
+        $dt_fim      = (array_key_exists('dt_fim', $params) && $params['dt_fim']) ? $params['dt_fim'] : '';
+
+        if ($dt_inicio) {
+            $this->model = ($dt_inicio) ? $this->model->where('created_at', '>=', $dt_inicio) : $this->model;
+        }
+        
+        if ($dt_fim) {
+            $this->model = ($dt_fim) ? $this->model->where('created_at', '<=', $dt_fim) : $this->model;
+        }
         
         $this->model = ($id) ? $this->model->where('id', '=', $id) : $this->model;
-        $this->model = ($descricao)   ? $this->model->where('descricao', 'LIKE', "%{$descricao}%") : $this->model;
+        $this->model = ($descricao)   ? $this->model->where(DB::raw('lower(descricao)'), 'LIKE', "%$descricao%") : $this->model;
         $this->model = $this->model->orderByDesc('id');
         
         return $this->model;

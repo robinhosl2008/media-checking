@@ -16,6 +16,7 @@ use Illuminate\Http\{
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 use Exception;
+use DateTime;
 
 class TipoMidiaController extends Controller
 {
@@ -30,18 +31,30 @@ class TipoMidiaController extends Controller
     {
         $params = [
             'id'        => ($request->id) ?? '',
-            'descricao' => ($request->descricao) ?? ''
+            'descricao' => ($request->nome) ?? '',
+            'dt_inicio' => ($request->dt_inicio) ?? '',
+            'dt_fim'    => ($request->dt_fim) ?? '',
         ];
         
-        return $this->proc->buscar($params)->get();
+        $tiposMidia = $this->proc->buscar($params)->get();
+
+        if ($request->getMethod() == 'POST') {
+            return view('midia-checking.cadastro.tipos-midia.index', [
+                'tiposMidia' => $tiposMidia,
+                'params' => $params
+            ]);
+        } else {
+            return $tiposMidia;
+        }
     }
 
     public function listar(Request $request): View
     {
         $tiposMidia = $this->buscar($request);
-
+        
         return view('midia-checking.cadastro.tipos-midia.index', [
-            'tiposMidia' => $tiposMidia
+            'tiposMidia' => $tiposMidia,
+            'params' => []
         ]);
     }
 

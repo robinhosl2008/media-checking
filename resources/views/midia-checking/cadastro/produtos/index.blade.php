@@ -29,13 +29,16 @@
     <x-confirm></x-confirm>
 
     <!-- Filtro de Tipos de Mídia -->
-    <x-filtro-produto :verticais="$verticais"></x-filtro-produto>
+    <x-filtro-produto :verticais="$verticais" :params="$params"></x-filtro-produto>
     
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="barra-lista">
-                    <button type="button" class="btn btn-sm btn-laranja" data-bs-toggle="modal" data-bs-target="#filtroProdutos">Filtro</button>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-sm btn-laranja" data-bs-toggle="modal" data-bs-target="#filtroProdutos">Filtro</button>
+                        <a href="{{ route('listar-produtos') }}" class="btn btn-sm btn-laranja"><i class="bi-trash"></i></a>
+                    </div>
                     <a href="{{ route('criar-produtos') }}" class="btn-novo-usuario btn btn-sm btn-laranja">Novo Produto</a>    
                 </div>
 

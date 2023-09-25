@@ -5,6 +5,7 @@ namespace App\Services\Cadastro;
 use App\Models\LibProduto;
 use App\Services\CRUD;
 use Exception;
+use Illuminate\Support\Facades\DB;
 
 class Produto extends CRUD
 {
@@ -21,13 +22,21 @@ class Produto extends CRUD
     {
         $id          = ($params['id']) ? $params['id'] : '';
         $vertical_id = ($params['vertical_id']) ? $params['vertical_id'] : '';
-        $tipo_midia  = ($params['tipo_midia_id']) ? $params['tipo_midia_id'] : '';
         $descricao   = ($params['descricao']) ? $params['descricao'] : '';
+        $dt_inicio   = (array_key_exists('dt_inicio', $params) && $params['dt_inicio']) ? $params['dt_inicio'] : '';
+        $dt_fim      = (array_key_exists('dt_fim', $params) && $params['dt_fim']) ? $params['dt_fim'] : '';
 
+        if ($dt_inicio) {
+            $this->model = ($dt_inicio) ? $this->model->where('created_at', '>=', $dt_inicio) : $this->model;
+        }
+        
+        if ($dt_fim) {
+            $this->model = ($dt_fim) ? $this->model->where('created_at', '<=', $dt_fim) : $this->model;
+        }
+        
         $this->model = ($id) ? $this->model->where('id', '=', $id) : $this->model;
-        $this->model = ($vertical_id) ? $this->model->where('vertical_id', '=', "%{$vertical_id}%") : $this->model;
-        $this->model = ($tipo_midia) ? $this->model->where('tipo_midia_id', '=', "%{$tipo_midia}%") : $this->model;
-        $this->model = ($descricao) ? $this->model->where('descricao', 'LIKE', "%{$descricao}%") : $this->model;
+        $this->model = ($vertical_id) ? $this->model->where('vertical_id', '=', "$vertical_id") : $this->model;
+        $this->model = ($descricao) ? $this->model->where(DB::raw('lower(descricao)'), 'LIKE', "%$descricao%") : $this->model;
         $this->model = $this->model->orderByDesc('id');
 
         return $this->model;

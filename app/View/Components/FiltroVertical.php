@@ -12,7 +12,8 @@ class FiltroVertical extends Component
      * Create a new component instance.
      */
     public function __construct(
-        public object $tiposMidia
+        public object $tiposMidia,
+        public array $params,
     ) {}
 
     /**
