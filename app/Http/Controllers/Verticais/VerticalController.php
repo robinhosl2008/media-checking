@@ -43,9 +43,11 @@ class VerticalController extends Controller
     public function listar(Request $request): View
     {
         $verticais = $this->buscar($request);
+        $tiposMidia = $this->procTipoMidia->buscar()->get();
 
         return view('midia-checking.cadastro.verticais.index', [
-            'verticais' => $verticais
+            'verticais' => $verticais,
+            'tiposMidia' => $tiposMidia
         ]);
     }
 

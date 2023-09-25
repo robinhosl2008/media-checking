@@ -13,7 +13,7 @@
                         </div>
                         <div class="col-12">
                             <label for="email" class="form-label">E-mail:</label>
-                            <input type="text" name="email" id="email" class="form-control" value="">
+                            <input type="email" name="email" id="email" class="form-control" value="">
                         </div>
                         <div class="col-12">
                             <label for="dt_inicio" class="form-label">Data Início:</label>

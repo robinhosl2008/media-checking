@@ -15,6 +15,9 @@
                             <label for="tipo_midia" class="form-label">Vertical:</label>
                             <select name="tipo_midia" id="tipo_midia" class="form-control" value="">
                                 <option value="">Selecione</option>
+                                @foreach($verticais as $vertical)
+                                <option value="{{ $vertical->id }}">{{ $vertical->descricao }}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="col-12">

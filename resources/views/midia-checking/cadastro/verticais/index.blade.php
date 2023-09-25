@@ -29,7 +29,7 @@
     <x-confirm></x-confirm>
 
     <!-- Filtro de Tipos de Mídia -->
-    <x-filtro-vertical></x-filtro-vertical>
+    <x-filtro-vertical :tiposMidia="$tiposMidia"></x-filtro-vertical>
     
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">

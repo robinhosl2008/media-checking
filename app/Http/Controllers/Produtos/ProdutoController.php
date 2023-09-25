@@ -46,9 +46,11 @@ class ProdutoController extends Controller
     public function listar(Request $request): View
     {
         $produtos = $this->buscar($request);
+        $verticais = $this->procVertical->buscar([])->get();
         
         return view('midia-checking.cadastro.produtos.index', [
-            'produtos' => $produtos
+            'produtos' => $produtos,
+            'verticais' => $verticais
         ]);
     }
 
