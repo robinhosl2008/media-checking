@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\FFMpegHelper;
-use App\Services\Proc;
-use Exception;
+use App\Helpers\{
+    FFMpegHelper,
+    PDF
+};
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use App\Services\Proc;
+use Exception;
 
 class MidiaController extends Controller
 {
@@ -15,6 +18,7 @@ class MidiaController extends Controller
      */
     private Proc $libProc;
     private FFMpegHelper $ffmpeg;
+    private PDF $pdf;
 
     public function __construct()
     {
@@ -28,11 +32,6 @@ class MidiaController extends Controller
             $tiposMidia = $this->libProc->buscaTiposMidia()->get();
             $verticais  = []; //$this->libProc->buscaVerticais()->get();
             $produtos   = []; //$this->libProc->buscaProdutos()->get();
-
-            // session([
-            //     'msg-alert' => 'A instalação foi removida do sistema.', 
-            //     'tipo-msg-alert' => 'success'
-            // ]);
 
             return view('midia-checking/validar', [
                 'tiposMidia'    => $tiposMidia,
