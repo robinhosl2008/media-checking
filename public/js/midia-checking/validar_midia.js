@@ -1,7 +1,7 @@
 const ajax = new Ajax();
 const spinner = new Spinner();
-const divImagem = document.querySelector('#div_imagem');
-const divModelo = document.getElementById('div_modelo');
+const divImagem = document.querySelector('.div_imagem');
+const divModelo = document.querySelector('.div_modelo');
 const elemFile = document.getElementById('arquivo');
 
 var image = null;
@@ -96,17 +96,7 @@ window.onload = function() {
     }, false);
 
     selectProdutos.addEventListener('change', function() {
-        document.getElementById('arquivo').value = '';
-        document.getElementById('imagem_modal').src = '';
-        document.querySelector('.info-midia').style.display = 'none';
-        if (elemFile.files && !elemFile.files.length) {
-            document.getElementById('imagem_modal').src = '';
-            document.getElementById('my-player').src = '';
-            document.getElementById('my-player').poster = '';
-        } else {
-            carregaImagem();
-        }
-
+        carregaImagem();
         validarFormulario();
     });
 
@@ -117,11 +107,13 @@ window.onload = function() {
 }
 
 function carregaImagem() {
-    var file = new FileReader();
-    file.onload = function (e) {
-        validarFormulario(e);
-    };
-    file.readAsDataURL(elemFile.files[0]);
+    if (elemFile.files && elemFile.files[0]) {
+        var file = new FileReader();
+        file.onload = function (e) {
+            validarFormulario(e);
+        };
+        file.readAsDataURL(elemFile.files[0]);
+    }
 }
 
 function zoom(event) {
@@ -139,8 +131,8 @@ function zoom(event) {
 function limpaSelects(select) {
     html = `<option value="">...</option>`;
     select.innerHTML = html;
-    document.querySelector('.info-midia').style.display = 'none';
-    document.getElementById('imagem_modal').src = '';
+    // document.querySelector('.info-midia').style.display = 'none';
+    document.querySelector('.div_imagem').src = '';
 }
 
 async function validarFormulario(e) {
@@ -155,18 +147,48 @@ async function validarFormulario(e) {
     }
 
     if (e) {
-        let imageModal = document.getElementById('imagem_modal');
-        let myPlayer = document.getElementById('my-player');
+        let divImagem = document.querySelector('.div_imagem');
+        let divVideo = document.querySelector('.div_video');
 
         if (e.target.result) {
-            if (e.target.result.includes('image')) {
-                imageModal.src = e.target.result;
+            if (e.target.result.includes('pdf')) {
+                var url = URL.createObjectURL(arquivo.files[0]); // Substitua pelo caminho do seu arquivo PDF
+                var pdfjsLib = window['pdfjs-dist/build/pdf'];
 
-                myPlayer.style.display = 'none';
-                imageModal.style.display = 'block';
+                pdfjsLib.GlobalWorkerOptions.workerSrc = 'js/pdfjs-3.11.174/build/pdf.worker.js';
+
+                // Carrega o PDF usando PDF.js
+                pdfjsLib.getDocument(url).promise.then(function(pdf) {
+                    // Renderiza a página
+                    pdf.getPage(1).then(function(page) {
+                        var canvas = document.createElement('canvas');
+                        var context = canvas.getContext('2d');
+                        var viewport = page.getViewport({ scale: 1.5 });
+
+                        // Define as dimensões do canvas de acordo com a página
+                        canvas.width = viewport.width;
+                        canvas.height = viewport.height;
+
+                        // Adicione o canvas ao DOM
+                        document.querySelector('.div_imagem').appendChild(canvas);
+
+                        // Renderiza a página no canvas
+                        page.render({ canvasContext: context, viewport: viewport });
+                    });
+                });
+
+                // let formData = new FormData();
+                // formData.append('file', arquivo.files[0]);
+
+                // await ajax.fazRequisicao(formData, '/buscar-path-arquivo', 'POST', callback);
+                
+                // divImagem.src = e.target.result;
+
+                // divVideo.style.display = 'none';
+                // divImagem.style.display = 'block';
 
                 setTimeout(function() {
-                    let preview = document.querySelector('#imagem_modal');
+                    let preview = document.querySelector('.div_imagem');
                     let textoTamanhoOriginal = preview.naturalWidth + 'x' + preview.naturalHeight;
                     document.querySelector('.nome_arquivo').innerText = elemArquivo.files[0].name;
                     document.querySelector('.tamanho_arquivo').innerText = textoTamanhoOriginal;
@@ -177,13 +199,13 @@ async function validarFormulario(e) {
                 document.querySelector(`source[type="${videoType}"]`).src = e.target.result;
                 document.querySelector(`#my-player_html5_api`).src = e.target.result;
 
-                let myPlayerDimension = document.querySelector('.my-player-dimensions');
-                myPlayerDimension.style.width = '100%';
-                myPlayerDimension.style.height = '100%';
+                let divVideoDimension = document.querySelector('.my-player-dimensions');
+                divVideoDimension.style.width = '100%';
+                divVideoDimension.style.height = '100%';
 
-                imageModal.style.display = 'none !important';
-                myPlayer.style.display = 'block';
-                myPlayer.style.position = 'inherit';
+                divImagem.style.display = 'none !important';
+                divVideo.style.display = 'block';
+                divVideo.style.position = 'inherit';
 
                 let formData = new FormData();
                 formData.append('file', document.querySelector('#arquivo').files[0]);
@@ -194,7 +216,7 @@ async function validarFormulario(e) {
                             let textoTamanhoOriginal = data.largura + 'x' + data.altura;
                             document.querySelector('.nome_arquivo').innerText = elemArquivo.files[0].name;
                             document.querySelector('.tamanho_arquivo').innerText = textoTamanhoOriginal;
-                            document.querySelector('.info-midia').style.display = 'block';
+                            // document.querySelector('.info-midia').style.display = 'block';
                         }, 1000);
                     }
                 };
@@ -202,10 +224,10 @@ async function validarFormulario(e) {
                 await ajax.fazRequisicao(formData, '/buscar-resolucao', 'POST', callback);
             }
 
-            document.querySelector('.info-midia').style.display = 'block';
+            // document.querySelector('.info-midia').style.display = 'block';
         }
     } else {
-        document.querySelector('.info-midia').style.display = 'none';
+        // document.querySelector('.info-midia').style.display = 'none';
     }
 
     let arrAux = document.querySelectorAll('#produto')[0].selectedOptions[0].innerText.split(' ');
@@ -213,20 +235,20 @@ async function validarFormulario(e) {
     var largura = arrLargAlt[0];
     var altura = arrLargAlt[1];
 
-    let modelo = document.getElementById('div_modelo');
+    let modelo = document.querySelector('.div_modelo');
     modelo.style.width = largura.replace('.', '') + 'px';
     modelo.style.height = altura.replace('.', '') + 'px';
     modelo.style.padding = '0px';
     modelo.style.display = 'block';
 
-    let div = document.querySelector('#div_imagem');
-    div.style.width = largura.replace('.', '') + 'px';
-    div.style.height = altura.replace('.', '') + 'px';
+    let div = document.querySelector('.div_imagem');
+    // div.style.width = largura.replace('.', '') + 'px';
+    // div.style.height = altura.replace('.', '') + 'px';
     div.style.padding = '0px';
     div.style.display = 'block';
 
-    let imagem = document.getElementById('imagem_modal');
-    imagem.style.width = largura.replace('.', '') + 'px';
+    // let imagem = document.getElementById('imagem_modal');
+    // imagem.style.width = largura.replace('.', '') + 'px';
     
     $('#div_layout').draggable();
 }

@@ -5,6 +5,10 @@
         </h2>
     </x-slot>
     
+    <!-- <link rel="stylesheet" href="{{ asset('js/pdfjs-3.11.174/web/viewer.css') }}"> -->
+    <script src="{{ asset('js/pdfjs-3.11.174/build/pdf.js') }}"></script>
+    <script src="{{ asset('js/pdfjs-3.11.174/web/viewer.js') }}"></script>
+
     @if (session('msg'))
         <div class="alert alert-success">
             {{ session('msg') }}
@@ -51,53 +55,51 @@
                         </div>
                     </div>
 
-                    <div class="row mt-3 info-midia">
-                        <hr>
-
-                        <div class="mb-1 col-7 nome">
-                            Nome do Arquivo: <label class="nome_arquivo" class="form-label"></label>
-                        </div>
-                        <div class="mb-1 col-5 tamanho">
-                            Tamanho (largura x altura): <label class="tamanho_arquivo" class="form-label"></label>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="div_layout" class="row d-flex justify-content-center">
-        <div id="div_modelo">
-            <button id="x" 
-                onclick="document.getElementById('div_imagem').style.display = 'none';
-                document.getElementById('div_modelo').style.display = 'none';" 
-                class="btn btn-sm btn-primary">
-                <i class="bi-x-circle"></i>
-            </button>
-        </div>
+    <div class="py-12 div_checking">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900">
+                    <div class="row div_layout">
+                        <div class="col-9 d-flex justify-content-center">
+                            <div class="div_modelo">
+                                
+                            </div>
 
-        <div id="div_imagem">
-            <img id="imagem_modal" src="" class="rounded mx-auto d-block" alt="" srcset="">
-            
-            <video
-                id="my-player"
-                class="video-js"
-                controls
-                autoplay="true"
-                preload="auto"
-                poster="{{ asset('img/Logo_ONBUS-final.png') }}"
-                data-setup='{}'>
-                <source src="//vjs.zencdn.net/v/oceans.mp4" type="video/mp4"></source>
-                <source src="//vjs.zencdn.net/v/oceans.webm" type="video/webm"></source>
-                <source src="//vjs.zencdn.net/v/oceans.ogv" type="video/ogg"></source>
-                <p class="vjs-no-js">
-                    To view this video please enable JavaScript, and consider upgrading to a
-                    web browser that
-                    <a href="https://videojs.com/html5-video-support/" target="_blank">
-                    supports HTML5 video
-                    </a>
-                </p>
-            </video>
+                            <div class="div_imagem d-flex justify-content-center">
+                                
+                            </div>
+                        
+                            <div class="div_vidio">
+                                
+                            </div>
+                        </div>
+
+                        <div class="col-3 info-midia">
+                            <div class="row">
+                                <div class="col-12">
+                                    <p>Nome do Arquivo:</p>
+                                </div>
+                                <div class="col-12">
+                                    <label class="nome_arquivo" class="form-label"></label>
+                                </div>
+                            
+                                <div class="col-12">
+                                    <p>Tamanho (largura x altura):</p>
+                                </div>
+                                <div class="col-12">
+                                    <label class="tamanho_arquivo" class="form-label"></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
