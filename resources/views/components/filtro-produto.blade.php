@@ -15,8 +15,8 @@
                                 <input type="text" name="nome" id="nome" class="form-control" value="">
                             </div>
                             <div class="col-12">
-                                <label for="vertical" class="form-label">Vertical:</label>
-                                <select name="vertical" id="vertical" class="form-control" value="">
+                                <label for="vertical_id" class="form-label">Vertical:</label>
+                                <select name="vertical_id" id="vertical_id" class="form-control" value="">
                                     <option value="">Selecione</option>
                                     @foreach($verticais as $vertical)
                                     <option value="{{ $vertical->id }}">{{ $vertical->descricao }}</option>

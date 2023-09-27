@@ -33,7 +33,7 @@ class VerticalController extends Controller
     {
         $params = [
             'id'            => ($request->id) ?? '',
-            'tipo_midia_id' => ($request->tipo_midia) ?? '',
+            'tipo_midia_id' => ($request->tipo_midia_id) ?? '',
             'descricao'     => ($request->nome) ?? '',
             'dt_inicio'     => ($request->dt_inicio) ?? '',
             'dt_fim'        => ($request->dt_fim) ?? ''
@@ -41,8 +41,8 @@ class VerticalController extends Controller
         
         $verticais = $this->proc->buscar($params)->get();
         $tiposMidia = $this->procTipoMidia->buscar()->get();
-
-        if ($request->getMethod() == 'POST') {
+        
+        if ($request->getMethod() == 'POST' && !str_contains($request->session()->previousUrl(), '/validar')) {
             return view('midia-checking.cadastro.verticais.index', [
                 'verticais' => $verticais,
                 'tiposMidia' => $tiposMidia,

@@ -15,8 +15,8 @@
                                 <input type="text" name="nome" id="nome" class="form-control" value="{{ (array_key_exists('descricao', $params)) ? $params['descricao'] : '' }}">
                             </div>
                             <div class="col-12">
-                                <label for="tipo_midia" class="form-label">Tipo de Mídia:</label>
-                                <select name="tipo_midia" id="tipo_midia" class="form-control" value="{{ (array_key_exists('tipo_midia_id', $params)) ? $params['tipo_midia_id'] : '' }}">
+                                <label for="tipo_midia_id" class="form-label">Tipo de Mídia:</label>
+                                <select name="tipo_midia_id" id="tipo_midia_id" class="form-control" value="{{ (array_key_exists('tipo_midia_id', $params)) ? $params['tipo_midia_id'] : '' }}">
                                     <option value="">Selecione</option>
                                     @foreach($tiposMidia as $tipo)
                                     <option value="{{ $tipo->id }}">{{ $tipo->descricao }}</option>

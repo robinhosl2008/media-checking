@@ -35,16 +35,16 @@ class ProdutoController extends Controller
     {
         $params = [
             'id'            => ($request->id) ?? '',
-            'vertical_id'   => ($request->vertical) ?? '',
+            'vertical_id'   => ($request->vertical_id) ?? '',
             'descricao'     => ($request->nome) ?? '',
             'dt_inicio'     => ($request->dt_inicio) ?? '',
             'dt_fim'        => ($request->dt_fim) ?? ''
         ];
-        
+        // dd($params);
         $produtos = $this->proc->buscar($params)->get();
         $verticais = $this->procVertical->buscar([])->get();
 
-        if ($request->getMethod() == 'POST') {
+        if ($request->getMethod() == 'POST' && !str_contains($request->session()->previousUrl(), '/validar')) {
             return view('midia-checking.cadastro.produtos.index', [
                 'produtos' => $produtos,
                 'verticais' => $verticais,
