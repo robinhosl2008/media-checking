@@ -177,19 +177,17 @@ async function validarFormulario(e) {
                     });
                 });
 
-                // let formData = new FormData();
-                // formData.append('file', arquivo.files[0]);
+                let formData = new FormData();
+                formData.append('file', arquivo.files[0]);
 
-                // await ajax.fazRequisicao(formData, '/buscar-path-arquivo', 'POST', callback);
-                
-                // divImagem.src = e.target.result;
+                let dimensoes = await ajax.fazRequisicao(formData, '/buscar-info-arquivo-pdf', 'POST');
+                console.log(dimensoes);
 
                 // divVideo.style.display = 'none';
                 // divImagem.style.display = 'block';
 
                 setTimeout(function() {
-                    let preview = document.querySelector('.div_imagem');
-                    let textoTamanhoOriginal = preview.naturalWidth + 'x' + preview.naturalHeight;
+                    let textoTamanhoOriginal = dimensoes.propriedades.largura + 'x' + dimensoes.propriedades.altura;
                     document.querySelector('.nome_arquivo').innerText = elemArquivo.files[0].name;
                     document.querySelector('.tamanho_arquivo').innerText = textoTamanhoOriginal;
                 }, 1000);

@@ -39,6 +39,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/buscar-verticais', [VerticalController::class, 'buscar'])->name('verticais.buscar');
     Route::post('/buscar-produtos', [ProdutoController::class, 'buscar'])->name('produto.buscar');
     Route::post('/buscar-resolucao', [MidiaController::class, 'buscarResolucao'])->name('buscar-resolucao');
+    Route::post('/buscar-info-arquivo-pdf', [MidiaController::class, 'buscarInfoArquivoPDF'])->name('buscar-info-arquivo-pdf');
 
     // Cadastro/Usuários
     Route::get('/cadastro/usuario', [UsuarioController::class, 'listar'])->name('listar-usuario');

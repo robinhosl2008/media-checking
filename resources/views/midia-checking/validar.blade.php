@@ -90,7 +90,7 @@
                                 </div>
                             
                                 <div class="col-12">
-                                    <p>Tamanho (largura x altura):</p>
+                                    <p>Tamanho da imagem:</p>
                                 </div>
                                 <div class="col-12">
                                     <label class="tamanho_arquivo" class="form-label"></label>
