@@ -100,8 +100,27 @@ window.onload = function() {
         validarFormulario();
     });
 
-    divImagem.onwheel = zoom;
     divModelo.onwheel = zoom;
+    $('.div_modelo').draggable({
+        drag: function(event, ui) {
+            var divPai = $(this).parent();
+            var limiteEsquerda = 0;
+            var limiteTopo = 0;
+            var limiteDireita = divPai.width() - $(this).width();
+            var limiteBase = divPai.height() - $(this).height();
+
+            // Ajusta a posição para garantir que a div filha não ultrapasse os limites da div pai
+            ui.position.left = Math.min(limiteDireita, Math.max(limiteEsquerda, ui.position.left));
+            ui.position.top = Math.min(limiteBase, Math.max(limiteTopo, ui.position.top));
+            
+            // Limita a largura e altura da div filha
+            var novaLargura = Math.min(divPai.width(), $(this).width());
+            var novaAltura = Math.min(divPai.height(), $(this).height());
+            
+            $(this).width(novaLargura);
+            $(this).height(novaAltura);
+        }
+    });
 
     spinner.esconde();
 }
@@ -118,13 +137,12 @@ function carregaImagem() {
 
 function zoom(event) {
     event.preventDefault();
-    scale += event.deltaY * -0.001;
+    scale += event.deltaY * -0.0001;
 
     // Restrict scale
     scale = Math.min(Math.max(0.125, scale), 4);
 
     // Apply scale transform
-    divImagem.style.transform = `scale(${scale})`;
     divModelo.style.transform = `scale(${scale})`;
 }
 
@@ -146,12 +164,27 @@ async function validarFormulario(e) {
         return;
     }
 
+    let arrAux = document.querySelectorAll('#produto')[0].selectedOptions[0].innerText.split(' ');
+    let arrLargAlt = document.querySelectorAll('#produto')[0].selectedOptions[0].innerText.split(' ')[arrAux.length - 1].split('x');
+    var largura = arrLargAlt[0];
+    var altura = arrLargAlt[1];
+
     if (e) {
         let divImagem = document.querySelector('.div_imagem');
         let divVideo = document.querySelector('.div_video');
 
         if (e.target.result) {
             if (e.target.result.includes('pdf')) {
+                if (divVideo) {
+                    divVideo.style.display = 'none';
+                    divVideo.innerHTML = '';
+                }
+
+                if (divImagem) {
+                    divImagem.style.display = 'block';
+                    divImagem.innerHTML = '';
+                }
+
                 var url = URL.createObjectURL(arquivo.files[0]); // Substitua pelo caminho do seu arquivo PDF
                 var pdfjsLib = window['pdfjs-dist/build/pdf'];
 
@@ -180,16 +213,20 @@ async function validarFormulario(e) {
                 let formData = new FormData();
                 formData.append('file', arquivo.files[0]);
 
-                let dimensoes = await ajax.fazRequisicao(formData, '/buscar-info-arquivo-pdf', 'POST');
-                console.log(dimensoes);
-
-                // divVideo.style.display = 'none';
-                // divImagem.style.display = 'block';
+                let infoPdf = await ajax.fazRequisicao(formData, '/buscar-info-arquivo-pdf', 'POST');
+                console.log(infoPdf);
 
                 setTimeout(function() {
-                    let textoTamanhoOriginal = dimensoes.propriedades.largura + 'x' + dimensoes.propriedades.altura;
                     document.querySelector('.nome_arquivo').innerText = elemArquivo.files[0].name;
+                    document.querySelector('.nome_arquivo').setAttribute('title', elemArquivo.files[0].name);
+                    
+                    document.querySelector('.tamanho_mb').innerText = infoPdf.propriedades.tamanho + 'MB';
+
+                    let textoTamanhoOriginal = infoPdf.propriedades.largura + ' x ' + infoPdf.propriedades.altura;
                     document.querySelector('.tamanho_arquivo').innerText = textoTamanhoOriginal;
+
+                    let textoTamanhoRequerido = parseInt(largura.replace('.', '')) + ' x ' + parseInt(altura.replace('.', ''));
+                    document.querySelector('.tamanho_requerido').innerText = textoTamanhoRequerido;
                 }, 1000);
             } else if (e.target.result.includes('video')) {
                 let videoType = document.querySelector('input[type="file"]').files[0].type;
@@ -228,11 +265,6 @@ async function validarFormulario(e) {
         // document.querySelector('.info-midia').style.display = 'none';
     }
 
-    let arrAux = document.querySelectorAll('#produto')[0].selectedOptions[0].innerText.split(' ');
-    let arrLargAlt = document.querySelectorAll('#produto')[0].selectedOptions[0].innerText.split(' ')[arrAux.length - 1].split('x');
-    var largura = arrLargAlt[0];
-    var altura = arrLargAlt[1];
-
     let modelo = document.querySelector('.div_modelo');
     modelo.style.width = largura.replace('.', '') + 'px';
     modelo.style.height = altura.replace('.', '') + 'px';
@@ -247,6 +279,4 @@ async function validarFormulario(e) {
 
     // let imagem = document.getElementById('imagem_modal');
     // imagem.style.width = largura.replace('.', '') + 'px';
-    
-    $('#div_layout').draggable();
 }

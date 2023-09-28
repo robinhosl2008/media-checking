@@ -66,7 +66,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <div class="row div_layout">
-                        <div class="col-9 d-flex justify-content-center">
+                        <div class="col-8 d-flex justify-content-center" style="overflow: hidden; position: inherit; height: 600px;">
                             <div class="div_modelo">
                                 
                             </div>
@@ -80,20 +80,22 @@
                             </div>
                         </div>
 
-                        <div class="col-3 info-midia">
+                        <div class="col-4 info-midia">
                             <div class="row">
-                                <div class="col-12">
-                                    <p>Nome do Arquivo:</p>
+                                <div class="col-12" style="overflow: hidden; text-wrap: nowrap;">
+                                    <p>Nome: <label class="nome_arquivo" class="form-label"></label></p>
                                 </div>
+
                                 <div class="col-12">
-                                    <label class="nome_arquivo" class="form-label"></label>
+                                    <p>Tamanho: <label class="tamanho_mb" class="form-label"></label></p>
                                 </div>
                             
                                 <div class="col-12">
-                                    <p>Tamanho da imagem:</p>
+                                    <p>Dimenções da Imagem (cm): <label class="tamanho_arquivo" class="form-label"></label></p>
                                 </div>
+
                                 <div class="col-12">
-                                    <label class="tamanho_arquivo" class="form-label"></label>
+                                    <p>Dimenções Requeridas (cm): <label class="tamanho_requerido" class="form-label"></label></p>
                                 </div>
                             </div>
                         </div>
@@ -102,8 +104,6 @@
             </div>
         </div>
     </div>
-
-    
 
     <button type="button" style="display: none;" id="open-modal" data-bs-toggle="modal" data-bs-target="#exampleModal">Open</button>
 
