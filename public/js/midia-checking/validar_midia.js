@@ -135,7 +135,7 @@ async function validarFormulario(e) {
     
     document.querySelector('.nome_produto').innerText = arrAux[0] ;
 
-    document.querySelector('.tamanho_requerido').innerText = largura + 'cm x ' + altura + 'cm';
+    document.querySelector('.tamanho_requerido').innerText = altura + 'cm x ' + largura + 'cm';
 
     if (e) {
         let divImagem = document.querySelector('.div_imagem');

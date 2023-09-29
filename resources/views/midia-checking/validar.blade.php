@@ -61,7 +61,7 @@
                                 
                             </div>
 
-                            <div class="div_imagem d-flex justify-content-center"">
+                            <div class="div_imagem d-flex justify-content-center">
                                 
                             </div>
                         
