@@ -66,7 +66,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <div class="row div_layout">
-                        <div class="col-8 d-flex justify-content-center" style="overflow: hidden; position: inherit; height: 600px;">
+                        <div class="col-8 d-flex justify-content-center" style="overflow: hidden; position: inherit; height: 600px; padding: 10px; align-items: center;">
                             <div class="div_modelo">
                                 
                             </div>
@@ -91,11 +91,11 @@
                                 </div>
                             
                                 <div class="col-12">
-                                    <p>Dimenções da Imagem (cm): <label class="tamanho_arquivo" class="form-label"></label></p>
+                                    <p>Dimenções da Imagem (LxA): <label class="tamanho_arquivo" class="form-label"></label></p>
                                 </div>
 
                                 <div class="col-12">
-                                    <p>Dimenções Requeridas (cm): <label class="tamanho_requerido" class="form-label"></label></p>
+                                    <p>Dimenções Requeridas (LxA): <label class="tamanho_requerido" class="form-label"></label></p>
                                 </div>
                             </div>
                         </div>

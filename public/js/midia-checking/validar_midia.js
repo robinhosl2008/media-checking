@@ -100,27 +100,27 @@ window.onload = function() {
         validarFormulario();
     });
 
-    divModelo.onwheel = zoom;
-    $('.div_modelo').draggable({
-        drag: function(event, ui) {
-            var divPai = $(this).parent();
-            var limiteEsquerda = 0;
-            var limiteTopo = 0;
-            var limiteDireita = divPai.width() - $(this).width();
-            var limiteBase = divPai.height() - $(this).height();
+    // divModelo.onwheel = zoom;
+    // $('.div_modelo').draggable({
+    //     drag: function(event, ui) {
+    //         var divPai = $(this).parent();
+    //         var limiteEsquerda = 0;
+    //         var limiteTopo = 0;
+    //         var limiteDireita = divPai.width() - $(this).width();
+    //         var limiteBase = divPai.height() - $(this).height();
 
-            // Ajusta a posição para garantir que a div filha não ultrapasse os limites da div pai
-            ui.position.left = Math.min(limiteDireita, Math.max(limiteEsquerda, ui.position.left));
-            ui.position.top = Math.min(limiteBase, Math.max(limiteTopo, ui.position.top));
+    //         // Ajusta a posição para garantir que a div filha não ultrapasse os limites da div pai
+    //         ui.position.left = Math.min(limiteDireita, Math.max(limiteEsquerda, ui.position.left));
+    //         ui.position.top = Math.min(limiteBase, Math.max(limiteTopo, ui.position.top));
             
-            // Limita a largura e altura da div filha
-            var novaLargura = Math.min(divPai.width(), $(this).width());
-            var novaAltura = Math.min(divPai.height(), $(this).height());
+    //         // Limita a largura e altura da div filha
+    //         var novaLargura = Math.min(divPai.width(), $(this).width());
+    //         var novaAltura = Math.min(divPai.height(), $(this).height());
             
-            $(this).width(novaLargura);
-            $(this).height(novaAltura);
-        }
-    });
+    //         $(this).width(novaLargura);
+    //         $(this).height(novaAltura);
+    //     }
+    // });
 
     spinner.esconde();
 }
@@ -137,7 +137,7 @@ function carregaImagem() {
 
 function zoom(event) {
     event.preventDefault();
-    scale += event.deltaY * -0.0001;
+    scale += event.deltaY * -0.001;
 
     // Restrict scale
     scale = Math.min(Math.max(0.125, scale), 4);
@@ -258,11 +258,7 @@ async function validarFormulario(e) {
 
                 await ajax.fazRequisicao(formData, '/buscar-resolucao', 'POST', callback);
             }
-
-            // document.querySelector('.info-midia').style.display = 'block';
         }
-    } else {
-        // document.querySelector('.info-midia').style.display = 'none';
     }
 
     let modelo = document.querySelector('.div_modelo');
@@ -279,4 +275,34 @@ async function validarFormulario(e) {
 
     // let imagem = document.getElementById('imagem_modal');
     // imagem.style.width = largura.replace('.', '') + 'px';
+
+    obterEscalaAtual(divModelo);
+}
+
+// Função para obter a escala atual da div
+function obterEscalaAtual(divModelo) {
+    var l = divModelo.offsetWidth;
+    var a = divModelo.offsetHeight;
+    var divPai = 0;
+    var originalDaDivModelo = 0;
+
+    if (l > a) {
+        // Obtenha a largura da div pai
+        divPai = divModelo.parentNode.offsetWidth - 30;
+
+        // Obtenha a largura original da div modelo
+        originalDaDivModelo = divModelo.offsetWidth;
+    } else {
+        // Obtenha a altura da div pai
+        divPai = divModelo.parentNode.offsetHeight - 30;
+
+        // Obtenha a altura original da div modelo
+        originalDaDivModelo = divModelo.offsetHeight;
+    }
+
+    // Calcule a escala necessária
+    var scale = divPai / originalDaDivModelo;
+
+    // Aplique a transformação de escala à divModelo
+    divModelo.style.transform = `scale(${scale})`;
 }

@@ -54,6 +54,14 @@ button.btn-laranja-validar {
     width: 100%;
 }
 
+.div_layout div {
+    /* overflow: hidden; 
+    position: inherit; 
+    height: 600px; 
+    padding: 10px; 
+    align-items: center; */
+}
+
 .div_modelo {
     padding: 0px;
     position: absolute;
@@ -61,7 +69,7 @@ button.btn-laranja-validar {
     border: 1px solid red;
     display: none;
     text-align: right;
-    box-shadow: 0 0 0 9999px rgba(0, 0, 255, 0.5);
+    box-shadow: 0 0 0 9999px rgba(0, 0, 255, 0.5);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
 }
 
 .div_imagem {
@@ -78,6 +86,7 @@ canvas {
     max-width: -webkit-fill-available;
     margin: auto;
     border: 1px solid #000000;
+    max-height: 600px;
 }
 
 .div_video {
