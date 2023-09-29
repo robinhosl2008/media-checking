@@ -40,7 +40,7 @@ class ProdutoController extends Controller
             'dt_inicio'     => ($request->dt_inicio) ?? '',
             'dt_fim'        => ($request->dt_fim) ?? ''
         ];
-        // dd($params);
+        
         $produtos = $this->proc->buscar($params)->get();
         $verticais = $this->procVertical->buscar([])->get();
 

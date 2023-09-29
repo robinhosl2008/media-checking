@@ -26,21 +26,13 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <div class="row">
-                        <div class="mb-1 col-2">
-                            <label for="tipo_midia" class="form-label">Tipo de Mídia:</label>
-                            <select id="tipo_midia" name="tipo_midia" class="form-control">
-                                <option value="0">Selecione</option>
-                                @foreach($tiposMidia as $tipo)
-                                
-                                <option value="{{ $tipo->id }}">{{ $tipo->descricao }}</option>
-                                
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="mb-1 col-2">
+                        <div class="mb-1 col-3">
                             <label for="vertical" class="form-label">Verticais:</label>
                             <select id="vertical" name="vertical" class="form-control">
-                                <option value="">...</option>
+                                <option value="0">Selecione</option>
+                                @foreach($verticais as $vertical)
+                                <option value="{{ $vertical->id }}">{{ $vertical->descricao }}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="mb-1 col-4">
@@ -49,13 +41,11 @@
                                 <option value="">...</option>
                             </select>
                         </div>
-                        <div class="mb-1 col-4">
+                        <div class="mb-1 col-5">
                             <label for="arquivo" class="form-label">Arquivo:</label>
                             <input type="file" name="arquivo" id="arquivo" accept="application/pdf,video/*" class="form-control">
                         </div>
                     </div>
-
-                    
                 </div>
             </div>
         </div>
@@ -71,7 +61,7 @@
                                 
                             </div>
 
-                            <div class="div_imagem d-flex justify-content-center">
+                            <div class="div_imagem d-flex justify-content-center"">
                                 
                             </div>
                         
@@ -83,7 +73,19 @@
                         <div class="col-4 info-midia">
                             <div class="row">
                                 <div class="col-12" style="overflow: hidden; text-wrap: nowrap;">
-                                    <p>Nome: <label class="nome_arquivo" class="form-label"></label></p>
+                                    <p>Produto: <label class="nome_produto" class="form-label"></label></p>
+                                </div>
+
+                                <div class="col-12">
+                                    <p>Dimenções Requeridas (LxA): <label class="tamanho_requerido" class="form-label"></label></p>
+                                </div>
+
+                                <div class="col-12">
+                                    <hr>
+                                </div>
+                                
+                                <div class="col-12" style="overflow: hidden; text-wrap: nowrap;">
+                                    <p>Arquivo: <label class="nome_arquivo" class="form-label"></label></p>
                                 </div>
 
                                 <div class="col-12">
@@ -92,10 +94,6 @@
                             
                                 <div class="col-12">
                                     <p>Dimenções da Imagem (LxA): <label class="tamanho_arquivo" class="form-label"></label></p>
-                                </div>
-
-                                <div class="col-12">
-                                    <p>Dimenções Requeridas (LxA): <label class="tamanho_requerido" class="form-label"></label></p>
                                 </div>
                             </div>
                         </div>

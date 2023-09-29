@@ -32,8 +32,8 @@ class MidiaController extends Controller
     public function validar()
     {
         try {
-            $tiposMidia = $this->libProc->buscaTiposMidia()->get();
-            $verticais  = []; //$this->libProc->buscaVerticais()->get();
+            $tiposMidia = []; //$this->libProc->buscaTiposMidia()->get();
+            $verticais  = $this->libProc->buscaVerticais()->get();
             $produtos   = []; //$this->libProc->buscaProdutos()->get();
 
             return view('midia-checking/validar', [

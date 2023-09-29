@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('lib_produto', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('vertical_id');
+            $table->unsignedBigInteger('tipo_midia_id');
             $table->string('descricao');
             $table->unsignedDecimal('area_lar');
             $table->unsignedDecimal('area_alt');
@@ -22,6 +23,7 @@ return new class extends Migration
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable(true);
             $table->foreign('vertical_id')->references('id')->on('lib_vertical');
+            $table->foreign('tipo_midia_id')->references('id')->on('lib_tipo_midia');
         });
     }
 

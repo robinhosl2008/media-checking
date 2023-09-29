@@ -23,42 +23,7 @@ window.onload = function() {
 
     let selectVerticais = document.getElementById('vertical');
     let selectProdutos = document.getElementById('produto');
-    var selectTipoMidia = document.getElementById('tipo_midia');
-    selectTipoMidia.addEventListener('change', async function(e) {
-        spinner.exibe();
-
-        if (e.target.value != 0) {
-            let formData = new FormData();
-            formData.append('tipo_midia_id', e.target.value);
-
-            let verticais = await ajax.fazRequisicao(formData, '/buscar-verticais', 'POST', null)
-            
-            if (verticais.length) {
-                let html = `<option value="0">Selecione</option>`;
-
-                verticais.forEach(vertical => {
-                    html += `
-                        <option value="${vertical['id']}">${vertical['descricao']}</option>
-                    `;
-                });
-
-                selectVerticais.innerHTML = html;
-                limpaSelects(selectProdutos);
-                spinner.esconde();
-            } else {
-                limpaSelects(selectVerticais);
-                limpaSelects(selectProdutos);
-                spinner.esconde();
-            }
-        } else {
-            limpaSelects(selectVerticais);
-            limpaSelects(selectProdutos);
-            spinner.esconde();
-        }
-
-        divImagem.style.display = 'none';
-        divModelo.style.display = 'none';
-    }, false);
+    
 
     selectVerticais.addEventListener('change', async function(e) {
         spinner.exibe();
@@ -72,11 +37,11 @@ window.onload = function() {
             if (produtos.length) {
                 let html = `<option value="0">Selecione</option>`;
 
-                produtos.forEach(vertical => {
+                produtos.forEach(produto => {
                     html += `
-                        <option value="${vertical['id']}">${vertical['descricao'] + ' ' + 
-                        ((selectTipoMidia.value == 1) ? vertical['visual_lar'] : Math.trunc(vertical['visual_lar'])) + 'x' + 
-                        ((selectTipoMidia.value == 1) ? vertical['visual_alt'] : Math.trunc(vertical['visual_alt']))}</option>
+                        <option value="${produto['id']}">${produto['descricao'] + ' - ' + 
+                        ((produto['tipo_midia_id'] == 1) ? produto['visual_lar'] : Math.trunc(produto['visual_lar'])) + 'x' + 
+                        ((produto['tipo_midia_id'] == 1) ? produto['visual_alt'] : Math.trunc(produto['visual_alt']))}</option>
                     `;
                 });
 
@@ -154,20 +119,23 @@ function limpaSelects(select) {
 }
 
 async function validarFormulario(e) {
-    var tipoMidia = document.getElementById('tipo_midia').value,
-        vertical = document.getElementById('vertical').value,
+    var vertical = document.getElementById('vertical').value,
         produto = document.getElementById('produto').value,
         arquivo = document.getElementById('arquivo');
 
-    if (tipoMidia == 0 || vertical == 0 || produto == 0 || (!arquivo.files && !arquivo.files[0])) {
+    if (vertical == 0 || produto == 0 || (!arquivo.files && !arquivo.files[0])) {
         exibirAlertaDeInput('warning', 'Todos os campos são obrigatórios para exibir o preview.');
         return;
     }
 
-    let arrAux = document.querySelectorAll('#produto')[0].selectedOptions[0].innerText.split(' ');
-    let arrLargAlt = document.querySelectorAll('#produto')[0].selectedOptions[0].innerText.split(' ')[arrAux.length - 1].split('x');
-    var largura = arrLargAlt[0];
-    var altura = arrLargAlt[1];
+    let arrAux = document.querySelectorAll('#produto')[0].selectedOptions[0].innerText.split(' - ');
+    let arrLargAlt = arrAux[arrAux.length - 1].split('x');
+    var largura = parseInt(arrLargAlt[0].replace('.', ''));
+    var altura = parseInt(arrLargAlt[1].replace('.', ''));
+    
+    document.querySelector('.nome_produto').innerText = arrAux[0] ;
+
+    document.querySelector('.tamanho_requerido').innerText = largura + 'cm x ' + altura + 'cm';
 
     if (e) {
         let divImagem = document.querySelector('.div_imagem');
@@ -222,11 +190,12 @@ async function validarFormulario(e) {
                     
                     document.querySelector('.tamanho_mb').innerText = infoPdf.propriedades.tamanho + 'MB';
 
-                    let textoTamanhoOriginal = infoPdf.propriedades.largura + ' x ' + infoPdf.propriedades.altura;
+                    let textoTamanhoOriginal = infoPdf.propriedades.largura + 'cm x ' + infoPdf.propriedades.altura + 'cm';
                     document.querySelector('.tamanho_arquivo').innerText = textoTamanhoOriginal;
 
-                    let textoTamanhoRequerido = parseInt(largura.replace('.', '')) + ' x ' + parseInt(altura.replace('.', ''));
-                    document.querySelector('.tamanho_requerido').innerText = textoTamanhoRequerido;
+                    if (infoPdf.propriedades.largura == largura && infoPdf.propriedades.altura == altura) {
+                        divModelo.style.borderColor = 'green';
+                    }
                 }, 1000);
             } else if (e.target.result.includes('video')) {
                 let videoType = document.querySelector('input[type="file"]').files[0].type;
@@ -262,8 +231,8 @@ async function validarFormulario(e) {
     }
 
     let modelo = document.querySelector('.div_modelo');
-    modelo.style.width = largura.replace('.', '') + 'px';
-    modelo.style.height = altura.replace('.', '') + 'px';
+    modelo.style.width = largura + 'px';
+    modelo.style.height = altura + 'px';
     modelo.style.padding = '0px';
     modelo.style.display = 'block';
 
