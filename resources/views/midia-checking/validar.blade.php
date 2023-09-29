@@ -43,7 +43,7 @@
                         </div>
                         <div class="mb-1 col-5">
                             <label for="arquivo" class="form-label">Arquivo:</label>
-                            <input type="file" name="arquivo" id="arquivo" accept="application/pdf,video/*" class="form-control">
+                            <input type="file" name="arquivo" id="arquivo" accept="application/pdf,video/mp4" class="form-control">
                         </div>
                     </div>
                 </div>
@@ -64,9 +64,18 @@
                             <div class="div_imagem d-flex justify-content-center">
                                 
                             </div>
+
+                            <style>
+                                .div_video {
+                                    position: absolute;
+                                }
+                            </style>
                         
-                            <div class="div_vidio">
-                                
+                            <div class="div_video d-flex justify-content-center">
+                                <video width="640" height="360" controls>
+                                    <source src="seu_video.mp4" type="video/mp4">
+                                    Seu navegador não suporta o elemento de vídeo.
+                                </video>
                             </div>
                         </div>
 

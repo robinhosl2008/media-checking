@@ -40,8 +40,8 @@ window.onload = function() {
                 produtos.forEach(produto => {
                     html += `
                         <option value="${produto['id']}">${produto['descricao'] + ' - ' + 
-                        ((produto['tipo_midia_id'] == 1) ? produto['visual_lar'] : Math.trunc(produto['visual_lar'])) + 'x' + 
-                        ((produto['tipo_midia_id'] == 1) ? produto['visual_alt'] : Math.trunc(produto['visual_alt']))}</option>
+                        ((produto['tipo_midia_id'] == 1) ? produto['visual_lar'] : ((produto['status_palco'] == 1) ? Math.trunc(produto['palco_lar']) : Math.trunc(produto['visual_lar']))) + 'x' + 
+                        ((produto['tipo_midia_id'] == 1) ? produto['visual_alt'] : ((produto['status_palco'] == 1) ? Math.trunc(produto['palco_alt']) : Math.trunc(produto['visual_alt'])))}</option>
                     `;
                 });
 
@@ -119,6 +119,8 @@ function limpaSelects(select) {
 }
 
 async function validarFormulario(e) {
+    divModelo.style.borderColor = 'red';
+
     var vertical = document.getElementById('vertical').value,
         produto = document.getElementById('produto').value,
         arquivo = document.getElementById('arquivo');
@@ -132,17 +134,24 @@ async function validarFormulario(e) {
     let arrLargAlt = arrAux[arrAux.length - 1].split('x');
     var largura = parseInt(arrLargAlt[0].replace('.', ''));
     var altura = parseInt(arrLargAlt[1].replace('.', ''));
-    
+
     document.querySelector('.nome_produto').innerText = arrAux[0] ;
 
-    document.querySelector('.tamanho_requerido').innerText = altura + 'cm x ' + largura + 'cm';
+    let l = 'x';
+    let a = '';
+    if (vertical == 3 || vertical == 4) {
+        l = 'cm x ';
+        a = 'cm';
+    }
+    
+    document.querySelector('.tamanho_requerido').innerText = largura + l + altura + a;
 
     if (e) {
         let divImagem = document.querySelector('.div_imagem');
         let divVideo = document.querySelector('.div_video');
 
         if (e.target.result) {
-            if (e.target.result.includes('pdf')) {
+            if (e.target.result.includes('application/pdf')) {
                 if (divVideo) {
                     divVideo.style.display = 'none';
                     divVideo.innerHTML = '';
@@ -197,35 +206,36 @@ async function validarFormulario(e) {
                         divModelo.style.borderColor = 'green';
                     }
                 }, 1000);
-            } else if (e.target.result.includes('video')) {
-                let videoType = document.querySelector('input[type="file"]').files[0].type;
+            } else if (e.target.result.includes('video/mp4')) {
+                if (divVideo) {
+                    divVideo.style.display = 'block';
+                    divVideo.querySelector('video').src = ''
+                }
 
-                document.querySelector(`source[type="${videoType}"]`).src = e.target.result;
-                document.querySelector(`#my-player_html5_api`).src = e.target.result;
+                if (divImagem) {
+                    divImagem.style.display = 'none';
+                    divImagem.innerHTML = '';
+                }
 
-                let divVideoDimension = document.querySelector('.my-player-dimensions');
-                divVideoDimension.style.width = '100%';
-                divVideoDimension.style.height = '100%';
+                // let videoType = document.querySelector('input[type="file"]').files[0].type;
 
-                divImagem.style.display = 'none !important';
-                divVideo.style.display = 'block';
-                divVideo.style.position = 'inherit';
+                // document.querySelector(`source[type="${videoType}"]`).src = e.target.result;
+                // document.querySelector(`#my-player_html5_api`).src = e.target.result;
+
+                // let divVideoDimension = document.querySelector('.my-player-dimensions');
+                // divVideoDimension.style.width = '100%';
+                // divVideoDimension.style.height = '100%';
+
+                // divImagem.style.display = 'none !important';
+                // divVideo.style.display = 'block';
+                // divVideo.style.position = 'inherit';
 
                 let formData = new FormData();
-                formData.append('file', document.querySelector('#arquivo').files[0]);
+                formData.append('file', arquivo.files[0]);
 
-                let callback = function(data = null) {
-                    if (data) {
-                        setTimeout(function() {
-                            let textoTamanhoOriginal = data.largura + 'x' + data.altura;
-                            document.querySelector('.nome_arquivo').innerText = elemArquivo.files[0].name;
-                            document.querySelector('.tamanho_arquivo').innerText = textoTamanhoOriginal;
-                            // document.querySelector('.info-midia').style.display = 'block';
-                        }, 1000);
-                    }
-                };
+                let infoVideo = await ajax.fazRequisicao(formData, '/buscar-resolucao', 'POST');
 
-                await ajax.fazRequisicao(formData, '/buscar-resolucao', 'POST', callback);
+                console.log(infoVideo);
             }
         }
     }
@@ -236,14 +246,15 @@ async function validarFormulario(e) {
     modelo.style.padding = '0px';
     modelo.style.display = 'block';
 
-    let div = document.querySelector('.div_imagem');
+    let imagem = document.querySelector('.div_imagem');
     // div.style.width = largura.replace('.', '') + 'px';
     // div.style.height = altura.replace('.', '') + 'px';
-    div.style.padding = '0px';
-    div.style.display = 'block';
+    imagem.style.padding = '0px';
 
-    // let imagem = document.getElementById('imagem_modal');
-    // imagem.style.width = largura.replace('.', '') + 'px';
+    let video = document.querySelector('.div_video');
+    // div.style.width = largura.replace('.', '') + 'px';
+    // div.style.height = altura.replace('.', '') + 'px';
+    video.style.padding = '0px';
 
     obterEscalaAtual(divModelo);
 }
