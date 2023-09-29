@@ -1,8 +1,8 @@
 version: '1'
 services:
 
-  cgo-v2:
-    container_name: cgo-v2
+  checking:
+    container_name: checking
     build: ./docker
     image: cgo-v2
     volumes:
