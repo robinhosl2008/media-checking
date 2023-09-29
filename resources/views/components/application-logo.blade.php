@@ -1,1 +1,0 @@
-<img class="logo-top" src="{{ asset('img/onbus_1.jpeg') }}" alt="onbus">

@@ -1,0 +1,14 @@
+version: '1'
+services:
+
+  cgo-v2:
+    container_name: cgo-v2
+    build: ./docker
+    image: cgo-v2
+    volumes:
+      - ./laravel:/var/www/html
+      - ./docker/php/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+    ports:
+      - 8200:80
+    extra_hosts:
+      - host.docker.internal:host-gateway
