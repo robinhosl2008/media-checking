@@ -64,18 +64,9 @@
                             <div class="div_imagem d-flex justify-content-center">
                                 
                             </div>
-
-                            <style>
-                                .div_video {
-                                    position: absolute;
-                                }
-                            </style>
-                        
-                            <div class="div_video d-flex justify-content-center">
-                                <video width="640" height="360" controls>
-                                    <source src="seu_video.mp4" type="video/mp4">
-                                    Seu navegador não suporta o elemento de vídeo.
-                                </video>
+                            
+                            <div class="div_video d-flex justify-content-center" style="padding: 15px !important; height: 100%;">
+                                <video style="display: block;" autoplay muted src=""></video>
                             </div>
                         </div>
 
@@ -92,17 +83,22 @@
                                 <div class="col-12">
                                     <hr>
                                 </div>
-                                
-                                <div class="col-12" style="overflow: hidden; text-wrap: nowrap;">
-                                    <p>Arquivo: <label class="nome_arquivo" class="form-label"></label></p>
-                                </div>
-
-                                <div class="col-12">
-                                    <p>Tamanho: <label class="tamanho_mb" class="form-label"></label></p>
+                       
+                                <div class="row">
+                                    <div class="col-6">Tamanho: </div>
+                                    <div class="col-6">
+                                        <label class="tamanho_mb" class="form-label"></label>
+                                    </div>
                                 </div>
                             
-                                <div class="col-12">
-                                    <p>Dimenções da Imagem (LxA): <label class="tamanho_arquivo" class="form-label"></label></p>
+                                <div class="row">
+                                    <div class="col-6">Dimenções (LxA): </div>
+                                    <div class="col-6">
+                                        <label class="tamanho_arquivo" class="form-label"></label>
+                                    </div>
+                                </div>
+                            
+                                <div class="row infoVideo">
                                 </div>
                             </div>
                         </div>

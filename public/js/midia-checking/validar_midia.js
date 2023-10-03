@@ -28,6 +28,18 @@ window.onload = function() {
     selectVerticais.addEventListener('change', async function(e) {
         spinner.exibe();
 
+        if (document.querySelector('video')) {
+            document.querySelector('video').style.display = 'none';
+            document.querySelector('video').src = '';
+        }
+
+        elemFile.value = '';
+
+        document.querySelector('.tamanho_mb').innerText = '';
+        document.querySelector('.tamanho_arquivo').innerText = '';
+        document.querySelector('.infoVideo').innerHTML = '';
+        document.querySelector('.div_imagem').innerHTML = '';
+
         if (e.target.value != 0) {
             let formData = new FormData();
             formData.append('vertical_id', e.target.value);
@@ -144,8 +156,10 @@ async function validarFormulario(e) {
         a = 'cm';
     }
     
-    document.querySelector('.tamanho_requerido').innerText = largura + l + altura + a;
+    var tamanho_requerido = document.querySelector('.tamanho_requerido');
+    tamanho_requerido.innerText = largura + l + altura + a;
 
+    var status = [];
     if (e) {
         let divImagem = document.querySelector('.div_imagem');
         let divVideo = document.querySelector('.div_video');
@@ -191,12 +205,10 @@ async function validarFormulario(e) {
                 formData.append('file', arquivo.files[0]);
 
                 let infoPdf = await ajax.fazRequisicao(formData, '/buscar-info-arquivo-pdf', 'POST');
-                console.log(infoPdf);
 
                 setTimeout(function() {
-                    document.querySelector('.nome_arquivo').innerText = elemArquivo.files[0].name;
-                    document.querySelector('.nome_arquivo').setAttribute('title', elemArquivo.files[0].name);
-                    
+                    document.querySelector('.infoVideo').innerHTML = '';
+
                     document.querySelector('.tamanho_mb').innerText = infoPdf.propriedades.tamanho + 'MB';
 
                     let textoTamanhoOriginal = infoPdf.propriedades.largura + 'cm x ' + infoPdf.propriedades.altura + 'cm';
@@ -204,12 +216,20 @@ async function validarFormulario(e) {
 
                     if (infoPdf.propriedades.largura == largura && infoPdf.propriedades.altura == altura) {
                         divModelo.style.borderColor = 'green';
+                        divModelo.style.boxShadow = 'box-shadow: 0 0 0 9999px green !important';
+                        document.querySelector('.tamanho_arquivo').style.color = 'green';
+                    } else {
+                        divModelo.style.boxShadow = 'box-shadow: 0 0 0 9999px red';
+                        document.querySelector('.tamanho_arquivo').style.color = 'red'
                     }
                 }, 1000);
             } else if (e.target.result.includes('video/mp4')) {
                 if (divVideo) {
                     divVideo.style.display = 'block';
-                    divVideo.querySelector('video').src = ''
+                    if (divVideo.querySelector('video')) {
+                        divVideo.querySelector('video').src = ''
+                        document.querySelector('video').style.display = 'block';
+                    }
                 }
 
                 if (divImagem) {
@@ -217,25 +237,68 @@ async function validarFormulario(e) {
                     divImagem.innerHTML = '';
                 }
 
-                // let videoType = document.querySelector('input[type="file"]').files[0].type;
-
-                // document.querySelector(`source[type="${videoType}"]`).src = e.target.result;
-                // document.querySelector(`#my-player_html5_api`).src = e.target.result;
-
-                // let divVideoDimension = document.querySelector('.my-player-dimensions');
-                // divVideoDimension.style.width = '100%';
-                // divVideoDimension.style.height = '100%';
-
-                // divImagem.style.display = 'none !important';
-                // divVideo.style.display = 'block';
-                // divVideo.style.position = 'inherit';
-
                 let formData = new FormData();
                 formData.append('file', arquivo.files[0]);
 
                 let infoVideo = await ajax.fazRequisicao(formData, '/buscar-resolucao', 'POST');
 
-                console.log(infoVideo);
+                if (infoVideo.link.status) {
+                    if (!document.querySelector('video')) {
+                        document.querySelector('.div_video').innerHTML = `<video style="display: block;" autoplay muted src=""></video>`;
+                    }
+
+                    document.querySelector('.infoVideo').innerHTML = `
+                        <div class="col-6">Duracao do Vídeo: </div>
+                        <div class="col-6">
+                            <label class="duracao" class="form-label"></label>
+                        </div>
+                    `;
+
+                    let video = document.querySelector('video');
+                    video.src = infoVideo.link.link;
+
+                    let tamanho = document.querySelector('.tamanho_mb');
+                    tamanho.innerText = infoVideo.size + 'MB';
+
+                    let dimensoes = document.querySelector('.tamanho_arquivo');
+                    dimensoes.innerText = infoVideo.toString;
+
+                    let duracao = document.querySelector('.duracao');
+                    document.querySelector('.duracao').style.display = 'block';
+                    duracao.innerText = parseInt(infoVideo.duracao).toFixed(2);
+
+                    document.querySelector('.div_video').style.padding = '15px';
+                    setTimeout(function() {
+
+                        if (
+                            (parseInt(infoVideo.duracao) === 15 && parseFloat(infoVideo.size) <= 3) || 
+                            (parseInt(infoVideo.duracao) === 30 && parseFloat(infoVideo.size) <= 8)) {
+                            status[0] = aprovaParametro(tamanho);
+                        } else {
+                            status[0] = reprovaParametro(tamanho);
+                        }
+
+                        if (dimensoes.innerText == tamanho_requerido.innerText) {
+                            status[1] = aprovaParametro(dimensoes);
+                        } else {
+                            status[1] = reprovaParametro(dimensoes);
+                        }
+
+                        if (parseInt(infoVideo.duracao) === 15 || parseInt(infoVideo.duracao) === 30) {
+                            status[2] = aprovaParametro(duracao);
+                        } else {
+                            status[2] = reprovaParametro(duracao);
+                        }
+
+                        if (status[0] == true && status[1] == true && status[2] == true) {
+                            divModelo.style.borderColor = 'green';
+                            divModelo.style.boxShadow = 'box-shadow: 0 0 0 9999px green';
+                        } else {
+                            divModelo.style.borderColor = 'red';
+                            divModelo.style.boxShadow = 'box-shadow: 0 0 0 9999px red';
+                        }
+                    }, 1000);
+                }
             }
         }
     }
@@ -254,9 +317,18 @@ async function validarFormulario(e) {
     let video = document.querySelector('.div_video');
     // div.style.width = largura.replace('.', '') + 'px';
     // div.style.height = altura.replace('.', '') + 'px';
-    video.style.padding = '0px';
 
     obterEscalaAtual(divModelo);
+}
+
+function reprovaParametro(elem) {
+    elem.style.color = 'red';
+    return false;
+}
+
+function aprovaParametro(elem) {
+    elem.style.color = 'green';
+    return true;
 }
 
 // Função para obter a escala atual da div

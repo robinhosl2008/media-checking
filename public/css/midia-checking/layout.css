@@ -90,7 +90,8 @@ button.btn-laranja-validar {
 }
 
 .div_video {
-    display: none;
+    position: absolute;
+    /* display: none !important; */
 }
 
 #imagem_modal {
