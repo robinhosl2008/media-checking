@@ -28,10 +28,12 @@
                     <div class="row">
                         <div class="mb-1 col-3">
                             <label for="vertical" class="form-label">Verticais:</label>
-                            <select id="vertical" name="vertical" class="form-control">
+                            <select id="vertical" name="vertical" class="form-control" onchange="trocaTipoDeArquivo(this.value);">
                                 <option value="0">Selecione</option>
                                 @foreach($verticais as $vertical)
+                                @if($vertical->status)
                                 <option value="{{ $vertical->id }}">{{ $vertical->descricao }}</option>
+                                @endif
                                 @endforeach
                             </select>
                         </div>
@@ -43,7 +45,8 @@
                         </div>
                         <div class="mb-1 col-5">
                             <label for="arquivo" class="form-label">Arquivo:</label>
-                            <input type="file" name="arquivo" id="arquivo" accept="application/pdf,video/*" class="form-control">
+                            <input type="file" name="arquivo" id="arquivo" accept="application/pdf,video/mp4" class="form-control">
+                            <p class="info-input"><i></i></p>
                         </div>
                     </div>
                 </div>
@@ -64,9 +67,9 @@
                             <div class="div_imagem d-flex justify-content-center">
                                 
                             </div>
-                        
-                            <div class="div_vidio">
-                                
+                            
+                            <div class="div_video d-flex justify-content-center" style="padding: 15px !important; height: 100%;">
+                                <video style="display: block;" autoplay muted src=""></video>
                             </div>
                         </div>
 
@@ -77,23 +80,28 @@
                                 </div>
 
                                 <div class="col-12">
-                                    <p>Dimenções Requeridas (AxL): <label class="tamanho_requerido" class="form-label"></label></p>
+                                    <p>Dimenções Requeridas (LxA): <label class="tamanho_requerido" class="form-label"></label></p>
                                 </div>
 
                                 <div class="col-12">
                                     <hr>
                                 </div>
-                                
-                                <div class="col-12" style="overflow: hidden; text-wrap: nowrap;">
-                                    <p>Arquivo: <label class="nome_arquivo" class="form-label"></label></p>
-                                </div>
-
-                                <div class="col-12">
-                                    <p>Tamanho: <label class="tamanho_mb" class="form-label"></label></p>
+                       
+                                <div class="row">
+                                    <div class="col-6">Tamanho: </div>
+                                    <div class="col-6">
+                                        <label class="tamanho_mb" class="form-label"></label>
+                                    </div>
                                 </div>
                             
-                                <div class="col-12">
-                                    <p>Dimenções da Imagem (AxL): <label class="tamanho_arquivo" class="form-label"></label></p>
+                                <div class="row">
+                                    <div class="col-6">Dimenções (LxA): </div>
+                                    <div class="col-6">
+                                        <label class="tamanho_arquivo" class="form-label"></label>
+                                    </div>
+                                </div>
+                            
+                                <div class="row infoVideo">
                                 </div>
                             </div>
                         </div>

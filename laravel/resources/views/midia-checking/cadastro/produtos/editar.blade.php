@@ -37,7 +37,7 @@
                         <input type="hidden" name="id" value="{{ (old('id')) ? old('id') : ($produto->id) ?? '' }}">
                         
                         <div class="row">  
-                            <div class="col-8">
+                            <div class="col-6">
                                 <label for="nome" class="form-label">*Nome:</label>
                                 <input type="text" name="nome" id="nome" class="form-control" value="{{ (old('nome')) ? old('nome') : ($produto->descricao) ?? '' }}">
                                 <p class="erro-input"><i>Campo obrigatório!</i></p>
@@ -50,6 +50,15 @@
                                     @foreach($verticais as $vertical)
                                     <option value="{{ $vertical->id }}" <?php echo (old('vertical') == $vertical->id) ? 'selected' : (($produto->vertical->id == $vertical->id) ? 'selected' : ''); ?>>{{ $vertical->descricao }}</option>
                                     @endforeach
+                                </select>
+                                <p class="erro-input"><i>Campo obrigatório!</i></p>
+                            </div>
+                            
+                            <div class="col-2">
+                                <label for="ativo_inativo" class="form-label">Ativo/Inativo:</label>
+                                <select name="ativo_inativo" id="ativo_inativo" class="form-control">
+                                    <option value="1" {{ ($produto->status == '1') ? 'selected' : '' }}>Ativo</option>
+                                    <option value="0" {{ ($produto->status == '0') ? 'selected' : '' }}>Inativo</option>
                                 </select>
                                 <p class="erro-input"><i>Campo obrigatório!</i></p>
                             </div>

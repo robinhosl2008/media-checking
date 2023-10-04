@@ -17,6 +17,11 @@ function addDecimalMask(elemId) {
 }
 
 function toDecimal(elem) {
-    elem.value = parseFloat(elem.value).toFixed(2);
+    let value = parseFloat(elem.value).toFixed(2);
+    if (isNaN(value)) {
+        value = 0;
+    }
+
+    elem.value = value;
 }
 

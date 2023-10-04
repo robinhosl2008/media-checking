@@ -20,6 +20,10 @@ return new class extends Migration
             $table->unsignedDecimal('area_alt');
             $table->unsignedDecimal('visual_lar');
             $table->unsignedDecimal('visual_alt');
+            $table->unsignedDecimal('palco_lar');
+            $table->unsignedDecimal('palco_alt');
+            $table->boolean('status_palco');
+            $table->boolean('status');
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable(true);
             $table->foreign('vertical_id')->references('id')->on('lib_vertical');

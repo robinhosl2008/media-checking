@@ -52,7 +52,5 @@
                 {{ $slot }}
             </main>
         </div>
-
-        <script src="{{ asset('js/video-js/video-js.js') }}"></script>
     </body>
 </html>

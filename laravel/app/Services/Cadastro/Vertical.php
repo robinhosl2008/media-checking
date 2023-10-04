@@ -48,9 +48,11 @@ class Vertical extends CRUD
     {
         $nome          = ($params['nome']) ?? throw new Exception('O nome da vertical não foi informado.', 1);
         $tipo_midia_id = ($params['tipo_midia']) ?? throw new Exception('O tipo de mídia não foi informado.', 1);
+        $ativo_inativo = ($params['ativo_inativo']) ?? throw new Exception('Não foi informado se essa vertical deve ser exibida.', 1);
        
-        $this->model->descricao = $nome;
+        $this->model->descricao     = $nome;
         $this->model->tipo_midia_id = $tipo_midia_id;
+        $this->model->status        = $ativo_inativo;
 
         if (!$this->model->save()) {
             throw new Exception('Um erro ocorreu ao tentar salvar a nova vertical.', 1);
@@ -69,9 +71,11 @@ class Vertical extends CRUD
 
         $nome = ($params['nome']) ?? throw new Exception('O nome da vertical não foi informado.', 1);
         $tipo_midia_id = ($params['tipo_midia']) ?? throw new Exception('O tipo de mídia não foi informado.', 1);
-        
+        $ativo_inativo = ($params['ativo_inativo']) ?? 0;
+       
         $this->model->descricao      = $nome;
         $this->model->tipo_midia_id  = $tipo_midia_id;
+        $this->model->status         = $ativo_inativo;
 
         if (!$this->model->save()) {
             throw new Exception('Não foi possível editar esta vertical.');

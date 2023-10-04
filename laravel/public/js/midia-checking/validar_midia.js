@@ -28,6 +28,18 @@ window.onload = function() {
     selectVerticais.addEventListener('change', async function(e) {
         spinner.exibe();
 
+        if (document.querySelector('video')) {
+            document.querySelector('video').style.display = 'none';
+            document.querySelector('video').src = '';
+        }
+
+        elemFile.value = '';
+
+        document.querySelector('.tamanho_mb').innerText = '';
+        document.querySelector('.tamanho_arquivo').innerText = '';
+        document.querySelector('.infoVideo').innerHTML = '';
+        document.querySelector('.div_imagem').innerHTML = '';
+
         if (e.target.value != 0) {
             let formData = new FormData();
             formData.append('vertical_id', e.target.value);
@@ -38,11 +50,13 @@ window.onload = function() {
                 let html = `<option value="0">Selecione</option>`;
 
                 produtos.forEach(produto => {
-                    html += `
-                        <option value="${produto['id']}">${produto['descricao'] + ' - ' + 
-                        ((produto['tipo_midia_id'] == 1) ? produto['visual_lar'] : Math.trunc(produto['visual_lar'])) + 'x' + 
-                        ((produto['tipo_midia_id'] == 1) ? produto['visual_alt'] : Math.trunc(produto['visual_alt']))}</option>
-                    `;
+                    if (produto['status'] == 1) {
+                        html += `
+                            <option value="${produto['id']}">${produto['descricao'] + ' - ' + 
+                            ((produto['tipo_midia_id'] == 1) ? produto['visual_lar'] : ((produto['status_palco'] == 1) ? Math.trunc(produto['palco_lar']) : Math.trunc(produto['visual_lar']))) + 'x' + 
+                            ((produto['tipo_midia_id'] == 1) ? produto['visual_alt'] : ((produto['status_palco'] == 1) ? Math.trunc(produto['palco_alt']) : Math.trunc(produto['visual_alt'])))}</option>
+                        `;
+                    }
                 });
 
                 selectProdutos.innerHTML = html;
@@ -90,6 +104,22 @@ window.onload = function() {
     spinner.esconde();
 }
 
+async function trocaTipoDeArquivo(vertical_id) {
+    let formData = new FormData();
+    formData.append('id', vertical_id);
+
+    let vertical = await ajax.fazRequisicao(formData, '/buscar-verticais', 'POST');
+
+    let infoInputText = document.querySelector('.info-input i');
+    if (vertical[0].tipo_midia_id == 1) {
+        elemFile.accept = 'application/pdf';
+        infoInputText.innerHTML = "Selecione um arquivo com a extensão <b>.pdf</b>";
+    } else if (vertical[0].tipo_midia_id == 2) {
+        elemFile.accept = 'video/mp4';
+        infoInputText.innerHTML = "Selecione um arquivo com a extensão <b>.mp4</b>";
+    }
+}
+
 function carregaImagem() {
     if (elemFile.files && elemFile.files[0]) {
         var file = new FileReader();
@@ -119,6 +149,8 @@ function limpaSelects(select) {
 }
 
 async function validarFormulario(e) {
+    divModelo.style.borderColor = 'red';
+
     var vertical = document.getElementById('vertical').value,
         produto = document.getElementById('produto').value,
         arquivo = document.getElementById('arquivo');
@@ -132,17 +164,26 @@ async function validarFormulario(e) {
     let arrLargAlt = arrAux[arrAux.length - 1].split('x');
     var largura = parseInt(arrLargAlt[0].replace('.', ''));
     var altura = parseInt(arrLargAlt[1].replace('.', ''));
-    
+
     document.querySelector('.nome_produto').innerText = arrAux[0] ;
 
-    document.querySelector('.tamanho_requerido').innerText = largura + 'cm x ' + altura + 'cm';
+    let l = 'x';
+    let a = '';
+    if (vertical == 3 || vertical == 4) {
+        l = 'cm x ';
+        a = 'cm';
+    }
+    
+    var tamanho_requerido = document.querySelector('.tamanho_requerido');
+    tamanho_requerido.innerText = largura + l + altura + a;
 
+    var status = [];
     if (e) {
         let divImagem = document.querySelector('.div_imagem');
         let divVideo = document.querySelector('.div_video');
 
         if (e.target.result) {
-            if (e.target.result.includes('pdf')) {
+            if (e.target.result.includes('application/pdf')) {
                 if (divVideo) {
                     divVideo.style.display = 'none';
                     divVideo.innerHTML = '';
@@ -182,50 +223,105 @@ async function validarFormulario(e) {
                 formData.append('file', arquivo.files[0]);
 
                 let infoPdf = await ajax.fazRequisicao(formData, '/buscar-info-arquivo-pdf', 'POST');
-                console.log(infoPdf);
 
                 setTimeout(function() {
-                    document.querySelector('.nome_arquivo').innerText = elemArquivo.files[0].name;
-                    document.querySelector('.nome_arquivo').setAttribute('title', elemArquivo.files[0].name);
-                    
+                    document.querySelector('.infoVideo').innerHTML = '';
+
                     document.querySelector('.tamanho_mb').innerText = infoPdf.propriedades.tamanho + 'MB';
 
-                    let textoTamanhoOriginal = infoPdf.propriedades.altura + 'cm x ' + infoPdf.propriedades.largura + 'cm';
+                    let textoTamanhoOriginal = infoPdf.propriedades.largura + 'cm x ' + infoPdf.propriedades.altura + 'cm';
                     document.querySelector('.tamanho_arquivo').innerText = textoTamanhoOriginal;
 
                     if (infoPdf.propriedades.largura == largura && infoPdf.propriedades.altura == altura) {
                         divModelo.style.borderColor = 'green';
+                        divModelo.style.boxShadow = 'box-shadow: 0 0 0 9999px green !important';
+                        document.querySelector('.tamanho_arquivo').style.color = 'green';
+                    } else {
+                        divModelo.style.boxShadow = 'box-shadow: 0 0 0 9999px red';
+                        document.querySelector('.tamanho_arquivo').style.color = 'red'
                     }
                 }, 1000);
-            } else if (e.target.result.includes('video')) {
-                let videoType = document.querySelector('input[type="file"]').files[0].type;
+            } else if (e.target.result.includes('video/mp4')) {
+                if (divVideo) {
+                    divVideo.style.display = 'block';
+                    if (divVideo.querySelector('video')) {
+                        divVideo.querySelector('video').src = ''
+                        document.querySelector('video').style.display = 'block';
+                    }
+                }
 
-                document.querySelector(`source[type="${videoType}"]`).src = e.target.result;
-                document.querySelector(`#my-player_html5_api`).src = e.target.result;
-
-                let divVideoDimension = document.querySelector('.my-player-dimensions');
-                divVideoDimension.style.width = '100%';
-                divVideoDimension.style.height = '100%';
-
-                divImagem.style.display = 'none !important';
-                divVideo.style.display = 'block';
-                divVideo.style.position = 'inherit';
+                if (divImagem) {
+                    divImagem.style.display = 'none';
+                    divImagem.innerHTML = '';
+                }
 
                 let formData = new FormData();
-                formData.append('file', document.querySelector('#arquivo').files[0]);
+                formData.append('file', arquivo.files[0]);
 
-                let callback = function(data = null) {
-                    if (data) {
-                        setTimeout(function() {
-                            let textoTamanhoOriginal = data.largura + 'x' + data.altura;
-                            document.querySelector('.nome_arquivo').innerText = elemArquivo.files[0].name;
-                            document.querySelector('.tamanho_arquivo').innerText = textoTamanhoOriginal;
-                            // document.querySelector('.info-midia').style.display = 'block';
-                        }, 1000);
+                let infoVideo = await ajax.fazRequisicao(formData, '/buscar-resolucao', 'POST');
+
+                if (infoVideo.link.status) {
+                    if (!document.querySelector('video')) {
+                        document.querySelector('.div_video').innerHTML = `<video style="display: block;" autoplay muted src=""></video>`;
                     }
-                };
 
-                await ajax.fazRequisicao(formData, '/buscar-resolucao', 'POST', callback);
+                    document.querySelector('.infoVideo').innerHTML = `
+                        <div class="col-6">Duracao do Vídeo: </div>
+                        <div class="col-6">
+                            <label class="duracao" class="form-label"></label>
+                        </div>
+                        <div class="col-12">
+                            <button class="btn btn-sm btn-primary" onclick="playVideo();">
+                                <i class="bi bi-play-fill"></i>
+                            </button>
+                        </div>
+                    `;
+
+                    let video = document.querySelector('video');
+                    video.src = infoVideo.link.link;
+
+                    let tamanho = document.querySelector('.tamanho_mb');
+                    tamanho.innerText = infoVideo.size + 'MB';
+
+                    let dimensoes = document.querySelector('.tamanho_arquivo');
+                    dimensoes.innerText = infoVideo.toString;
+
+                    let duracao = document.querySelector('.duracao');
+                    document.querySelector('.duracao').style.display = 'block';
+                    duracao.innerText = parseInt(infoVideo.duracao).toFixed(2);
+
+                    document.querySelector('.div_video').style.padding = '15px';
+                    setTimeout(function() {
+
+                        if (
+                            (parseInt(infoVideo.duracao) === 15 && parseFloat(infoVideo.size) <= 3) || 
+                            (parseInt(infoVideo.duracao) === 30 && parseFloat(infoVideo.size) <= 8)) {
+                            status[0] = aprovaParametro(tamanho);
+                        } else {
+                            status[0] = reprovaParametro(tamanho);
+                        }
+
+                        if (dimensoes.innerText == tamanho_requerido.innerText) {
+                            status[1] = aprovaParametro(dimensoes);
+                        } else {
+                            status[1] = reprovaParametro(dimensoes);
+                        }
+
+                        if (parseInt(infoVideo.duracao) === 15 || parseInt(infoVideo.duracao) === 30) {
+                            status[2] = aprovaParametro(duracao);
+                        } else {
+                            status[2] = reprovaParametro(duracao);
+                        }
+
+                        if (status[0] == true && status[1] == true && status[2] == true) {
+                            divModelo.style.borderColor = 'green';
+                            divModelo.style.boxShadow = 'box-shadow: 0 0 0 9999px green';
+                        } else {
+                            divModelo.style.borderColor = 'red';
+                            divModelo.style.boxShadow = 'box-shadow: 0 0 0 9999px red';
+                        }
+                    }, 1000);
+                }
             }
         }
     }
@@ -236,16 +332,32 @@ async function validarFormulario(e) {
     modelo.style.padding = '0px';
     modelo.style.display = 'block';
 
-    let div = document.querySelector('.div_imagem');
+    let imagem = document.querySelector('.div_imagem');
     // div.style.width = largura.replace('.', '') + 'px';
     // div.style.height = altura.replace('.', '') + 'px';
-    div.style.padding = '0px';
-    div.style.display = 'block';
+    imagem.style.padding = '0px';
 
-    // let imagem = document.getElementById('imagem_modal');
-    // imagem.style.width = largura.replace('.', '') + 'px';
+    let video = document.querySelector('.div_video');
+    // div.style.width = largura.replace('.', '') + 'px';
+    // div.style.height = altura.replace('.', '') + 'px';
 
     obterEscalaAtual(divModelo);
+}
+
+function reprovaParametro(elem) {
+    elem.style.color = 'red';
+    return false;
+}
+
+function aprovaParametro(elem) {
+    elem.style.color = 'green';
+    return true;
+}
+
+function playVideo() {
+    let video = document.querySelector('video');
+    video.currentTime = 0;
+    video.play();
 }
 
 // Função para obter a escala atual da div

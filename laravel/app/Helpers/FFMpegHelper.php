@@ -14,9 +14,10 @@ class FFMpegHelper
 		$ffmpeg = FFMpeg::create();
 		$video = $ffmpeg->open($file);
 		$stream = $video->getStreams()->all()[0];
-
+		
 		$arr = [
 			'status' => true,
+			'duracao' => $stream->get('duration'),
 			'largura' => $stream->get('width'),
 			'altura' => $stream->get('height'),
 			'toString' => $stream->get('width') . 'x' . $stream->get('height'),

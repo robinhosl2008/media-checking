@@ -33,7 +33,8 @@ class EditarVerticalRequest extends FormRequest
         return [
             'id' => '',
             'nome' => 'required|string',
-            'tipo_midia' => 'required|integer'
+            'tipo_midia' => 'required|integer',
+            'ativo_inativo' => ''
         ];
     }
 

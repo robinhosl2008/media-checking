@@ -53,7 +53,19 @@ class MidiaController extends Controller
 
     public function buscarResolucao(Request $request)
 	{
-        return $this->ffmpeg->buscarResolucao($request->file);
+        $arr = [];
+        $file = $request->file;
+        $pathName = $file->path();
+
+        $bytes = filesize($file);
+        $mBytes = number_format($bytes / (1024 * 1024), 2);
+
+        $arr = $this->ffmpeg->buscarResolucao($request->file);
+
+        $arr['link'] = $this->downloadFile($pathName, "storage/video/arquivo.mp4");
+        $arr['size'] = $mBytes;
+
+        return $arr;
 	}
 
     public function buscarInfoArquivoPDF(Request $request)
@@ -65,10 +77,10 @@ class MidiaController extends Controller
         $pathName = $file->path();
 
         Log::info('Fazendo o download do arquivo e recuperando seu novo pathname.');
-        $arrFileDownloaded = $this->downloadPDF($pathName);
+        $arrFileDownloaded = $this->downloadFile($pathName, "storage/pdf/arquivo.pdf");
 
         if ($arrFileDownloaded['status'] === true) {
-            $pdf = new PDF($arrFileDownloaded['link']);
+            $pdf = new PDF(public_path('storage/pdf/arquivo.pdf'));
 
             Log::info('***Pegando propriedades do arquivo.***');
 
@@ -86,27 +98,6 @@ class MidiaController extends Controller
         return $arr;
     }
 
-    public function downloadPDF($pathName)
-    {
-        // Caminho completo de destino para o upload
-        $targetDir = "storage/pdf/arquivo.pdf";
-        
-        $resposta = [];
-
-        // Move o arquivo para o diretório de destino
-        if (move_uploaded_file($pathName, $targetDir)) {
-            $resposta['msg'] = "O arquivo foi enviado com sucesso.";
-            $resposta['status'] = true;
-        } else {
-            $resposta['msg'] = "Desculpe, ocorreu um erro durante o upload do arquivo.";
-            $resposta['status'] = false;
-        }
-
-        $resposta['link'] = public_path($targetDir);
-
-        return $resposta;
-    }
-
     public function removePDF($pathName)
     {
         // Verifique se o arquivo existe antes de tentar excluí-lo
@@ -114,5 +105,24 @@ class MidiaController extends Controller
             // Exclua o arquivo
             File::delete($pathName);
         }
+    }
+
+    public function downloadFile($pathName, $targetDir)
+    {
+        $resposta = [];
+
+        // Move o arquivo para o diretório de destino
+        if (move_uploaded_file($pathName, $targetDir)) {
+            $resposta['msg'] = "O arquivo foi enviado com sucesso.";
+            $resposta['status'] = true;
+            chmod($targetDir, 0777);
+        } else {
+            $resposta['msg'] = "Desculpe, ocorreu um erro durante o upload do arquivo.";
+            $resposta['status'] = false;
+        }
+
+        $resposta['link'] = $_SERVER['HTTP_ORIGIN'] . '/' . $targetDir;
+
+        return $resposta;
     }
 }

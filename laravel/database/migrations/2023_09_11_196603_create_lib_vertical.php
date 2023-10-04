@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('tipo_midia_id');
             $table->string('descricao');
+            $table->boolean('status');
             $table->timestamps();
             $table->timestamp('deleted_at')->nullable(true);
             $table->foreign('tipo_midia_id')->references('id')->on('lib_tipo_midia');

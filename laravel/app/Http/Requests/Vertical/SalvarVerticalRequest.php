@@ -30,7 +30,8 @@ class SalvarVerticalRequest extends FormRequest
     {
         return [
             'nome' => 'required|string',
-            'tipo_midia' => 'required|integer'
+            'tipo_midia' => 'required|integer',
+            'ativo_inativo' => ''
         ];
     }
 

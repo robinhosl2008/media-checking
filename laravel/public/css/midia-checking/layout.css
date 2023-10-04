@@ -32,9 +32,9 @@ nav.laranja .menu a {
     border: 0;
 }
 
-nav.laranja .menu a:hover {
+/* nav.laranja .menu a:hover {
     color: black !important;
-}
+} */
 
 nav.laranja .setings a {
     text-decoration: none;
@@ -90,7 +90,8 @@ button.btn-laranja-validar {
 }
 
 .div_video {
-    display: none;
+    position: absolute;
+    /* display: none !important; */
 }
 
 #imagem_modal {
@@ -180,6 +181,11 @@ p.erro-input {
     display: none;
     font-size: 12px;
     color: red;
+    position: absolute;
+}
+
+p.info-input {
+    font-size: 12px;
     position: absolute;
 }
 
