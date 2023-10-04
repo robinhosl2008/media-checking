@@ -28,7 +28,7 @@
                     <div class="row">
                         <div class="mb-1 col-3">
                             <label for="vertical" class="form-label">Verticais:</label>
-                            <select id="vertical" name="vertical" class="form-control">
+                            <select id="vertical" name="vertical" class="form-control" onchange="trocaTipoDeArquivo(this.value);">
                                 <option value="0">Selecione</option>
                                 @foreach($verticais as $vertical)
                                 @if($vertical->status)
@@ -46,6 +46,7 @@
                         <div class="mb-1 col-5">
                             <label for="arquivo" class="form-label">Arquivo:</label>
                             <input type="file" name="arquivo" id="arquivo" accept="application/pdf,video/mp4" class="form-control">
+                            <p class="info-input"><i></i></p>
                         </div>
                     </div>
                 </div>

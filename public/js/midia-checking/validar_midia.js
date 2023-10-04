@@ -104,6 +104,22 @@ window.onload = function() {
     spinner.esconde();
 }
 
+async function trocaTipoDeArquivo(vertical_id) {
+    let formData = new FormData();
+    formData.append('id', vertical_id);
+
+    let vertical = await ajax.fazRequisicao(formData, '/buscar-verticais', 'POST');
+
+    let infoInputText = document.querySelector('.info-input i');
+    if (vertical[0].tipo_midia_id == 1) {
+        elemFile.accept = 'application/pdf';
+        infoInputText.innerHTML = "Selecione um arquivo com a extensão <b>.pdf</b>";
+    } else if (vertical[0].tipo_midia_id == 2) {
+        elemFile.accept = 'video/mp4';
+        infoInputText.innerHTML = "Selecione um arquivo com a extensão <b>.mp4</b>";
+    }
+}
+
 function carregaImagem() {
     if (elemFile.files && elemFile.files[0]) {
         var file = new FileReader();

@@ -184,6 +184,11 @@ p.erro-input {
     position: absolute;
 }
 
+p.info-input {
+    font-size: 12px;
+    position: absolute;
+}
+
 input.form-control.erro-input {
     border: 1px solid red;
 }
