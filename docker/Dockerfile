@@ -31,7 +31,8 @@ RUN echo "* * * * * cd /var/www/html && /usr/local/bin/php artisan schedule:run 
 COPY --from=composer:2.5.1 /usr/bin/composer /usr/bin/composer
 
 # Instalação de extensões do PHP
-RUN docker-php-ext-install gettext intl pdo_mysql gd
+RUN docker-php-ext-install gettext intl pdo_mysql
+# gd
 
 # Configura a biblioteca gráfica GD no Linux
 RUN docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg && docker-php-ext-install -j$(nproc) gd
