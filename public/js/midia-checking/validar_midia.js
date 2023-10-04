@@ -252,6 +252,11 @@ async function validarFormulario(e) {
                         <div class="col-6">
                             <label class="duracao" class="form-label"></label>
                         </div>
+                        <div class="col-12">
+                            <button class="btn btn-sm btn-primary" onclick="playVideo();">
+                                <i class="bi bi-play-fill"></i>
+                            </button>
+                        </div>
                     `;
 
                     let video = document.querySelector('video');
@@ -329,6 +334,12 @@ function reprovaParametro(elem) {
 function aprovaParametro(elem) {
     elem.style.color = 'green';
     return true;
+}
+
+function playVideo() {
+    let video = document.querySelector('video');
+    video.currentTime = 0;
+    video.play();
 }
 
 // Função para obter a escala atual da div

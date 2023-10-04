@@ -32,9 +32,9 @@ nav.laranja .menu a {
     border: 0;
 }
 
-nav.laranja .menu a:hover {
+/* nav.laranja .menu a:hover {
     color: black !important;
-}
+} */
 
 nav.laranja .setings a {
     text-decoration: none;
