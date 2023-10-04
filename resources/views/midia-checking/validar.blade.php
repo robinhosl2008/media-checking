@@ -31,7 +31,9 @@
                             <select id="vertical" name="vertical" class="form-control">
                                 <option value="0">Selecione</option>
                                 @foreach($verticais as $vertical)
+                                @if($vertical->status)
                                 <option value="{{ $vertical->id }}">{{ $vertical->descricao }}</option>
+                                @endif
                                 @endforeach
                             </select>
                         </div>

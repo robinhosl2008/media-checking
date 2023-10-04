@@ -50,11 +50,13 @@ window.onload = function() {
                 let html = `<option value="0">Selecione</option>`;
 
                 produtos.forEach(produto => {
-                    html += `
-                        <option value="${produto['id']}">${produto['descricao'] + ' - ' + 
-                        ((produto['tipo_midia_id'] == 1) ? produto['visual_lar'] : ((produto['status_palco'] == 1) ? Math.trunc(produto['palco_lar']) : Math.trunc(produto['visual_lar']))) + 'x' + 
-                        ((produto['tipo_midia_id'] == 1) ? produto['visual_alt'] : ((produto['status_palco'] == 1) ? Math.trunc(produto['palco_alt']) : Math.trunc(produto['visual_alt'])))}</option>
-                    `;
+                    if (produto['status'] == 1) {
+                        html += `
+                            <option value="${produto['id']}">${produto['descricao'] + ' - ' + 
+                            ((produto['tipo_midia_id'] == 1) ? produto['visual_lar'] : ((produto['status_palco'] == 1) ? Math.trunc(produto['palco_lar']) : Math.trunc(produto['visual_lar']))) + 'x' + 
+                            ((produto['tipo_midia_id'] == 1) ? produto['visual_alt'] : ((produto['status_palco'] == 1) ? Math.trunc(produto['palco_alt']) : Math.trunc(produto['visual_alt'])))}</option>
+                        `;
+                    }
                 });
 
                 selectProdutos.innerHTML = html;

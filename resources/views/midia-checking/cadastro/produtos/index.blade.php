@@ -54,7 +54,8 @@
                                     <th class="text-center">Visual (Alt)</th>
                                     <th class="text-center">Vertical</th>
                                     <th class="text-center">Data de Cadastro</th>
-                                    <th class="text-center" style="width: 10%;">Ações</th>
+                                    <th class="text-center" style="width: 5%;">Ativo</th>
+                                    <th class="text-center" style="width: 5%;">Ações</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -67,6 +68,13 @@
                                     <td class="text-center">{{ $produto->visual_alt }}</td>
                                     <td class="text-center">{{ $produto->vertical->descricao }}</td>
                                     <td class="text-center">{{ DateTime::createFromFormat('Y-m-d H:m:s', $produto->created_at)->format("d/m/Y") }}</td>
+                                    <td class="text-center">
+                                        @if($produto->status == 1)
+                                        Sim
+                                        @else
+                                        Não
+                                        @endif
+                                    </td>
                                     <td class="text-center">
                                         <div class="btn-group" role="group" aria-label="Grupo de Ações">
                                             <a href="{{ route('editar-produtos', ['id' => $produto->id]) }}" class="btn btn-sm btn-secondary" title="Editar">

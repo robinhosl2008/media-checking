@@ -35,9 +35,9 @@
                                     {{ 'Usuários' }}
                                 </x-dropdown-link>
 
-                                <x-dropdown-link :href="route('listar-tipo-midia')">
+                                <!-- <x-dropdown-link :href="route('listar-tipo-midia')">
                                     {{ 'Tipos de Mídia' }}
-                                </x-dropdown-link>
+                                </x-dropdown-link> -->
 
                                 <x-dropdown-link :href="route('listar-verticais')">
                                     {{ 'Verticais' }}

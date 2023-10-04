@@ -36,6 +36,7 @@ class EditarProdutoRequest extends FormRequest
             'area_alt'   => '',
             'visual_lar' => 'required',
             'visual_alt' => 'required',
+            'ativo_inativo' => '',
         ];
     }
 
