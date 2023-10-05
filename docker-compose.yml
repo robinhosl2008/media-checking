@@ -1,14 +1,14 @@
 version: '1'
 services:
 
-  checking:
-    container_name: checking
+  media-checking:
+    container_name: media-checking
     build: ./docker
-    image: checking
+    image: media-checking
     volumes:
       - ./laravel:/var/www/html
       - ./docker/php/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
     ports:
-      - 8080:80
+      - "8080:80"
     extra_hosts:
       - host.docker.internal:host-gateway

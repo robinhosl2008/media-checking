@@ -2,6 +2,10 @@
 FROM php:8.1-apache
 #FROM php:8.1.0-apache
 
+# Configurar variáveis de ambiente do PHP
+ENV APACHE_DOCUMENT_ROOT /var/www/html/public
+ENV APACHE_LOG_DIR /var/log/apache2
+
 # Cria o Virtual Host no Servidor Apache
 COPY apache/site.conf /etc/apache2/sites-available/000-default.conf
 
@@ -22,7 +26,8 @@ RUN apt-get update -y && apt-get install -y \
     libzip-dev \
     wget \
     git \
-    unzip
+    unzip \
+    vim
 
 # Adiciona o CRON do Laravel
 RUN echo "* * * * * cd /var/www/html && /usr/local/bin/php artisan schedule:run >> /dev/null 2>&1" > /var/log/laravel-schedule.log
@@ -31,8 +36,7 @@ RUN echo "* * * * * cd /var/www/html && /usr/local/bin/php artisan schedule:run 
 COPY --from=composer:2.5.1 /usr/bin/composer /usr/bin/composer
 
 # Instalação de extensões do PHP
-RUN docker-php-ext-install gettext intl pdo_mysql
-# gd
+RUN docker-php-ext-install gettext intl pdo_mysql gd
 
 # Configura a biblioteca gráfica GD no Linux
 RUN docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg && docker-php-ext-install -j$(nproc) gd
@@ -46,6 +50,9 @@ COPY ./php/php.ini /usr/local/etc/php/
 
 # Diretório raiz da aplicação, dentro do Container
 WORKDIR /var/www/html
+
+# Definindo o ServerName
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 # Start Apache in foreground
 CMD ["apache2-foreground"]
