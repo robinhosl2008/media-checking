@@ -60,8 +60,8 @@
                 <div class="p-6 text-gray-900">
                     <div class="row div_layout">
                         <div class="col-8 d-flex justify-content-center" style="overflow: hidden; position: inherit; height: 600px; padding: 10px; align-items: center;">
-                            <div class="div_modelo">
-                                
+                            <div class="div_area_total d-flex justify-content-center">
+                                <div class="div_modelo"></div>
                             </div>
 
                             <div class="div_imagem d-flex justify-content-center">
@@ -80,7 +80,11 @@
                                 </div>
 
                                 <div class="col-12">
-                                    <p>Dimenções Requeridas (LxA): <label class="tamanho_requerido" class="form-label"></label></p>
+                                    <p>Dimenções (LxA total): <label class="tamanho_requerido_total" class="form-label"></label></p>
+                                </div>
+
+                                <div class="col-12">
+                                    <p>Dimenções (LxA Visual): <label class="tamanho_requerido_visual" class="form-label"></label></p>
                                 </div>
 
                                 <div class="col-12">
@@ -88,15 +92,15 @@
                                 </div>
                        
                                 <div class="row">
-                                    <div class="col-6">Tamanho: </div>
-                                    <div class="col-6">
+                                    <div class="col-7">Tamanho: </div>
+                                    <div class="col-5">
                                         <label class="tamanho_mb" class="form-label"></label>
                                     </div>
                                 </div>
                             
                                 <div class="row">
-                                    <div class="col-6">Dimenções (LxA): </div>
-                                    <div class="col-6">
+                                    <div class="col-7">Dimenções (LxA Total): </div>
+                                    <div class="col-5">
                                         <label class="tamanho_arquivo" class="form-label"></label>
                                     </div>
                                 </div>
