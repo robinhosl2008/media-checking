@@ -27,7 +27,9 @@ RUN apt-get update -y && apt-get install -y \
     wget \
     git \
     unzip \
-    vim
+    vim \
+    net-tools \
+    iputils-ping
 
 # Adiciona o CRON do Laravel
 RUN echo "* * * * * cd /var/www/html && /usr/local/bin/php artisan schedule:run >> /dev/null 2>&1" > /var/log/laravel-schedule.log
@@ -53,6 +55,10 @@ WORKDIR /var/www/html
 
 # Definindo o ServerName
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+
+# Configurar permissões e instalar dependências do Laravel
+RUN chown -R www-data:www-data /var/www/html
+    # chmod -R 755 /var/www/html/storage
 
 # Start Apache in foreground
 CMD ["apache2-foreground"]

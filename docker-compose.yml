@@ -12,3 +12,13 @@ services:
       - "8080:80"
     extra_hosts:
       - host.docker.internal:host-gateway
+
+  media-checking-mysql-external:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+      MYSQL_DATABASE: media_checking
+    ports:
+    - "33010:3306"
