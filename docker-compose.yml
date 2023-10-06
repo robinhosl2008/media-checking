@@ -1,8 +1,8 @@
-version: '1'
+version: '3'
 services:
 
   media-checking-system:
-    container_name: media-checking
+    container_name: media-checking-system
     build: ./docker
     image: media-checking
     volumes:
@@ -22,7 +22,15 @@ services:
       MYSQL_PASSWORD: root
       MYSQL_DATABASE: media_checking
     ports:
-    - 3321:3306
+    - 3307:3306
     volumes:
-    - ./docker/database/schema.sql:/docker-entrypoint-initdb.d/schema.sql
     - ./docker/storage/mysql:/var/lib/mysql
+    - ./docker/database/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+
+  # media-checking-phpmyadmin:
+  #   image: phpmyadmin:latest
+  #   container_name: media-checking-phpmyadmin
+  #   ports:
+  #     - 8081:80
+  #   environment:
+  #     - PMA_ARBITRARY=1
