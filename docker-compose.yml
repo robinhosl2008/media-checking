@@ -1,7 +1,7 @@
 version: '1'
 services:
 
-  media-checking:
+  media-checking-system:
     container_name: media-checking
     build: ./docker
     image: media-checking
@@ -9,11 +9,12 @@ services:
       - ./laravel:/var/www/html
       - ./docker/php/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
     ports:
-      - "8080:80"
+      - 8080:80
     extra_hosts:
       - host.docker.internal:host-gateway
 
-  media-checking-mysql-external:
+  media-checking-database:
+    container_name: media-checking-database
     image: mysql:latest
     environment:
       MYSQL_ROOT_PASSWORD: root
@@ -21,4 +22,7 @@ services:
       MYSQL_PASSWORD: root
       MYSQL_DATABASE: media_checking
     ports:
-    - "33010:3306"
+    - 3321:3306
+    volumes:
+    - ./docker/database/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    - ./docker/storage/mysql:/var/lib/mysql

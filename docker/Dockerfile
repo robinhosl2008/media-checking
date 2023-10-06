@@ -56,9 +56,5 @@ WORKDIR /var/www/html
 # Definindo o ServerName
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
-# Configurar permissões e instalar dependências do Laravel
-RUN chown -R www-data:www-data /var/www/html
-    # chmod -R 755 /var/www/html/storage
-
 # Start Apache in foreground
 CMD ["apache2-foreground"]
