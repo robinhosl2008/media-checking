@@ -16,13 +16,14 @@ class LibVerticalSeeder extends Seeder
     public function run(): void
     {
         DB::select("
-            INSERT INTO `lib_vertical` (descricao, tipo_midia_id)
-            VALUES ('DOOH Embarcado', 2),
-                ('Navee', 3),
-                ('Sinalização Interna', 1),
-                ('OOH', 1),
-                ('DOOH Terminais', 2),
-                ('Serviços e Experiênciais', 3);
+            INSERT INTO lib_vertical (
+            tipo_midia_id, descricao, status
+            ) VALUES (2,'DOOH Embarcado',1),
+            (3,'Navee',0),
+            (1,'Sinalização Interna',0),
+            (1,'OOH',1),
+            (2,'DOOH Terminais',1),
+            (3,'Serviços e Experiênciais',0);
         ");
     }
 }
