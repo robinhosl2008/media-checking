@@ -17,7 +17,9 @@ class LibTipoMidiaSeeder extends Seeder
     {
         DB::select("
             INSERT INTO lib_tipo_midia (descricao)
-            VALUES ('Imagem'), ('Vídeo'), ('Default');
+            VALUES ('Imagem'),
+            ('Vídeo'),
+            ('N/A');
         ");
     }
 }

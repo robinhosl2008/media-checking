@@ -34,7 +34,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/validar', [MidiaController::class, 'validar'])->name('midia-checking.validar');
-    Route::get('/converter', [MidiaController::class, 'converter'])->name('midia-checking.converter');
 
     Route::post('/buscar-verticais', [VerticalController::class, 'buscar'])->name('verticais.buscar');
     Route::post('/buscar-produtos', [ProdutoController::class, 'buscar'])->name('produto.buscar');
