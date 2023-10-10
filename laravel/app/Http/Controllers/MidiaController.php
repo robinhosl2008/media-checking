@@ -71,7 +71,7 @@ class MidiaController extends Controller
     public function buscarInfoArquivoPDF(Request $request)
     {
         $arr = [];
-
+dd($request->all());
         Log::info('Pegando informações sobre o arquivo PDF.');
         $file = $request->file;
         $pathName = $file->path();

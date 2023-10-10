@@ -9,6 +9,10 @@ class Ajax {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
                 });
+
+                if (method == null || method == 'POST') {
+                    formData.append('_token', $('meta[name="csrf-token"]').attr('content'));
+                }
             
                 $.ajax({
                     type: (method) ?? 'POST',

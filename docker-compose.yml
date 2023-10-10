@@ -5,17 +5,21 @@ services:
     container_name: media-checking-system
     build: ./docker
     image: media-checking
+    mem_limit: 2048m
     volumes:
       - ./laravel:/var/www/html
       - ./docker/php/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
     ports:
       - 8080:80
+    links:
+      - media-checking-database
     extra_hosts:
       - host.docker.internal:host-gateway
 
   media-checking-database:
     container_name: media-checking-database
     image: mysql:latest
+    mem_limit: 1024m
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_USER: root

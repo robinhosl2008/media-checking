@@ -17,13 +17,13 @@ class LibVerticalSeeder extends Seeder
     {
         DB::select("
             INSERT INTO lib_vertical (
-            tipo_midia_id, descricao, status
-            ) VALUES (2,'DOOH Embarcado',1),
-            (3,'Navee',0),
-            (1,'Sinalização Interna',0),
-            (1,'OOH',1),
-            (2,'DOOH Terminais',1),
-            (3,'Serviços e Experiênciais',0);
+            tipo_midia_id, descricao, status, created_at
+            ) VALUES (2,'DOOH Embarcado',1,NOW()),
+            (3,'Navee',0,NOW()),
+            (1,'Sinalização Interna',0,NOW()),
+            (1,'OOH',1,NOW()),
+            (2,'DOOH Terminais',1,NOW()),
+            (3,'Serviços e Experiênciais',0,NOW());
         ");
     }
 }
